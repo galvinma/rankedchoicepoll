@@ -1,0 +1,15 @@
+.navbar
+{
+  display: flex;
+  flex-direction: row;
+}
+
+.navbar-left
+{
+  margin-right: auto;
+}
+
+.navbar-right
+{
+  margin-left: auto;
+}

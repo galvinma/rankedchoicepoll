@@ -1,19 +1,47 @@
 import * as React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 
-import logo from './logo.svg';
+// Pages
+import Home from './Pages/Home/Home'
+import Join from './Pages/Join/Join'
+import Landing from './Pages/Landing/Landing'
+import NewPoll from './Pages/NewPoll/NewPoll'
+
+const constLanding = () => (
+  <div>
+    <Landing />
+  </div>
+)
+
+const constHome = () => (
+  <div>
+    <Home />
+  </div>
+)
+
+const constJoin = () => (
+  <div>
+    <Join />
+  </div>
+)
+
+const constNewPoll = () => (
+  <div>
+    <NewPoll />
+  </div>
+)
 
 class App extends React.Component {
   public render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+      <div>
+        <Switch>
+          <Route path="/" exact={true} component={constLanding}/>
+          <Route path="/home" exact={true} component={constHome}/>
+          <Route path="/join" exact={true} component={constJoin}/>
+          <Route path="/newpoll" exact={true} component={constNewPoll}/>
+        </Switch>
       </div>
     );
   }
