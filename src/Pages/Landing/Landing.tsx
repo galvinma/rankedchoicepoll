@@ -13,6 +13,7 @@ class Landing extends React.Component {
       <div>
         <ExternalNavbar />
         <div className="headerOne">Ranked Choice Poll</div>
+        <div className="headerTwo">Because how we vote matters.</div>
       </div>
   )}
 }

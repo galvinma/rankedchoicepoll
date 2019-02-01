@@ -4,12 +4,15 @@ import { Router } from "react-router-dom";
 import App from './App';
 import history from './history';
 import './index.css';
-import registerServiceWorker from './registerServiceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Provider } from "react-redux";
+import store from './Store/store'
 
 ReactDOM.render(
+      <Provider store={store}>
         <Router history={history}>
           <App />
-        </Router>,
+        </Router>
+      </Provider>,
   document.getElementById('root') as HTMLElement
 );
-registerServiceWorker();

@@ -1,0 +1,3 @@
+export const AUTHENTICATED = 'AUTHENTICATED'
+export const CURRENT_USER = 'CURRENT_USER'
+export const RESET_STORE = 'RESET_STORE'

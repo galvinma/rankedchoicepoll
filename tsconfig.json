@@ -21,5 +21,9 @@
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "src/Utils/jwt.js",
+    "src/Utils/passreset.js"
   ]
 }

@@ -5,13 +5,14 @@ import './Join.css'
 
 // components
 import ExternalNavbar from '../../Components/Navbar/ExternalNavbar/ExternalNavbar'
+import JoinPrompt from '../../Components/Prompts/JoinPrompt'
 
 class Join extends React.Component {
-  public render() {
+  render() {
     return (
       <div>
         <ExternalNavbar />
-        <p>Join the site here</p>
+        <JoinPrompt />
       </div>
   )}
 }

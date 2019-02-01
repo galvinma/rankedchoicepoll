@@ -16,22 +16,20 @@ export default class ExternalNavbar extends React.Component<any, any>
     this.toggle = this.toggle.bind(this);
   }
 
-  public toggle()
+  toggle()
   {
     this.setState({
       isOpen: !this.state.isOpen
     });
   }
 
-  public render()
+  render()
   {
     return(
     <div className="navbar">
       <div className="navbar-right">
         <div className="navbar-right-entries">
-          <input className="username-input"/>
-          <input className="username-password"/>
-          <a href="/home">Sign In</a>  
+          <a href="/home">Log In</a>
           <a href="/join">Join</a>
         </div>
       </div>
