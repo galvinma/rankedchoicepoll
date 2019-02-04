@@ -10,7 +10,6 @@ import './JoinPrompt.css'
 // email val
 var validator = require("email-validator");
 
-
 // redux
 import store from '../.././Store/store'
 const { connect } = require("react-redux");
@@ -52,10 +51,8 @@ class JoinPrompt extends React.Component <Props, State> {
     this.setState({[event.target.id]: event.target.value} as any);
   };
 
-
   handleJoin()
   {
-
     this.setState({
       confirmPassHelper: ""
     })
@@ -105,12 +102,9 @@ class JoinPrompt extends React.Component <Props, State> {
         localStorage.setItem('token', token);
         localStorage.setItem('user', user);
 
-        store.dispatch(getAuthStatus({
-          auth_status: true,
-        }))
-        store.dispatch(getCurrentUser({
-          user: response.data.user,
-        }))
+        store.dispatch(getAuthStatus(true))
+
+        store.dispatch(getCurrentUser(response.data.user))
       }
       else
       {
@@ -128,7 +122,8 @@ class JoinPrompt extends React.Component <Props, State> {
   }
 
   public render() {
-    if (store.getState().auth_status.auth_status === true) {
+    console.log(this.props.auth_status)
+    if (this.props.auth_status === true) {
       return <Redirect to='/home' />
     }
     return (
@@ -165,7 +160,4 @@ const mapStateToProps = (state: any) => ({
   auth_status: state.auth_status
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(JoinPrompt);
+export default connect(mapStateToProps)(JoinPrompt);
