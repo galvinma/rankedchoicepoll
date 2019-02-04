@@ -27,6 +27,7 @@ interface State {
   firstname: string;
   lastname: string;
   confirmPassHelper: string;
+  auth_status: boolean
 }
 
 class JoinPrompt extends React.Component <Props, State> {
@@ -41,6 +42,7 @@ class JoinPrompt extends React.Component <Props, State> {
       firstname: "",
       lastname: "",
       password: "",
+      auth_status: false,
     };
 
     this.handleChange = this.handleChange.bind(this)
@@ -122,7 +124,6 @@ class JoinPrompt extends React.Component <Props, State> {
   }
 
   public render() {
-    console.log(this.props.auth_status)
     if (this.props.auth_status === true) {
       return <Redirect to='/home' />
     }
@@ -156,7 +157,7 @@ class JoinPrompt extends React.Component <Props, State> {
   )}
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: State) => ({
   auth_status: state.auth_status
 });
 

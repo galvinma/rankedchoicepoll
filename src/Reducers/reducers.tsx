@@ -1,16 +1,16 @@
 import ActionTypes from '../Constants/action-types';
 
 const initialState = {
-  auth_status: {auth_status: false},
-  current_user: {current_user: null},
+  auth_status: false,
+  current_user: null,
 };
 
 function rootReducer(state: any = initialState, action: any) {
   switch (action.type) {
     case ActionTypes.AUTHENTICATED:
-      return getAuthStatus(state, action.auth_status)
+      return getAuthStatus(state, action)
     case ActionTypes.CURRENT_USER:
-      return getCurrentUser(state, action.current_user)
+      return getCurrentUser(state, action)
     case ActionTypes.RESET_STORE:
       return resetStore(state)
     default:
@@ -18,25 +18,25 @@ function rootReducer(state: any = initialState, action: any) {
   }
 };
 
-function getAuthStatus(state: any, auth_status: boolean) {
+function getAuthStatus(state: any, action: any) {
   return {
     ...state,
-    auth_status: auth_status
+    auth_status: action.auth_status
   }
 }
 
-function getCurrentUser(state: any, current_user: string) {
+function getCurrentUser(state: any, action: any) {
   return {
     ...state,
-    current_user: current_user
+    current_user: action.current_user
   }
 }
 
 function resetStore(state: any) {
   return {
     ...state,
-    auth_status: {auth_status: false},
-    current_user: {current_user: null},
+    auth_status: false,
+    current_user: null,
   }
 }
 

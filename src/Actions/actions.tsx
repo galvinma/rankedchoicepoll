@@ -1,16 +1,13 @@
 import ActionTypes from '../Constants/action-types';
 
-export interface Auth { type: ActionTypes.AUTHENTICATED, auth_status: boolean}
-export interface User { type: ActionTypes.CURRENT_USER, current_user: string}
-
-export const getAuthStatus = (auth_status: boolean): Auth => ({
+export const getAuthStatus = (auth_status: boolean) => ({
   type: ActionTypes.AUTHENTICATED,
-  auth_status
+  auth_status: auth_status
 });
 
-export const getCurrentUser = (current_user: string): User => ({
+export const getCurrentUser = (current_user: string) => ({
   type: ActionTypes.CURRENT_USER,
-  current_user
+  current_user: current_user
 });
 
 export const resetStore = () => ({

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Redirect, Link } from 'react-router-dom';
 
 // css
 import '../.././App.css'
@@ -7,16 +8,42 @@ import './Home.css'
 // components
 import InternalNavbar from '../../Components/Navbar/InternalNavbar/InternalNavbar'
 
-class Home extends React.Component {
+// redux
+import store from '../.././Store/store'
+const { connect } = require("react-redux");
+import { getAuthStatus } from '../.././Actions/actions'
+
+// Props / State
+interface Props {
+  auth_status: boolean
+}
+
+interface State {
+  auth_status: boolean
+}
+
+class Home extends React.Component <Props, State> {
+  constructor(props: any)
+  {
+    super(props)
+  }
+
   public render() {
+    if (store.getState().auth_status === false) {
+      return <Redirect to='/' />
+    }
     return (
       <div>
         <InternalNavbar />
-        <a className="headerOne" href="/newpoll">Create New Poll</a>
+         <Link className="headerOne" to="/newpoll">Create New Poll</Link>
         <br/>
-        <a className="headerOne" href="/home">Join Existing Poll</a>
+         <Link className="headerOne" to="/joinpoll">Join Existing Poll</Link>
       </div>
   )}
 }
 
-export default (Home)
+const mapStateToProps = (state: State) => ({
+  auth_status: state.auth_status
+});
+
+export default connect(mapStateToProps)(Home);

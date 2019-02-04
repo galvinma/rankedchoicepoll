@@ -1,8 +1,13 @@
 import * as React from "react";
+import { Link } from 'react-router-dom';
 
 // css
 import '../../.././App.css'
 import './InternalNavbar.css'
+
+// redux
+import store from '../../.././Store/store'
+import {resetStore} from '../../.././Actions/actions'
 
 export default class InternalNavbar extends React.Component<any, any>
 {
@@ -29,12 +34,12 @@ export default class InternalNavbar extends React.Component<any, any>
     <div className="navbar">
       <div className="navbar-left">
         <div className="navbar-left-entries">
-          <a href="/home">Logo</a>
+          <Link to="/home">Logo</Link>
         </div>
       </div>
       <div className="navbar-right">
         <div className="navbar-right-entries">
-          <a href="/">Sign Out</a>
+          <Link to="/" onClick={()=>store.dispatch(resetStore())}>Sign Out</Link>
         </div>
       </div>
     </div>
