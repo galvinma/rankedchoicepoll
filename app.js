@@ -25,6 +25,7 @@ var checktoken = require('./routes/checktoken');
 var reset = require('./routes/reset')
 var newpass = require('./routes/newpass')
 var newpoll = require('./routes/newpoll')
+var returnpoll = require('./routes/returnpoll')
 
 //
 app.use('/api', join)
@@ -33,6 +34,7 @@ app.use('/api', reset)
 app.use('/api', newpass)
 app.use('/api', checktoken)
 app.use('/api', newpoll)
+app.use('/api', returnpoll)
 
 app.listen(5005);
 
