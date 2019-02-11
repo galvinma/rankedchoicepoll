@@ -45,6 +45,7 @@ class JoinPrompt extends React.Component <Props, State> {
       auth_status: false,
     };
 
+    this.checkJoin = this.checkJoin.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleJoin = this.handleJoin.bind(this)
   }
@@ -52,6 +53,13 @@ class JoinPrompt extends React.Component <Props, State> {
   handleChange(event: any) {
     this.setState({[event.target.id]: event.target.value} as any);
   };
+
+  checkJoin(event: any)
+  {
+    if (event.keyCode === 13) {
+      this.handleJoin()
+    }
+  }
 
   handleJoin()
   {
@@ -130,23 +138,23 @@ class JoinPrompt extends React.Component <Props, State> {
     return (
       <div>
         <Form>
-          <FormGroup onChange={this.handleChange}>
+          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
             <Label for="firstname">First Name</Label>
             <Input type="text" name="firstname" id="firstname" />
           </FormGroup>
-          <FormGroup onChange={this.handleChange}>
+          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
             <Label for="lastname">Last Name</Label>
             <Input type="text" name="lastname" id="lastname" />
           </FormGroup>
-          <FormGroup onChange={this.handleChange}>
+          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
             <Label for="email">Email</Label>
             <Input type="email" name="email" id="email" />
           </FormGroup>
-          <FormGroup onChange={this.handleChange}>
+          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
             <Label for="password">Password</Label>
             <Input type="password" name="password" id="password" />
           </FormGroup>
-          <FormGroup onChange={this.handleChange}>
+          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
             <Label for="confirmPass">Confirm Password</Label>
             <Input type="password" name="confirmPass" id="confirmPass" />
             <FormText id="confirmPassHelper">{this.state.confirmPassHelper}</FormText>

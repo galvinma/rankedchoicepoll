@@ -39,6 +39,7 @@ class SignInPrompt extends React.Component <Props, State> {
       auth_status: false,
     };
 
+    this.checkSignIn = this.checkSignIn.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
   }
@@ -46,6 +47,13 @@ class SignInPrompt extends React.Component <Props, State> {
   handleChange(event: any) {
     this.setState({[event.target.id]: event.target.value} as any);
   };
+
+  checkSignIn(event: any)
+  {
+    if (event.keyCode === 13) {
+      this.handleSignIn()
+    }
+  }
 
   handleSignIn()
   {
@@ -105,11 +113,11 @@ class SignInPrompt extends React.Component <Props, State> {
     return (
       <div>
         <Form>
-          <FormGroup onChange={this.handleChange}>
+          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkSignIn(e)}>
             <Label for="email">Email</Label>
             <Input type="email" name="email" id="email" />
           </FormGroup>
-          <FormGroup onChange={this.handleChange}>
+          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkSignIn(e)}>
             <Label for="password">Password</Label>
             <Input type="password" name="password" id="password" />
             <FormText id="confirmPassHelper">{this.state.confirmPassHelper}</FormText>
