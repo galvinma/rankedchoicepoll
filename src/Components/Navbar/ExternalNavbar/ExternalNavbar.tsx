@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from 'react-router-dom';
 
 // css
 import '../../.././App.css'
@@ -29,8 +30,8 @@ export default class ExternalNavbar extends React.Component<any, any>
     <div className="navbar">
       <div className="navbar-right">
         <div className="navbar-right-entries">
-          <a href="/home">Log In</a>
-          <a href="/join">Join</a>
+          <Link to="/signin" className="">Sign In</Link>
+          <Link to="/join">Join</Link>
         </div>
       </div>
     </div>

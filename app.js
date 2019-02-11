@@ -20,14 +20,14 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // routes
 var join = require('./routes/join');
-var login = require('./routes/login');
+var signin = require('./routes/signin');
 var checktoken = require('./routes/checktoken');
 var reset = require('./routes/reset')
 var newpass = require('./routes/newpass')
 
 //
 app.use('/api', join)
-app.use('/api', login)
+app.use('/api', signin)
 app.use('/api', reset)
 app.use('/api', newpass)
 app.use('/api', checktoken)

@@ -9,7 +9,7 @@ router.use(function(req, res, next) {
     next();
 });
 
-router.route('/login')
+router.route('/signin')
   .post(function(req, res, next) {
       Users.findOne({ email: req.body.params.email }).lean().exec(function(err, docs) {
         if (err)
