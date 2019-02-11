@@ -1,4 +1,5 @@
 import * as React from "react";
+import history from '../.././history';
 
 // css
 import './Join.css'
