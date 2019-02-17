@@ -9,7 +9,7 @@ import '../.././App.css'
 
 // redux
 import store from '../.././Store/store'
-const { connect } = require("react-redux");
+const {connect} = require("react-redux");
 import {getAuthStatus, getCurrentUser} from '../.././Actions/actions'
 
 // Props / State
@@ -19,8 +19,10 @@ interface Props {
 
 interface State {
   title: string;
+  entry: string;
   confirmPassHelper: string;
-  auth_status: boolean
+  auth_status: boolean;
+  poll_items: string[];
 }
 
 class PollPrompt extends React.Component <Props, State> {
@@ -30,8 +32,10 @@ class PollPrompt extends React.Component <Props, State> {
 
     this.state = {
       confirmPassHelper: "",
+      entry: "",
       title: "",
       auth_status: false,
+      poll_items: [],
     };
 
     this.checkCreation = this.checkCreation.bind(this)
@@ -46,7 +50,23 @@ class PollPrompt extends React.Component <Props, State> {
   checkCreation(event: any)
   {
     if (event.keyCode === 13) {
+      event.preventDefault()
       this.handleNewPoll()
+    }
+  }
+
+  pushListItem(event: any)
+  {
+    if (event.keyCode === 13) {
+      event.preventDefault()
+
+      let ret = this.state.poll_items
+      ret.push(event.target.value)
+
+      this.setState({
+        poll_items: ret,
+        entry: "",
+      })
     }
   }
 
@@ -65,6 +85,7 @@ class PollPrompt extends React.Component <Props, State> {
     axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/newpoll`, {
       params: {
         title: this.state.title,
+        poll_items: this.state.poll_items,
         user_id: localStorage.getItem('user'),
       }
     })
@@ -73,18 +94,21 @@ class PollPrompt extends React.Component <Props, State> {
       {
         history.push(`/poll/${response.data.poll_id}`)
       }
-      else
-      {
-        // handle failure here
-      }
     })
+  }
 
+  returnListItem(i: string)
+  {
+    return (
+      <div>
+        <div>
+          {i}
+        </div>
+      </div>
+    )
   }
 
   public render() {
-    if (store.getState().auth_status === false) {
-      return <Redirect to='/' />
-    }
     return (
       <div>
         <Form>
@@ -92,6 +116,16 @@ class PollPrompt extends React.Component <Props, State> {
             <Label for="title">Poll Title</Label>
             <Input type="text" name="title" id="title" />
           </FormGroup>
+
+          <FormGroup onKeyDown={(e) => this.pushListItem(e)}>
+            <Label for="entry">Poll Entries</Label>
+            <Input type="text" name="entry" id="entry" />
+          </FormGroup>
+
+          <div>
+            {this.state.poll_items.map(this.returnListItem)}
+          </div>
+
           <Button onClick={() => this.handleNewPoll()}>Create New Poll</Button>
         </Form>
       </div>

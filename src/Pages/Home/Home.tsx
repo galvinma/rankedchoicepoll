@@ -5,6 +5,8 @@ import { Redirect, Link } from 'react-router-dom';
 import '../.././App.css'
 import './Home.css'
 
+import { checkAuth } from '../.././Utils/checkauth'
+
 // components
 import InternalNavbar from '../../Components/Navbar/InternalNavbar/InternalNavbar'
 
@@ -29,9 +31,21 @@ class Home extends React.Component <Props, State> {
   }
 
   public render() {
-    if (store.getState().auth_status === false) {
-      return <Redirect to='/' />
-    }
+    if (store.getState().auth_status === false)
+     {
+       checkAuth()
+       .then(function(){
+         if (store.getState().auth_status.auth_status === false)
+         {
+           return <Redirect to='/' />
+         }
+       })
+       .catch(function(error)
+       {
+         return <Redirect to='/' />
+       })
+     }
+
     return (
       <div>
         <InternalNavbar />

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Redirect, Link } from 'react-router-dom';
 import history from '../.././history';
 import axios from 'axios';
 
@@ -6,6 +7,9 @@ import axios from 'axios';
 import store from '../.././Store/store'
 const { connect } = require("react-redux");
 import {getAuthStatus, getCurrentUser} from '../.././Actions/actions'
+
+// functions
+import { checkAuth } from '../.././Utils/checkauth'
 
 // css
 import '../.././App.css'
@@ -22,6 +26,7 @@ interface Props {
 
 interface State {
   title: string;
+  poll_items: string[]
   auth_status: boolean
 }
 
@@ -32,6 +37,7 @@ class Poll extends React.Component <Props, State> {
 
     this.state = {
       title: "",
+      poll_items: [],
       auth_status: false,
     };
   }
@@ -46,18 +52,47 @@ class Poll extends React.Component <Props, State> {
     })
     .then((response) =>
     {
-      console.log(response)
+      console.log(response.data.poll_items)
       this.setState({
-        title: response.data.title
+        title: response.data.title,
+        poll_items: response.data.poll_items,
       })
     })
   }
 
+  returnListItem(i: string)
+  {
+    return (
+      <div>
+          {i}
+      </div>
+    )
+  }
+
   public render() {
+    if (store.getState().auth_status === false)
+     {
+       checkAuth()
+       .then(function(){
+         if (store.getState().auth_status.auth_status === false)
+         {
+           return <Redirect to='/' />
+         }
+       })
+       .catch(function(error)
+       {
+         return <Redirect to='/' />
+       })
+     }
+
     return (
       <div>
           <InternalNavbar />
           <div>{this.state.title}</div>
+
+          <div>
+            {this.state.poll_items.map(this.returnListItem)}
+          </div>
       </div>
   )}
 }

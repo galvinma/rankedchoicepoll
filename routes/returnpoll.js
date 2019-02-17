@@ -22,6 +22,7 @@ router.route('/returnpoll')
 
       res.json({
         title: poll.title,
+        poll_items: poll.poll_items
       });
 
     });

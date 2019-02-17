@@ -24,6 +24,7 @@
   ],
   "exclude": [
     "src/Utils/jwt.js",
-    "src/Utils/passreset.js"
+    "src/Utils/passreset.js",
+    "src/Utils/checkAuth.js"
   ]
 }

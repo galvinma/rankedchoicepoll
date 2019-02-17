@@ -14,6 +14,7 @@ router.route('/newpoll')
     new_poll.poll_id = new ObjectId();
     new_poll.user_id = req.body.params.user_id
     new_poll.title = req.body.params.title
+    new_poll.poll_items = req.body.params.poll_items
 
     new_poll.save(function(err) {
         if (err)
