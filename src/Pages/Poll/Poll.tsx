@@ -10,6 +10,7 @@ import {getAuthStatus, getCurrentUser} from '../.././Actions/actions'
 
 // functions
 import { checkAuth } from '../.././Utils/checkauth'
+import { reorderDraggableList } from '../.././Utils/reorderdraggablelist'
 
 // css
 import '../.././App.css'
@@ -17,7 +18,7 @@ import './Poll.css'
 
 // components
 import InternalNavbar from '../../Components/Navbar/InternalNavbar/InternalNavbar'
-
+import DraggableList from '../../Components/List/DraggableList'
 
 // Props / State
 interface Props {
@@ -40,6 +41,8 @@ class Poll extends React.Component <Props, State> {
       poll_items: [],
       auth_status: false,
     };
+
+    this.handleReorder = this.handleReorder.bind(this)
   }
 
   componentDidMount()
@@ -52,21 +55,27 @@ class Poll extends React.Component <Props, State> {
     })
     .then((response) =>
     {
-      console.log(response.data.poll_items)
+      let count = 0
+      let data = response.data.poll_items
+      let ret: any[] = []
+
+      data.forEach((item: any) => {
+        ret.push({id: String(count), content: item})
+        count++
+      })
+
       this.setState({
         title: response.data.title,
-        poll_items: response.data.poll_items,
+        poll_items: ret,
       })
     })
   }
 
-  returnListItem(i: string)
+  handleReorder(list: any)
   {
-    return (
-      <div>
-          {i}
-      </div>
-    )
+    this.setState({
+      poll_items: list,
+    })
   }
 
   public render() {
@@ -90,9 +99,10 @@ class Poll extends React.Component <Props, State> {
           <InternalNavbar />
           <div>{this.state.title}</div>
 
-          <div>
-            {this.state.poll_items.map(this.returnListItem)}
-          </div>
+          <DraggableList
+            reorderDraggableList = {reorderDraggableList.bind(this)}
+            handleReorder = {this.handleReorder}
+            poll_items = {this.state.poll_items}/>
       </div>
   )}
 }
