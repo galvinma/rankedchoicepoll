@@ -2,6 +2,7 @@ import * as React from "react";
 import { Redirect, Link } from 'react-router-dom';
 import history from '../.././history';
 import axios from 'axios';
+import { Button } from 'reactstrap';
 
 // redux
 import store from '../.././Store/store'
@@ -11,6 +12,7 @@ import {getAuthStatus, getCurrentUser} from '../.././Actions/actions'
 // functions
 import { checkAuth } from '../.././Utils/checkauth'
 import { reorderDraggableList } from '../.././Utils/reorderdraggablelist'
+import { tallyVotes } from '../.././Utils/tallyvotes'
 
 // css
 import '../.././App.css'
@@ -26,9 +28,12 @@ interface Props {
 }
 
 interface State {
-  title: string;
-  poll_items: string[]
-  auth_status: boolean
+  title: string,
+  admin_id: string,
+  poll_id: string,
+  poll_items: string[],
+  options: number,
+  auth_status: boolean,
 }
 
 class Poll extends React.Component <Props, State> {
@@ -38,16 +43,21 @@ class Poll extends React.Component <Props, State> {
 
     this.state = {
       title: "",
+      admin_id: "",
+      poll_id: "",
       poll_items: [],
+      options: 0,
       auth_status: false,
     };
 
     this.handleReorder = this.handleReorder.bind(this)
+    this.closePoll = this.closePoll.bind(this)
+    this.handleVote = this.handleVote.bind(this)
   }
 
   componentDidMount()
   {
-    var id = window.location.pathname.split("/").pop()
+    var id = window.location.pathname.split("/").pop() || ""
     axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/returnpoll`, {
       params: {
         poll_id: id
@@ -67,7 +77,33 @@ class Poll extends React.Component <Props, State> {
       this.setState({
         title: response.data.title,
         poll_items: ret,
+        poll_id: id,
+        admin_id: response.data.admin_id,
+        options: response.data.options,
       })
+    })
+  }
+
+  closePoll()
+  {
+    tallyVotes(this.state.poll_id)
+    .then((response) => {
+      console.log(response)
+    })
+  }
+
+  handleVote()
+  {
+    let vote = this.state.poll_items.slice(0,this.state.options)
+    axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/castvote`, {
+      params: {
+        poll_id: this.state.poll_id,
+        user_id: localStorage.getItem('user'),
+        vote: vote,
+      }
+    })
+    .then((response) => {
+      console.log(response)
     })
   }
 
@@ -94,15 +130,28 @@ class Poll extends React.Component <Props, State> {
        })
      }
 
+    let close: any
+    if (this.state.admin_id === localStorage.getItem('user'))
+    {
+      close = <Button onClick={() => this.closePoll()}>Close Poll</Button>
+    }
+
+    let vote: any
+    if (true)
+    {
+      vote = <Button onClick={() => this.handleVote()}>Vote</Button>
+    }
+
     return (
       <div>
           <InternalNavbar />
           <div>{this.state.title}</div>
-
           <DraggableList
             reorderDraggableList = {reorderDraggableList.bind(this)}
             handleReorder = {this.handleReorder}
             poll_items = {this.state.poll_items}/>
+          {close}
+          {vote}
       </div>
   )}
 }

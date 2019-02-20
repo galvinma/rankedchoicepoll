@@ -18,6 +18,7 @@ interface Props {
 }
 
 interface State {
+  options: string;
   title: string;
   entry: string;
   confirmPassHelper: string;
@@ -32,6 +33,7 @@ class PollPrompt extends React.Component <Props, State> {
 
     this.state = {
       confirmPassHelper: "",
+      options: "",
       entry: "",
       title: "",
       auth_status: false,
@@ -67,6 +69,8 @@ class PollPrompt extends React.Component <Props, State> {
         poll_items: ret,
         entry: "",
       })
+
+      event.target.value = ""
     }
   }
 
@@ -76,20 +80,21 @@ class PollPrompt extends React.Component <Props, State> {
       confirmPassHelper: ""
     })
 
-    if (this.state.title === "")
+    if (this.state.title === "" || this.state.options === "")
     {
       this.setState({ confirmPassHelper: "Missing required field(s)"})
       return
     }
-
     axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/newpoll`, {
       params: {
-        title: this.state.title,
+        admin_id: localStorage.getItem('user'),
+        options: this.state.options,
         poll_items: this.state.poll_items,
-        user_id: localStorage.getItem('user'),
+        title: this.state.title,
       }
     })
     .then((response) => {
+      console.log(response)
       if (response.data.allow === true)
       {
         history.push(`/poll/${response.data.poll_id}`)
@@ -100,7 +105,7 @@ class PollPrompt extends React.Component <Props, State> {
   returnListItem(i: string)
   {
     return (
-      <div>
+      <div key={i}>
         <div>
           {i}
         </div>
@@ -120,6 +125,11 @@ class PollPrompt extends React.Component <Props, State> {
           <FormGroup onKeyDown={(e) => this.pushListItem(e)}>
             <Label for="entry">Poll Entries</Label>
             <Input type="text" name="entry" id="entry" />
+          </FormGroup>
+
+          <FormGroup onChange={this.handleChange}>
+            <Label for="options">Number of Options</Label>
+            <Input type="text" name="options" id="options" />
           </FormGroup>
 
           <div>

@@ -21,8 +21,13 @@ router.route('/returnpoll')
       }
 
       res.json({
+        admin_id: poll.admin_id,
+        options: poll.options,
+        threshold: poll.threshold,
         title: poll.title,
-        poll_items: poll.poll_items
+        poll_items: poll.poll_items,
+        votes: poll.votes,
+
       });
 
     });

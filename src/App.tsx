@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Router } from 'react-router-dom';
+import history from './history';
 import './App.css';
 
 // Pages
@@ -51,14 +52,16 @@ class App extends React.Component {
   public render() {
     return (
       <div>
-        <Switch>
-          <Route path="/" exact={true} component={constLanding}/>
-          <Route path="/home" exact={true} component={constHome}/>
-          <Route path="/join" exact={true} component={constJoin}/>
-          <Route path="/signin" exact={true} component={constSignIn}/>
-          <Route path="/newpoll" exact={true} component={constNewPoll}/>
-          <Route path="/poll" component={constPoll}/>
-        </Switch>
+        <Router history={history}>
+          <Switch>
+            <Route path="/" exact={true} component={constLanding}/>
+            <Route path="/home" exact={true} component={constHome}/>
+            <Route path="/join" exact={true} component={constJoin}/>
+            <Route path="/signin" exact={true} component={constSignIn}/>
+            <Route path="/newpoll" exact={true} component={constNewPoll}/>
+            <Route path="/poll" component={constPoll}/>
+          </Switch>
+        </Router>
       </div>
     );
   }
