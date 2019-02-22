@@ -23,8 +23,7 @@ export function checkObjectEquality(a: any, b: any)
 
   for (var i=0; i<a_keys.length; i++)
   {
-    let item = a[i]
-
+    let item = a_keys[i]
     if (a[item] !== b[item])
     {
       return false

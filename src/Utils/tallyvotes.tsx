@@ -54,23 +54,27 @@ export function merge(votes: string[][], poll_items: any)
     return result
   }
 
+  let processed_votes: string[][] = []
   // remove items in the last array from the vote array
-  for (var j=0; j<votes.length; j++)
+  for (var i=0; i<votes.length; i++)
   {
-    for (var i=0; i<votes[j].length; i++)
+    let arr = votes[i].slice(0)
+    for (var j=0; j<last.length; j++)
     {
-      for (var k=last.length -1; k>= 0; k--)
+      for (var k=arr.length-1; k>=0; k--)
       {
-        if (votes[j][i] === last[k])
+        if (arr[k] === last[j])
         {
-          votes[j] = votes[j].slice(0,i).concat(votes[j].slice(i+1))
+          arr = arr.slice(0,k).concat(arr.slice(k+1))
         }
       }
     }
+
+    processed_votes.push(arr)
   }
 
   // purge empty arrays
-  votes = votes.filter((vote: string[]) => vote.length > 0)
+  processed_votes = processed_votes.filter((vote: string[]) => vote.length > 0)
 
   // remove items in the last array from poll items
   for (var i = last.length -1; i>= 0; i--)
@@ -79,10 +83,7 @@ export function merge(votes: string[][], poll_items: any)
     poll_items = poll_items.slice(0,ind).concat(poll_items.slice(ind+1))
   }
 
-  console.log("poll items...")
-  console.log(poll_items)
-
-  result = tally(votes, poll_items)
+  result = tally(processed_votes, poll_items)
 
   return result
 }
@@ -97,7 +98,6 @@ export function tally(votes: string[][], poll_items: string[])
   })
 
   votes.forEach((vote: string[]) => {
-    // console.log(vote)
     tally[vote[0]] = tally[vote[0]] + 1
     count++
   })
@@ -121,9 +121,6 @@ export function tally(votes: string[][], poll_items: string[])
 export function iterateTally(votes: any, poll_items: string[], threshold: number)
 {
   let count: number = votes.length
-  console.log("initial votes")
-  console.log(votes)
-  console.log(" ")
 
   // Get initial tally
   let result = tally(votes, poll_items)
@@ -134,13 +131,6 @@ export function iterateTally(votes: any, poll_items: string[], threshold: number
   let leader_val: number = outcome[`${leader[0]}`]
 
   // If leader has greater than threshold, return. Else, iterate.
-  console.log("initial tally")
-  console.log(result['tally'] as TallyDictionary)
-  console.log(result['votes'])
-  console.log(outcome[`${leader}`]/count)
-  console.log(threshold)
-  console.log(" ")
-
   if (leader_val/count >= threshold)
   {
     return result
@@ -159,30 +149,16 @@ export function iterateTally(votes: any, poll_items: string[], threshold: number
         count = result['count']
         poll_items = result['poll_items']
 
-        console.log(poll_items)
-        console.log(last)
         if (checkObjectEquality(poll_items, last) === true)
         {
-          console.log("there was a tie")
           break
         }
-
-        console.log("new values")
-        console.log(result['tally'] as TallyDictionary)
-        console.log(result['votes'])
-        console.log(outcome[`${leader}`]/count)
-        console.log(threshold)
-        console.log(" ")
-
       }
 
-      console.log("free")
+      // Check for a tie
       if (leader.length > 1)
       {
-        console.log("dealing with leaders...")
         let updated_leader: string[] = []
-        console.log(leader)
-        console.log(original_leader)
 
         // Check if winners were leaders in the first round of voting
         for (var i=0; i<leader.length; i++)
@@ -192,18 +168,14 @@ export function iterateTally(votes: any, poll_items: string[], threshold: number
             if (leader[i] === original_leader[j])
             {
               updated_leader.push(leader[i])
-              console.log("updating")
-              console.log(updated_leader)
             }
           }
         }
-        console.log("updated leaders...")
-        console.log(updated_leader)
+
         result['leader'] = updated_leader
       }
   }
 
-  console.log("returning")
   return result
 }
 
@@ -220,22 +192,12 @@ export function tallyVotes(id: string)
       let unprocessed = response.data.votes
       let threshold = response.data.threshold
 
-      console.log("unprocessed")
-      console.log(unprocessed)
-
       // preprocess votes object into an array
       var postprocess: string[][] = []
-      console.log("empty")
-      console.log(postprocess)
-
       for (var i=0; i<unprocessed.length; i++)
       {
         postprocess[i] = unprocessed[i].vote
       }
-
-      console.log("postprocess votes")
-      console.log(postprocess)
-      console.log(" ")
 
       let result = iterateTally(postprocess, poll_items, threshold)
 
