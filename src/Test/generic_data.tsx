@@ -1,4 +1,4 @@
-import { TallyDictionary } from './tallyVotes'
+import { TallyDictionary } from '.././Utils/tallyvotes'
 
 var object_one: TallyDictionary = {
   "one": 1,

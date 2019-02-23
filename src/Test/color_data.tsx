@@ -1,0 +1,35 @@
+var color_poll_items: string[] = ['red', 'orange', 'yellow', 'green', 'blue']
+
+var color_poll_one: string[][] = [
+  ['yellow', 'green', 'blue', 'red', 'orange'],
+  ['red', 'blue'],
+  ['red', 'blue', 'orange', 'yellow', 'green'],
+  ['red','green', 'blue', 'orange', 'yellow' ],
+  ['red','green'],
+  ['yellow', 'green', 'blue', 'red', 'orange'],
+  ['red', 'orange', 'yellow', 'green', 'blue'],
+  ['orange', 'yellow', 'red', 'green', 'blue'],
+  ['red', 'yellow', 'orange', 'green', 'blue'],
+  ['yellow', 'red', 'orange', 'green', 'blue'],
+  ['red', 'blue'],
+  ['yellow', 'green', 'blue'],
+  ['blue'],
+  ['green', 'blue'],
+  ['yellow', 'blue', 'green',],
+  ['orange', 'yellow'],
+  ['orange', 'yellow', 'red',],
+  ['yellow', 'green', 'blue'],
+  ['green', 'blue', 'red', 'orange', 'yellow'],
+  ['blue', 'orange', 'yellow', 'green', 'red', ],
+  ['blue', 'red'],
+  ['orange', 'green'],
+  ['green'],
+  ['green', 'yellow'],
+  ['red', 'green', 'blue'],
+  ['yellow', 'orange', 'blue'],
+  ['green', 'blue'],
+  ['red', 'orange', 'yellow', 'green', 'blue'],
+  ['orange',],
+  ['orange', 'blue']]
+
+  export { color_poll_items, color_poll_one }
