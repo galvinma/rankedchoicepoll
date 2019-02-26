@@ -1,8 +1,6 @@
 var express = require('express');
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcrypt');
 var Users = require('.././model/users');
-var generateJWT = require('.././src/Utils/jwt');
+var signInUser = require('.././src/Utils/signinuser')
 
 var router = express.Router();
 router.use(function(req, res, next) {
@@ -11,57 +9,33 @@ router.use(function(req, res, next) {
 
 router.route('/signin')
   .post(function(req, res, next) {
-      Users.findOne({ email: req.body.params.email }).lean().exec(function(err, docs) {
+      Users.findOne({ email: req.body.params.email }).lean().exec(function(err, user) {
         if (err)
         {
-          res.json({
-              allow: false,
-          });
+          res.json({allow: false});
           return
         }
 
-        if (docs === null || docs.password === null)
+        if (user === null ||
+            user === undefined ||
+            user.password === null ||
+            req.body.params.password === null ||
+            req.body.params.password === undefined ||
+            req.body.params.password === "")
         {
-          res.json({
-              allow: false,
-          });
+          res.json({allow: false});
           return
         }
 
-        if (req.body.params.password === null || req.body.params.password === undefined || req.body.params.password === "")
-        {
-          res.json({
-              allow: false,
-          });
+        signInUser.signInUser(req, user)
+        .then((signInResponse) => {
+          res.json(signInResponse)
           return
-        }
-
-        bcrypt.compare(req.body.params.password, docs.password, function(err, response) {
-          if (err)
-          {
-            res.json({
-                allow: false,
-            });
-            return
-          }
-          else
-          {
-            // create token
-            var login_user = new Users();
-            login_user.id = docs.id
-            login_user.email = docs.email
-            login_user.reset_count =  docs.reset_count
-            login_user.join_date = docs.join_date
-
-            var token = generateJWT.generateJWT(login_user)
-            res.json({
-                allow: response,
-                user: login_user.id,
-                token: token,
-            });
-          }
+        })
+        .catch((error)=>{
+          res.json({allow: false});
+          return
         });
-
       });
   });
 

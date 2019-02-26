@@ -113,7 +113,6 @@ class JoinPrompt extends React.Component <Props, State> {
         localStorage.setItem('user', user);
 
         store.dispatch(getAuthStatus(true))
-
         store.dispatch(getCurrentUser(response.data.user))
       }
       else
