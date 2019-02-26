@@ -14,23 +14,10 @@ router.route('/returnpoll')
     {
       return
     }
-    Poll.findOne({ poll_id: req.body.params.poll_id }).lean().exec(function(err, poll) {
-      if (err)
-      {
-        throw err
-      }
 
-      res.json({
-        admin_id: poll.admin_id,
-        options: poll.options,
-        threshold: poll.threshold,
-        title: poll.title,
-        poll_items: poll.poll_items,
-        votes: poll.votes,
-
-      });
-
-    });
+    const retPollResponse = returnPoll.returnPoll(req)
+    res.json(retPollResponse)
+    return
   });
 
 module.exports = router;
