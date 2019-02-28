@@ -1,4 +1,5 @@
 var express = require('express');
+var returnPollData = require('.././src/Utils/returnpolldata')
 var ObjectId = require('mongodb').ObjectID;
 var Poll = require('.././model/poll');
 
@@ -15,9 +16,15 @@ router.route('/returnpoll')
       return
     }
 
-    const retPollResponse = returnPoll.returnPoll(req)
-    res.json(retPollResponse)
-    return
+    returnPollData.returnPollData(req)
+    .then((retPollResponse) => {
+      res.json(retPollResponse)
+      return
+    })
+    .catch((error)=>{
+      res.json(retPollResponse)
+      return
+    });
   });
 
 module.exports = router;

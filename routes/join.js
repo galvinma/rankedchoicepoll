@@ -4,6 +4,7 @@ var moment = require('moment');
 var ObjectId = require('mongodb').ObjectID;
 var Users = require('.././model/users');
 var joinUser = require('.././src/Utils/joinuser')
+var checkObjectExistance = require('.././src/Utils/checkobjectexistance')
 
 
 var router = express.Router();
@@ -28,7 +29,21 @@ router.route('/join')
       }
       else
       {
-        const joinResult = joinUser.joinUser(req)
+        let check = [req.body.params.firstname, req.body.params.lastname, req.body.params.email, req.body.params.password]
+        for (var i=0; i<check.length; i++)
+        {
+          if (checkObjectExistance.checkObjectExistance(check[i]) === false)
+          {
+            res.json({allow: false, message: "Missing required parameters"});
+            return
+          }
+        }
+
+        const firstname = req.body.params.firstname;
+        const lastname = req.body.params.lastname;
+        const email = req.body.params.email;
+        const password = req.body.params.password;
+        const joinResult = joinUser.joinUser(firstname, lastname, email, password)
         res.json(joinResult);
       }
     })

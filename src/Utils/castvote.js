@@ -1,35 +1,36 @@
 var Poll = require('../.././model/poll');
 var Vote = require('../.././model/vote');
-var generateJWT = require('./jwt');
+var checkObjectExistance = require('./checkobjectexistance')
 
 module.exports = {
-  castVote: function(req)
+  castVote: function(poll_id, vote, user_id)
   {
-    Poll.findOne({ poll_id: req.body.params.poll_id }).lean().exec(function(err, poll) {
-      if (err)
+    return new Promise((resolve, reject) =>
+    {
+      var newVote = new Vote();
+      newVote.user_id = user_id
+      newVote.vote = vote
+
+      if (checkObjectExistance.checkObjectExistance(vote) === false || vote.length === 0)
       {
-        return {success: false, message: "Poll not found. Unable to cast vote"}
+        return reject({success: false, message: "Missing vote parameters. Vote not cast"})
       }
 
-      // process vote object to an array
-      let a = []
-      for (var i=0; i<req.body.params.vote.length; i++)
+      if (checkObjectExistance.checkObjectExistance(user_id) === false)
       {
-        a.push(req.body.params.vote[i].content)
+        return reject({success: false, message: "Missing user ID. Vote not cast"})
       }
 
-      var vote = new Vote();
-      vote.user_id = req.body.params.user_id
-      vote.vote = a
-
-      Poll.update({ poll_id: req.body.params.poll_id }, {$push: {votes: vote}}).lean().exec(function(err)
+      Poll.update({ poll_id: poll_id }, {$push: {votes: newVote}}).lean().exec(function(err)
       {
         if (err)
         {
-          return {success: false, message: "Unable to update poll. Vote not cast"}
+           return reject({success: false, message: "Unable to update poll. Vote not cast"})
         }
-
-        return {success: true, message: "Successfully cast vote"}
+        else
+        {
+           return resolve({success: true, message: "Successfully cast vote"})
+        }
       })
     })
   }
