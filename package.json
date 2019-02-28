@@ -29,6 +29,9 @@
     "ts-jest": "^23.10.5",
     "typescript-plugin-css-modules": "^1.0.5"
   },
+  "jest": {
+    "module.exports": "testEnvironment: 'node'"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

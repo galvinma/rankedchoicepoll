@@ -1,38 +1,23 @@
 var jwt = require('jsonwebtoken');
 var Users = require('../.././model/users');
+var checkObjectExistance = require('./checkobjectexistance')
+var compareToken = require('./comparetoken')
 
 module.exports = {
-  checkToken: function(req, token, user_id)
+  checkToken: function(token, user_id)
   {
     jwt.verify(token, process.env.REACT_APP_JWT_SECRET, function(err, decoded) {
       if (err)
       {
-        return {allow: false, user: null, token: null}
+        return {allow: false, message: "Unable to decode token", user: null, token: null}
       }
 
-      Users.findOne({ id: user_id }).lean().exec(function(err, user) {
-        if (err)
-        {
-          return {allow: false, user: null, token: null}
-        }
-
-        if (user === null ||
-            user === "" ||
-            user === undefined ||
-            req.body.params.user === null ||
-            req.body.params.user === "" ||
-            req.body.params.user === undefined ||
-            req.body.params.token === null ||
-            req.body.params.token === "" ||
-            req.body.params.token === undefined ||
-            String(decoded.id) !== String(user.id) ||
-            decoded.reset_count !== user.reset_count ||
-            decoded.join_date !== user.join_date)
-        {
-          return {allow: false, user: null, token: null}
-        }
-
-        return {allow: true, user: user, token: token}
+      compareToken.compareToken(decoded, token, user_id)
+      .then((response) => {
+        return response
+      })
+      .catch((error) => {
+        return error
       })
     })
   }

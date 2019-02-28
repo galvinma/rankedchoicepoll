@@ -11,7 +11,7 @@ router.route('/checktoken')
     var token = req.body.params.token
     var user_id = req.body.params.user
 
-    const checkTokenResponse = checkToken.checkToken(req, token, user_id)
+    const checkTokenResponse = checkToken.checkToken(token, user_id)
     res.json(checkTokenResponse)
     return
   })
