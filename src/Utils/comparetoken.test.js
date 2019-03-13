@@ -1,5 +1,8 @@
-var mongoose = require('mongoose');
-var moment = require('moment');
+var mongoTestSetup = require('.././Test/mongotestsetup')
+var jwt = require('jsonwebtoken');
+var Users = require('../.././model/users');
+var checkObjectExistance = require('./checkobjectexistance')
+var compareToken = require('./comparetoken')
 
 // functions
 var compareToken = require('./comparetoken')
@@ -7,29 +10,35 @@ var joinUser = require('./joinuser')
 var generateEmail = require('./generateemail')
 
 // vars
-const firstname = "testFirstName"
-const lastname = "testLastName"
-const email = generateEmail.generateEmail()
 const password = "password"
-const joinResult = joinUser.joinUser(firstname, lastname, email, password)
-const userID = joinResult.user
-const token = joinResult.token
+const firstJoinResult = joinUser.joinUser("firstName", "lastName", generateEmail.generateEmail(), password)
+const firstUserID = firstJoinResult.user
+const firstToken = firstJoinResult.token
 
-let connection
-let db
+const secondJoinResult = joinUser.joinUser("nameFirst", "nameLast", generateEmail.generateEmail(), password)
+const secondUserID = secondJoinResult.user
+const secondToken = secondJoinResult.token
 
-beforeAll(async () => {
-  connection = await mongoose.connect('mongodb://localhost:27017/rankedchoicepoll', { useNewUrlParser: true });
-  db = await mongoose.connection;
-});
+let dec
+jwt.verify(firstToken, process.env.REACT_APP_JWT_SECRET, function(err, decoded) {
+  dec = decoded
+})
+
+mongoTestSetup.mongoTestSetup()
 
 describe('Correctly checks a jwt when...', function () {
   it('confirms a valid token', () => {
-    expect.assertions(1);
+      return compareToken.compareToken(dec, firstToken, firstUserID)
+      .then((response) => {
+        expect(response).toEqual({allow: true, message: "Successfully decoded token", user: firstUserID, token: firstToken})
+      })
+  })
 
-    return compareToken.compareToken(token, token, userID)
-    .then((response) => {
-      expect(response).toEqual({allow: true, message: "Successfully decoded token", user: user, token: token})
-    })
-  });
+  it('confirms an invalid match', () => {
+      return compareToken.compareToken(dec, secondToken, secondUserID)
+      .catch((response) => {
+        expect(response).toEqual({allow: false, message: "Provided tokens do not match", user: null, token: null})
+      })
+  })
+
 })

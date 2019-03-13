@@ -4,7 +4,8 @@ module.exports = {
   generateEmail: function()
   {
     const epochtime = moment().unix()
-    const email = String(epochtime)+"@test.com"
+    const randomNum = Math.random()
+    const email = String(epochtime)+randomNum+"@test.com"
     return email
   }
 }

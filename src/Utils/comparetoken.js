@@ -7,8 +7,7 @@ module.exports = {
   {
     return new Promise((resolve, reject) =>
     {
-      console.log(user_id)
-      Users.findOne({ id: user_id }).lean().exec(function(err, user)
+      return Users.findOne({ id: user_id }).lean().exec(function(err, user)
       {
         if (err)
         {
@@ -16,19 +15,18 @@ module.exports = {
         }
         else
         {
-          console.log((user.id))
-          if (checkObjectExistance.checkObjectExistance(user === false) ||
-              checkObjectExistance.checkObjectExistance(token === false) ||
-              checkObjectExistance.checkObjectExistance(user_id === false) ||
+          if (checkObjectExistance.checkObjectExistance(user) === false ||
+              checkObjectExistance.checkObjectExistance(token) === false ||
+              checkObjectExistance.checkObjectExistance(user_id) === false ||
               String(decoded.id) !== String(user.id) ||
               decoded.reset_count !== user.reset_count ||
               decoded.join_date !== user.join_date)
           {
-            return reject({allow: false, message: "Provided token does not match", user: null, token: null})
+            return reject({allow: false, message: "Provided tokens do not match", user: null, token: null})
           }
           else
           {
-            return resolve({allow: true, message: "Successfully decoded token", user: user, token: token})
+            return resolve({allow: true, message: "Successfully decoded token", user: user_id, token: token})
           }
         }
       })

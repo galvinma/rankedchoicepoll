@@ -37,7 +37,7 @@
     "fs-extra": "7.0.1",
     "html-webpack-plugin": "4.0.0-alpha.2",
     "identity-obj-proxy": "3.0.0",
-    "jest": "23.6.0",
+    "jest": "^23.6.0",
     "jest-pnp-resolver": "1.0.2",
     "jest-resolve": "23.6.0",
     "jest-watch-typeahead": "^0.2.1",
@@ -85,6 +85,7 @@
     "@types/react": "^16.7.22",
     "@types/react-dom": "^16.0.11",
     "@types/react-redux": "^7.0.1",
+    "mongodb-memory-server": "^4.2.0",
     "typescript": "^3.2.4"
   },
   "browserslist": [
@@ -102,6 +103,7 @@
     "setupFiles": [
       "react-app-polyfill/jsdom"
     ],
+    "setupTestFrameworkScriptFile": "./src/Test/mongotestsetup",
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}"
