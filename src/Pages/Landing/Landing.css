@@ -1,0 +1,19 @@
+#landing_background
+{
+  z-index: -100;
+  background-attachment: initial;
+  position:fixed;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  right: 0px;
+  bottom: 0px;
+  width: 50%;
+}
+
+@media only screen and (max-width: 768px) {
+  #landing_background
+  {
+    width: 90%;
+  }
+}
