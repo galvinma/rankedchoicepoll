@@ -32,6 +32,7 @@ interface State {
   admin_id: string,
   poll_id: string,
   poll_items: string[],
+  selected: string[],
   options: number,
   auth_status: boolean,
 }
@@ -46,6 +47,7 @@ class Poll extends React.Component <Props, State> {
       admin_id: "",
       poll_id: "",
       poll_items: [],
+      selected: [],
       options: 0,
       auth_status: false,
     };
@@ -92,9 +94,16 @@ class Poll extends React.Component <Props, State> {
     })
   }
 
-  handleVote()
+  public handleReorder(list: any, id: any)
   {
-    let vote = this.state.poll_items.slice(0,this.state.options)
+    this.setState({
+      [id]: list
+    } as Pick<State, keyof State>)
+  }
+
+  public handleVote()
+  {
+    let vote = this.state.selected.slice(0,this.state.options)
     axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/castvote`, {
       params: {
         poll_id: this.state.poll_id,
@@ -104,13 +113,6 @@ class Poll extends React.Component <Props, State> {
     })
     .then((response) => {
       console.log(response)
-    })
-  }
-
-  handleReorder(list: any)
-  {
-    this.setState({
-      poll_items: list,
     })
   }
 
@@ -147,9 +149,13 @@ class Poll extends React.Component <Props, State> {
           <InternalNavbar />
           <div>{this.state.title}</div>
           <DraggableList
+            id = "poll_items"
+            className="draggableList"
             reorderDraggableList = {reorderDraggableList.bind(this)}
             handleReorder = {this.handleReorder}
-            poll_items = {this.state.poll_items}/>
+            poll_items = {this.state.poll_items}
+            selected = {this.state.selected}
+            options = {this.state.options}/>
           {close}
           {vote}
       </div>

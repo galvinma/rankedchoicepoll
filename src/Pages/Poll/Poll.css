@@ -1,0 +1,10 @@
+.draggableList
+{
+  min-height: 50px;
+}
+
+.listContainer
+{
+  display: flex;
+  flex-direction: row;
+}

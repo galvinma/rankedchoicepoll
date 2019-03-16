@@ -16,8 +16,8 @@ class Landing extends React.Component {
     return (
       <div>
         <ExternalNavbar />
-        <div className="headerOne">Ranked Choice Poll</div>
-        <div className="headerTwo">Because how we vote matters.</div>
+        <div className="headerOne primaryColor">Ranked Choice Poll</div>
+        <div className="headerTwo primaryColor">Because how we vote matters.</div>
          <svg viewBox="0 0 100 100" id="landing_background" style ={{ backgroundImage: "url("+landing+")" }}/>
       </div>
   )}

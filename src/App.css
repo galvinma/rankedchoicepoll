@@ -4,6 +4,17 @@
   font-size: 12px;
 }
 
+.primaryColor
+{
+  color: #2E3131
+}
+
+.primaryUnderline
+{
+  text-decoration: underline;
+  text-decoration-color: #7A7F59;
+}
+
 .headerOne
 {
   font-family: 'Lato', sans-serif;
@@ -18,4 +29,9 @@
   font-size: 28px;
   /* font-family: 'Open Sans', sans-serif;
   font-family: 'Montserrat', sans-serif; */
+}
+
+.secondaryColor
+{
+  color: #7A7F59
 }
