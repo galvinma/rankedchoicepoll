@@ -10,6 +10,7 @@ import SignIn from './Pages/SignIn/SignIn'
 import Landing from './Pages/Landing/Landing'
 import NewPoll from './Pages/NewPoll/NewPoll'
 import Poll from './Pages/Poll/Poll'
+import Result from './Pages/Result/Result'
 
 const constLanding = () => (
   <div>
@@ -47,6 +48,12 @@ const constPoll = () => (
   </div>
 )
 
+const constResult = () => (
+  <div>
+    <Result />
+  </div>
+)
+
 
 class App extends React.Component {
   public render() {
@@ -60,6 +67,7 @@ class App extends React.Component {
             <Route path="/signin" exact={true} component={constSignIn}/>
             <Route path="/newpoll" exact={true} component={constNewPoll}/>
             <Route path="/poll" component={constPoll}/>
+            <Route path="/result" component={constResult} />
           </Switch>
         </Router>
       </div>

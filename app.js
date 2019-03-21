@@ -27,6 +27,7 @@ var newpass = require('./routes/newpass')
 var newpoll = require('./routes/newpoll')
 var returnpoll = require('./routes/returnpoll')
 var castvote = require('./routes/castvote')
+var closepoll = require('./routes/closepoll')
 
 //
 app.use('/api', join)
@@ -37,6 +38,7 @@ app.use('/api', checktoken)
 app.use('/api', newpoll)
 app.use('/api', returnpoll)
 app.use('/api', castvote)
+app.use('/api', closepoll)
 
 app.listen(5005);
 

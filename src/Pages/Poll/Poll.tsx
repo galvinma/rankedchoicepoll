@@ -11,7 +11,6 @@ import {getAuthStatus, getCurrentUser} from '../.././Actions/actions'
 // functions
 import { checkAuth } from '../.././Utils/checkauth'
 import { reorderDraggableList } from '../.././Utils/reorderdraggablelist'
-import { tallyVotes } from '../.././Utils/tallyvotes'
 
 // css
 import '../.././App.css'
@@ -34,6 +33,7 @@ interface State {
   selected: string[],
   options: number,
   auth_status: boolean,
+  intervalId: number,
 }
 
 class Poll extends React.Component <Props, State> {
@@ -49,11 +49,18 @@ class Poll extends React.Component <Props, State> {
       selected: [],
       options: 0,
       auth_status: false,
+      intervalId: 0,
     };
 
-    this.handleReorder = this.handleReorder.bind(this)
     this.closePoll = this.closePoll.bind(this)
+    this.handleReorder = this.handleReorder.bind(this)
     this.handleVote = this.handleVote.bind(this)
+    this.watchPoll = this.watchPoll.bind(this)
+  }
+  
+  componentWillUnmount()
+  {
+    clearInterval(this.state.intervalId);
   }
 
   componentDidMount()
@@ -81,15 +88,25 @@ class Poll extends React.Component <Props, State> {
         poll_id: id,
         admin_id: response.data.admin_id,
         options: response.data.options,
+      }, () => {
+        this.watchPoll()
       })
     })
   }
 
-  closePoll()
+  public closePoll()
   {
-    tallyVotes(this.state.poll_id)
-    .then((response) => {
-      console.log(response)
+    axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/closepoll`, {
+      params: {
+        poll_id: this.state.poll_id
+      }
+    })
+    .then((response) =>
+    {
+      if (response.data.status === false)
+      {
+        history.push(`/result/${this.state.poll_id}`)
+      }
     })
   }
 
@@ -113,6 +130,29 @@ class Poll extends React.Component <Props, State> {
     .then((response) => {
       console.log(response)
     })
+  }
+
+  public watchPoll()
+  {
+    let intervalId: number = window.setInterval(() =>
+    {
+      axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/returnpoll`, {
+        params: {
+          poll_id: this.state.poll_id
+        }
+      })
+      .then((response) =>
+      {
+        // console.log(response)
+        // console.log(response.data.status)
+        if (response.data.status === false)
+        {
+          history.push(`/result/${this.state.poll_id}`)
+        }
+      })
+    }, 1000)
+
+    this.setState({intervalId: intervalId});
   }
 
   public render() {

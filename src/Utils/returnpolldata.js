@@ -8,7 +8,7 @@ module.exports = {
         {
           reject({ success: false, message: "Unable to find poll" })
         }
-        resolve({admin_id: poll.admin_id, options: poll.options, threshold: poll.threshold, title: poll.title, poll_items: poll.poll_items, votes: poll.votes })
+        resolve({admin_id: poll.admin_id, options: poll.options, threshold: poll.threshold, title: poll.title, poll_items: poll.poll_items, votes: poll.votes, status: poll.status })
       })
     })
   }
