@@ -19,10 +19,12 @@ class Landing extends React.Component {
       <div>
         <ExternalNavbar />
         <div className="landingContainer">
-          <Card
-            header="How we vote matters"
-            content="Create polls and learn more about ranked choice polling"
-            link="Find out more."/>
+          <div className="landingCard">
+            <Card
+              header="How we vote matters"
+              content="Create polls and learn more about ranked choice polling"
+              link="Find out more."/>
+          </div>
           <div className="landingSVGContainer">
             <ReactSVG src={ballot} svgClassName="landingImage"/>
           </div>

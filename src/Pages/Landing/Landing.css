@@ -15,6 +15,50 @@
 
 .landingSVGContainer
 {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
   width: 500px;
   height: auto;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+
+@media only screen and (max-width: 768px)
+{
+  .landingCard
+  {
+    max-width: 400px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .landingContainer
+  {
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .landingImage
+  {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .landingSVGContainer
+  {
+    width: 90%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

@@ -1,6 +1,5 @@
 .cardContainer
 {
-  height: 200px;
   width: auto;
   margin-left: 20px;
   margin-right: 20px;
@@ -21,7 +20,7 @@
 .cardContent, .cardLink
 {
   font-family: 'Lato', sans-serif;
-  font-size: 14px;
+  font-size: 18px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -29,4 +28,22 @@
 .cardLink
 {
   text-decoration: underline;
+}
+
+@media only screen and (max-width: 768px)
+{
+  .cardContainer
+  {
+    height: auto;
+  }
+
+  .cardHeader
+  {
+    font-size: 24px;
+  }
+
+  .cardContent, .cardLink
+  {
+    font-size: 14px;
+  }
 }
