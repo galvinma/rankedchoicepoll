@@ -10,9 +10,6 @@ import './InternalNavbar.css'
 import store from '../../.././Store/store'
 import {resetStore} from '../../.././Actions/actions'
 
-// Images
-var logo = require('../../.././Images/logo.svg')
-
 export default class InternalNavbar extends React.Component<any, any>
 {
   constructor(props: any)
@@ -38,9 +35,6 @@ export default class InternalNavbar extends React.Component<any, any>
     <div className="navbar">
       <div className="navbar-left">
         <div className="navbar-left-entries">
-          <Link to="/home">
-            <ReactSVG src={logo} className="logo"  svgClassName="logo"/>
-          </Link>
         </div>
       </div>
       <div className="navbar-right">
