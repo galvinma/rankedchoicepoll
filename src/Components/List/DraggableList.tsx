@@ -8,22 +8,19 @@ import './DraggableList.css'
 const grid = 8;
 
 const getItemStyle = (isDragging: any, draggableStyle: any) => ({
-  // some basic styles to make the items look a bit nicer
   userSelect: 'none',
   padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
-
-  // styles we need to apply on draggables
+  background: isDragging ? 'grey' : '#FFFFFF',
   ...draggableStyle,
 });
 
 const getListStyle = (isDraggingOver: any) => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
+  background: isDraggingOver ? 'lightblue' : '#FFFFFF',
+  border: '2px solid black',
   padding: grid,
   width: 250,
+  marginLeft: '20px',
+  marginRight: '20px',
 });
 
 export default class ListItem extends React.Component<any, any>
@@ -44,19 +41,14 @@ export default class ListItem extends React.Component<any, any>
 
   public move(source: any, destination: any, sourceID: any, destID: any, sourceIndex: any, destinationIndex: any)
   {
-
-      console.log(sourceIndex)
-      console.log(destinationIndex)
       const sourceClone = source.slice(0)
       const destClone = destination.slice(0)
-
       const [removed] = sourceClone.splice(sourceIndex, 1)
       destClone.splice(destinationIndex, 0, removed)
 
       const result: any = {}
       result[sourceID] = sourceClone
       result[destID] = destClone
-
       return result
   }
 

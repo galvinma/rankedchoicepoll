@@ -1,7 +1,6 @@
 import * as React from "react";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { Button } from 'reactstrap';
 
 // css
 import '../.././App.css'
@@ -122,7 +121,7 @@ class SignInPrompt extends React.Component <Props, State> {
             <input className="formInput" type="password" name="password" id="password" />
             <div id="confirmPassHelper">{this.state.confirmPassHelper}</div>
           </div>
-          <Button onClick={() => this.handleSignIn()}>Sign In</Button>
+          <button className="pollButton" onClick={() => this.handleSignIn()}>Sign In</button>
         </div>
       </div>
   )}

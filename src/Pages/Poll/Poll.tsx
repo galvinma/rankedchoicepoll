@@ -2,7 +2,6 @@ import * as React from "react";
 import { Redirect, Link } from 'react-router-dom';
 import history from '../.././history';
 import axios from 'axios';
-import { Button } from 'reactstrap';
 
 // redux
 import store from '../.././Store/store'
@@ -135,19 +134,20 @@ class Poll extends React.Component <Props, State> {
     let close: any
     if (this.state.admin_id === localStorage.getItem('user'))
     {
-      close = <Button onClick={() => this.closePoll()}>Close Poll</Button>
+      close = <button className="pollButton" onClick={() => this.closePoll()}>Close Poll</button>
     }
 
     let vote: any
     if (true)
     {
-      vote = <Button onClick={() => this.handleVote()}>Vote</Button>
+      vote = <button className="pollButton" onClick={() => this.handleVote()}>Vote</button>
     }
 
     return (
       <div>
-          <InternalNavbar />
-          <div>{this.state.title}</div>
+        <InternalNavbar />
+        <div className="pollPageContainer">
+          <div className="pollTitle">{this.state.title}</div>
           <DraggableList
             id = "poll_items"
             className="draggableList"
@@ -156,8 +156,9 @@ class Poll extends React.Component <Props, State> {
             poll_items = {this.state.poll_items}
             selected = {this.state.selected}
             options = {this.state.options}/>
-          {close}
-          {vote}
+          <div>{close}</div>
+          <div>{vote}</div>
+        </div>
       </div>
   )}
 }

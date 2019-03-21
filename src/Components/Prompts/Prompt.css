@@ -31,3 +31,18 @@
   font-family: 'Lato', sans-serif;
   font-size: 14px;
 }
+
+.submitButton
+{
+  cursor: pointer;
+  width: auto;
+  color: #000000;
+  background-color: #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 10px;
+}
