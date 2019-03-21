@@ -39,7 +39,7 @@ export default class InternalNavbar extends React.Component<any, any>
       </div>
       <div className="navbar-right">
         <div className="navbar-right-entries">
-          <Link to="/" onClick={()=>store.dispatch(resetStore())}>Sign Out</Link>
+          <Link className="linkStyle" to="/" onClick={()=>store.dispatch(resetStore())}>Sign Out</Link>
         </div>
       </div>
     </div>

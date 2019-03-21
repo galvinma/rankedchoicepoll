@@ -2,10 +2,11 @@ import * as React from "react";
 import history from '../.././history';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button } from 'reactstrap';
 
 // css
 import '../.././App.css'
+import './Prompt.css'
 
 // redux
 import store from '../.././Store/store'
@@ -104,40 +105,32 @@ class PollPrompt extends React.Component <Props, State> {
 
   returnListItem(i: string)
   {
-    return (
-      <div key={i}>
-        <div>
-          {i}
-        </div>
-      </div>
-    )
+    return (<li key={i} className="pollItem">{i}</li>)
   }
 
   public render() {
     return (
       <div>
-        <Form>
-          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkCreation(e)}>
-            <Label for="title">Poll Title</Label>
-            <Input type="text" name="title" id="title" />
-          </FormGroup>
-
-          <FormGroup onKeyDown={(e) => this.pushListItem(e)}>
-            <Label for="entry">Poll Entries</Label>
-            <Input type="text" name="entry" id="entry" />
-          </FormGroup>
-
-          <FormGroup onChange={this.handleChange}>
-            <Label for="options">Number of Options</Label>
-            <Input type="text" name="options" id="options" />
-          </FormGroup>
-
-          <div>
-            {this.state.poll_items.map(this.returnListItem)}
+        <div className="formContainer">
+          <div onChange={this.handleChange} onKeyDown={(e) => this.checkCreation(e)}>
+            <div>Poll Title</div>
+            <input className="formInput" type="text" name="title" id="title" />
           </div>
-
+          <div onKeyDown={(e) => this.pushListItem(e)}>
+            <div>Poll Entries</div>
+            <input className="formInput" type="text" name="entry" id="entry" />
+          </div>
+          <ul className="pollItemsContainer">
+            {this.state.poll_items.map(this.returnListItem)}
+          </ul>
+          <div onChange={this.handleChange}>
+            <div>Number of Options</div>
+            <input className="formInput" type="text" name="options" id="options" />
+          </div>
+          <div>
+          </div>
           <Button onClick={() => this.handleNewPoll()}>Create New Poll</Button>
-        </Form>
+        </div>
       </div>
   )}
 }
