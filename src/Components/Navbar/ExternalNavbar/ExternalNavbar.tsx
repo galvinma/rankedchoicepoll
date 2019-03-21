@@ -30,8 +30,8 @@ export default class ExternalNavbar extends React.Component<any, any>
     <div className="navbar">
       <div className="navbar-right">
         <div className="navbar-right-entries">
-          <Link to="/signin" className="">Sign In</Link>
-          <Link to="/join">Join</Link>
+          <Link to="/signin" className="linkStyle">Sign In</Link>
+          <Link to="/join" className="linkStyle join">Join</Link>
         </div>
       </div>
     </div>

@@ -1,0 +1,32 @@
+.cardContainer
+{
+  height: 200px;
+  width: auto;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.cardHeader
+{
+  font-family: 'Patua One', cursive;
+  font-size: 48px;
+}
+
+.cardContent, .cardLink
+{
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.cardLink
+{
+  text-decoration: underline;
+}

@@ -1,11 +1,11 @@
 import * as React from "react";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button } from 'reactstrap';
 
 // css
 import '../.././App.css'
-import './JoinPrompt.css'
+import './Prompt.css'
 
 // email val
 var validator = require("email-validator");
@@ -136,30 +136,30 @@ class JoinPrompt extends React.Component <Props, State> {
     }
     return (
       <div>
-        <Form>
-          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
-            <Label for="firstname">First Name</Label>
-            <Input type="text" name="firstname" id="firstname" />
-          </FormGroup>
-          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
-            <Label for="lastname">Last Name</Label>
-            <Input type="text" name="lastname" id="lastname" />
-          </FormGroup>
-          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
-            <Label for="email">Email</Label>
-            <Input type="email" name="email" id="email" />
-          </FormGroup>
-          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
-            <Label for="password">Password</Label>
-            <Input type="password" name="password" id="password" />
-          </FormGroup>
-          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
-            <Label for="confirmPass">Confirm Password</Label>
-            <Input type="password" name="confirmPass" id="confirmPass" />
-            <FormText id="confirmPassHelper">{this.state.confirmPassHelper}</FormText>
-          </FormGroup>
+        <div className="formContainer">
+          <div onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
+            <div>First Name</div>
+            <input className="formInput" type="text" name="firstname" id="firstname" />
+          </div>
+          <div onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
+            <div>Last Name</div>
+            <input className="formInput" type="text" name="lastname" id="lastname" />
+          </div>
+          <div onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
+            <div>Email</div>
+            <input className="formInput" type="email" name="email" id="email" />
+          </div>
+          <div onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
+            <div>Password</div>
+            <input className="formInput" type="password" name="password" id="password" />
+          </div>
+          <div onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
+            <div>Confirm Password</div>
+            <input className="formInput" type="password" name="confirmPass" id="confirmPass" />
+            <div id="confirmPassHelper">{this.state.confirmPassHelper}</div>
+          </div>
           <Button onClick={() => this.handleJoin()}>Submit</Button>
-        </Form>
+        </div>
       </div>
   )}
 }

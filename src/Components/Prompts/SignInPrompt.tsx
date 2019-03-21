@@ -1,11 +1,11 @@
 import * as React from "react";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button } from 'reactstrap';
 
 // css
 import '../.././App.css'
-import './JoinPrompt.css'
+import './Prompt.css'
 
 // email val
 var validator = require("email-validator");
@@ -112,18 +112,18 @@ class SignInPrompt extends React.Component <Props, State> {
     }
     return (
       <div>
-        <Form>
-          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkSignIn(e)}>
-            <Label for="email">Email</Label>
-            <Input type="email" name="email" id="email" />
-          </FormGroup>
-          <FormGroup onChange={this.handleChange} onKeyDown={(e) => this.checkSignIn(e)}>
-            <Label for="password">Password</Label>
-            <Input type="password" name="password" id="password" />
-            <FormText id="confirmPassHelper">{this.state.confirmPassHelper}</FormText>
-          </FormGroup>
+        <div className="formContainer">
+          <div onChange={this.handleChange} onKeyDown={(e) => this.checkSignIn(e)}>
+            <div>Email</div>
+            <input className="formInput" type="email" name="email" id="email" />
+          </div>
+          <div onChange={this.handleChange} onKeyDown={(e) => this.checkSignIn(e)}>
+            <div>Password</div>
+            <input className="formInput" type="password" name="password" id="password" />
+            <div id="confirmPassHelper">{this.state.confirmPassHelper}</div>
+          </div>
           <Button onClick={() => this.handleSignIn()}>Sign In</Button>
-        </Form>
+        </div>
       </div>
   )}
 }

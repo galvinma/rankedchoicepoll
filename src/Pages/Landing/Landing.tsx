@@ -1,25 +1,32 @@
 import * as React from "react";
 import history from '../.././history';
+import ReactSVG from 'react-svg'
 
 // css
 import '../.././App.css'
 import './Landing.css'
 
 // Images
-var tree = require('../.././Images/TreeColoredFirstPass.svg')
-
+var ballot = require('../.././Images/ballot.svg')
 
 // components
 import ExternalNavbar from '../../Components/Navbar/ExternalNavbar/ExternalNavbar'
+import Card from '../../Components/Card/Card'
 
 class Landing extends React.Component {
   public render() {
     return (
       <div>
         <ExternalNavbar />
-        <div className="headerOne primaryColor">Ranked Choice Poll</div>
-        <div className="headerTwo primaryColor">Because how we vote matters.</div>
-         <svg viewBox="0 0 100 100" id="landing_background" style ={{ backgroundImage: "url("+tree+")" }}/>
+        <div className="landingContainer">
+          <Card
+            header="How we vote matters"
+            content="Create polls and learn more about ranked choice polling"
+            link="Find out more."/>
+          <div className="landingSVGContainer">
+            <ReactSVG src={ballot} svgClassName="landingImage"/>
+          </div>
+        </div>
       </div>
   )}
 }

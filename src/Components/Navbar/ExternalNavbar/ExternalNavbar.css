@@ -1,7 +1,26 @@
+.join
+{
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-radius: 1px;
+  border: 2px solid #000000;
+}
+
+.linkStyle
+{
+  color: #000000;
+  margin-right: 10px;
+  margin-left: 10px;
+  font-family: 'Patua One', cursive;
+}
+
 .navbar
 {
   display: flex;
   flex-direction: row;
+  height: 50px;
 }
 
 .navbar-left
@@ -12,4 +31,5 @@
 .navbar-right
 {
   margin-left: auto;
+  margin-right: 50px;
 }
