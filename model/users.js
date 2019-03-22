@@ -6,12 +6,13 @@ const ObjectId = Schema.ObjectId;
 
 var Users = new Schema({
     id: {type: ObjectId, required: true},
-    firstname: {type: String, required: true},
-    lastname: {type: String, required: true},
+    firstname: {type: String, required: false},
+    lastname: {type: String, required: false},
     email: {type: String, required: true},
-    password: {type: String, required: true},
-    join_date: {type: Number, required: true},
-    reset_count: {type: Number, required: true},
+    password: {type: String, required: false},
+    join_date: {type: Number, required: false},
+    reset_count: {type: Number, required: false},
+    registered: {type: Boolean, required: true}
 });
 
 Users.pre('save', function(next) {

@@ -6,7 +6,7 @@ var generateJWT = require('./jwt');
 var checkObjectExistance = require('./checkobjectexistance')
 
 module.exports = {
-  joinUser: function(firstname, lastname, email, password)
+  joinExistingUser: function(firstname, lastname, email, password)
   {
     const args = Object.values(arguments)
     for (var i=0; i<args.length; i++)
@@ -17,23 +17,22 @@ module.exports = {
       }
     }
 
-    var signup_user = new Users();
-    signup_user.id = new ObjectId();
-    signup_user.firstname = firstname;
-    signup_user.lastname = lastname;
-    signup_user.email = email;
-    signup_user.password = password;
-    signup_user.join_date = moment().unix();
-    signup_user.reset_count = 0;
-    signup_user.registered = true;
+    Users.update({ email: email }, {firstname: firstname ,
+      lastname: lastname,
+      password: password,
+      join_date: moment().unix(),
+      reset_count: 0,
+      registered: true,
+    }).lean().exec(function(err, user)
+    {
+      if (err)
+      {
+        return {success: false, message: "Unable to register user."}
+      }
 
-    signup_user.save(function(err) {
-        if (err)
-        {
-          return {allow: false, message: "Unable to register user"}
-        }
+      return {success: true, message: "Successfully registered user"}
     })
     var token = generateJWT.generateJWT(signup_user)
-    return {allow: true, user: signup_user.id, token: token}
+    return {allow: true, user: user.id, token: token}
   }
 }

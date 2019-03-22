@@ -6,7 +6,7 @@ var generateJWT = require('./jwt');
 var checkObjectExistance = require('./checkobjectexistance')
 
 module.exports = {
-  joinUser: function(firstname, lastname, email, password)
+  joinUserOnlyEmail: function(email)
   {
     const args = Object.values(arguments)
     for (var i=0; i<args.length; i++)
@@ -19,13 +19,8 @@ module.exports = {
 
     var signup_user = new Users();
     signup_user.id = new ObjectId();
-    signup_user.firstname = firstname;
-    signup_user.lastname = lastname;
     signup_user.email = email;
-    signup_user.password = password;
-    signup_user.join_date = moment().unix();
-    signup_user.reset_count = 0;
-    signup_user.registered = true;
+    signup_user.registered = false;
 
     signup_user.save(function(err) {
         if (err)
@@ -33,7 +28,7 @@ module.exports = {
           return {allow: false, message: "Unable to register user"}
         }
     })
-    var token = generateJWT.generateJWT(signup_user)
-    return {allow: true, user: signup_user.id, token: token}
+
+    return {allow: false, user: signup_user.id, token: null}
   }
 }
