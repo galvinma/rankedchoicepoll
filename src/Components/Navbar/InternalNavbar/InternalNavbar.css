@@ -4,6 +4,7 @@
   margin-right: 10px;
   margin-left: 10px;
   font-family: 'Patua One', cursive;
+  font-size: 16px
 }
 
 .logo
@@ -11,15 +12,30 @@
   max-height: 50px;
 }
 
+.logoText
+{
+  font-family: 'Patua One', cursive;
+  font-size: 36px;
+}
+
 .navbar
 {
   display: flex;
   flex-direction: row;
+  margin-bottom: 50px;
+  height: 80px !important;
 }
 
 .navbar-left
 {
   margin-right: auto;
+  margin-left: 50px;
+}
+
+.navbar-left-entries
+{
+  display: flex;
+  flex-direction: row;
 }
 
 .navbar-right

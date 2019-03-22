@@ -49,9 +49,10 @@ class Home extends React.Component <Props, State> {
     return (
       <div>
         <InternalNavbar />
-         <Link className="headerOne" to="/newpoll">Create New Poll</Link>
-        <br/>
-         <Link className="headerOne" to="/joinpoll">Join Existing Poll</Link>
+        <div className="homeContainer">
+           <Link className="headerTwo homeLink" to="/newpoll">Create New Poll</Link>
+           <Link className="headerTwo homeLink" to="/joinpoll">Join Existing Poll</Link>
+        </div>
       </div>
   )}
 }

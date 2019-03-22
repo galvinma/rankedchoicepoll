@@ -1,0 +1,12 @@
+.homeContainer
+{
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+}
+
+.homeLink
+{
+  color: #000000;
+  text-decoration: underline;
+}
