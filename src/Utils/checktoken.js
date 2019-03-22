@@ -1,23 +1,41 @@
 var jwt = require('jsonwebtoken');
 var Users = require('../.././model/users');
 var checkObjectExistance = require('./checkobjectexistance')
-var compareToken = require('./comparetoken')
 
 module.exports = {
   checkToken: function(token, user_id)
   {
-    jwt.verify(token, process.env.REACT_APP_JWT_SECRET, function(err, decoded) {
-      if (err)
-      {
-        return {allow: false, message: "Unable to decode token", user: null, token: null}
-      }
+    return new Promise((resolve, reject) =>
+    {
+      jwt.verify(token, process.env.REACT_APP_JWT_SECRET, function(err, decoded) {
+        if (err)
+        {
+          return reject({allow: false, message: "Unable to decode token", user: null, token: null})
+        }
 
-      compareToken.compareToken(decoded, token, user_id)
-      .then((response) => {
-        return response
-      })
-      .catch((error) => {
-        return error
+        Users.findOne({ id: user_id }).lean().exec(function(err, user)
+        {
+          if (err)
+          {
+            return reject({allow: false, message: "Unable to find user",  user: null, token: null})
+          }
+          else
+          {
+            if (checkObjectExistance.checkObjectExistance(user) === false ||
+                checkObjectExistance.checkObjectExistance(token) === false ||
+                checkObjectExistance.checkObjectExistance(user_id) === false ||
+                String(decoded.id) !== String(user.id) ||
+                decoded.reset_count !== user.reset_count ||
+                decoded.join_date !== user.join_date)
+            {
+              return reject({allow: false, message: "Provided tokens do not match", user: null, token: null})
+            }
+            else
+            {
+              return resolve({allow: true, message: "Successfully decoded token", user: user_id, token: token})
+            }
+          }
+        })
       })
     })
   }

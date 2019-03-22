@@ -11,9 +11,15 @@ router.route('/checktoken')
     var token = req.body.params.token
     var user_id = req.body.params.user
 
-    const checkTokenResponse = checkToken.checkToken(token, user_id)
-    res.json(checkTokenResponse)
-    return
+    checkToken.checkToken(token, user_id)
+    .then(checkTokenResponse => {
+      res.json(checkTokenResponse)
+      return
+    })
+    .catch(error => {
+      res.json(error)
+      return
+    })
   })
 
 module.exports = router;

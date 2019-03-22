@@ -88,14 +88,14 @@ class Result extends React.Component <Props, State> {
      {
        checkAuth()
        .then(function(){
-         if (store.getState().auth_status.auth_status === false)
+         if (store.getState().auth_status.auth_status === false || store.getState().auth_status.auth_status === undefined)
          {
-           return <Redirect to='/' />
+           history.push('/')
          }
        })
        .catch(function(error)
        {
-         return <Redirect to='/' />
+         history.push('/')
        })
      }
 

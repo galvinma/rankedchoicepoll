@@ -25,6 +25,7 @@ export default class InternalNavbar extends React.Component<any, any>
 
     this.toggle = this.toggle.bind(this);
     this.handleLogoClick = this.handleLogoClick.bind(this)
+    this.handleSignOut = this.handleSignOut.bind(this)
   }
 
   public toggle()
@@ -39,6 +40,13 @@ export default class InternalNavbar extends React.Component<any, any>
     history.push('/home')
   }
 
+  public handleSignOut()
+  {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    store.dispatch(resetStore())
+  }
+
   public render()
   {
     return(
@@ -51,7 +59,7 @@ export default class InternalNavbar extends React.Component<any, any>
       </div>
       <div className="navbar-right">
         <div className="navbar-right-entries">
-          <Link className="linkStyle" to="/" onClick={()=>store.dispatch(resetStore())}>Sign Out</Link>
+          <Link className="linkStyle" to="/" onClick={this.handleSignOut}>Sign Out</Link>
         </div>
       </div>
     </div>

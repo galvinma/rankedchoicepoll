@@ -1,10 +1,12 @@
 import * as React from "react";
 import { Redirect, Link } from 'react-router-dom';
+import history from '../.././history';
 
 // css
 import '../.././App.css'
 import './Home.css'
 
+// functions
 import { checkAuth } from '../.././Utils/checkauth'
 
 // components
@@ -35,14 +37,14 @@ class Home extends React.Component <Props, State> {
      {
        checkAuth()
        .then(function(){
-         if (store.getState().auth_status.auth_status === false)
+         if (store.getState().auth_status.auth_status === false || store.getState().auth_status.auth_status === undefined)
          {
-           return <Redirect to='/' />
+           history.push('/')
          }
        })
        .catch(function(error)
        {
-         return <Redirect to='/' />
+         history.push('/')
        })
      }
 

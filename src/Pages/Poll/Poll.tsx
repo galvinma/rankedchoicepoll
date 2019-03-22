@@ -143,8 +143,6 @@ class Poll extends React.Component <Props, State> {
       })
       .then((response) =>
       {
-        // console.log(response)
-        // console.log(response.data.status)
         if (response.data.status === false)
         {
           history.push(`/result/${this.state.poll_id}`)
@@ -160,14 +158,14 @@ class Poll extends React.Component <Props, State> {
      {
        checkAuth()
        .then(function(){
-         if (store.getState().auth_status.auth_status === false)
+         if (store.getState().auth_status.auth_status === false || store.getState().auth_status.auth_status === undefined)
          {
-           return <Redirect to='/' />
+           history.push('/')
          }
        })
        .catch(function(error)
        {
-         return <Redirect to='/' />
+         history.push('/')
        })
      }
 
