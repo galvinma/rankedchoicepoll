@@ -11,6 +11,21 @@
   align-content: center;
 }
 
+.listLabels
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.listLabel
+{
+  width: 250px;
+  text-align: center;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 .pollButton
 {
   cursor: pointer;
@@ -24,6 +39,18 @@
   padding-top: 5px;
   padding-bottom: 5px;
   margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  min-width: 100px;
+}
+
+.pollButtonContainer
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .pollPageContainer
@@ -35,4 +62,5 @@
 .pollTitle
 {
   text-align: center;
+  margin-bottom: 20px;
 }

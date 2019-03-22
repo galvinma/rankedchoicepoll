@@ -9,16 +9,17 @@ const grid = 8;
 
 const getItemStyle = (isDragging: any, draggableStyle: any) => ({
   userSelect: 'none',
-  padding: grid * 2,
   background: isDragging ? 'grey' : '#FFFFFF',
+  height: '25px',
   ...draggableStyle,
 });
 
 const getListStyle = (isDraggingOver: any) => ({
   background: isDraggingOver ? 'lightblue' : '#FFFFFF',
   border: '2px solid black',
+  borderRadius: '5px',
   padding: grid,
-  width: 250,
+  width: '250px',
   marginLeft: '20px',
   marginRight: '20px',
 });
@@ -28,7 +29,6 @@ export default class ListItem extends React.Component<any, any>
   constructor(props: any)
   {
     super(props)
-    this.state = {}
     this.onDragEnd = this.onDragEnd.bind(this)
     this.move = this.move.bind(this)
     this.getList = this.getList.bind(this)

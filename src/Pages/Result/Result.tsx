@@ -25,8 +25,13 @@ interface Props {
 }
 
 interface State {
-  leader: string,
+  title: string,
+  admin_id: string,
+  poll_id: string,
+  poll_items: string[],
+  options: number,
   auth_status: boolean,
+  leader: string,
 }
 
 class Result extends React.Component <Props, State> {
@@ -37,16 +42,43 @@ class Result extends React.Component <Props, State> {
     this.state = {
       leader: "",
       auth_status: false,
-    };
+      title: "",
+      poll_items: [],
+      poll_id: "",
+      admin_id: "",
+      options: 0,
+    }
   }
 
   componentDidMount()
   {
-    var id = window.location.pathname.split("/").pop() || ""
-    tallyVotes(id)
-    .then((response: any) => {
-      this.setState({
-        leader: response.leader
+    const id: string = window.location.pathname.split("/").pop() || ""
+    axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/returnpoll`, {
+      params: {
+        poll_id: id
+      }
+    })
+    .then((response: any) =>
+    {
+      let count = 0
+      let data = response.data.poll_items
+      let ret: any[] = []
+
+      data.forEach((item: any) => {
+        ret.push({id: String(count), content: item})
+        count++
+      })
+
+      tallyVotes(id)
+      .then((tallyResponse: any) => {
+        this.setState({
+          title: response.data.title,
+          poll_items: ret,
+          poll_id: id,
+          admin_id: response.data.admin_id,
+          options: response.data.options,
+          leader: tallyResponse.leader,
+        })
       })
     })
   }
@@ -71,6 +103,7 @@ class Result extends React.Component <Props, State> {
       <div>
         <InternalNavbar />
         <div className="pollResultContainer">
+          <div className="headerTwo">{this.state.title}</div>
           <div className="pollLeader">{this.state.leader}</div>
         </div>
       </div>

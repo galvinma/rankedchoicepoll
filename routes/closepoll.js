@@ -8,7 +8,6 @@ router.use(function(req, res, next) {
 
 router.route('/closepoll')
   .post(function(req, res, next) {
-    console.log("hit route")
     const poll_id = req.body.params.poll_id
     const user_id = req.body.params.user_id
 

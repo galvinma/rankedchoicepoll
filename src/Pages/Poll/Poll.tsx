@@ -57,7 +57,7 @@ class Poll extends React.Component <Props, State> {
     this.handleVote = this.handleVote.bind(this)
     this.watchPoll = this.watchPoll.bind(this)
   }
-  
+
   componentWillUnmount()
   {
     clearInterval(this.state.intervalId);
@@ -65,7 +65,7 @@ class Poll extends React.Component <Props, State> {
 
   componentDidMount()
   {
-    var id = window.location.pathname.split("/").pop() || ""
+    const id = window.location.pathname.split("/").pop() || ""
     axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/returnpoll`, {
       params: {
         poll_id: id
@@ -187,7 +187,11 @@ class Poll extends React.Component <Props, State> {
       <div>
         <InternalNavbar />
         <div className="pollPageContainer">
-          <div className="pollTitle">{this.state.title}</div>
+          <div className="pollTitle headerOne">{this.state.title}</div>
+          <div className="listLabels">
+            <div className="listLabel headerTwo">Poll Entries</div>
+            <div className="listLabel headerTwo">My Votes</div>
+          </div>
           <DraggableList
             id = "poll_items"
             className="draggableList"
@@ -196,8 +200,10 @@ class Poll extends React.Component <Props, State> {
             poll_items = {this.state.poll_items}
             selected = {this.state.selected}
             options = {this.state.options}/>
-          <div>{close}</div>
-          <div>{vote}</div>
+          <div className="pollButtonContainer">
+            <div>{close}</div>
+            <div>{vote}</div>
+          </div>
         </div>
       </div>
   )}

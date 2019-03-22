@@ -6,7 +6,6 @@ module.exports = {
     return new Promise((resolve, reject) =>
     {
       // TODO: Verify admin use is closing the poll
-      console.log("closing poll")
 
       Poll.update({ poll_id: poll_id }, {status: false}).lean().exec(function(err)
       {
