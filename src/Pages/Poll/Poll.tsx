@@ -11,6 +11,8 @@ import {getAuthStatus, getCurrentUser} from '../.././Actions/actions'
 // functions
 import { checkAuth } from '../.././Utils/checkauth'
 import { reorderDraggableList } from '../.././Utils/reorderdraggablelist'
+import { checkMembership } from '../.././Utils/checkmembership'
+import { addUserToPoll } from '../.././Utils/addusertopoll'
 
 // css
 import '../.././App.css'
@@ -34,6 +36,7 @@ interface State {
   options: number,
   auth_status: boolean,
   intervalId: number,
+  members: string[],
 }
 
 class Poll extends React.Component <Props, State> {
@@ -50,12 +53,14 @@ class Poll extends React.Component <Props, State> {
       options: 0,
       auth_status: false,
       intervalId: 0,
+      members: [],
     };
 
     this.closePoll = this.closePoll.bind(this)
     this.handleReorder = this.handleReorder.bind(this)
     this.handleVote = this.handleVote.bind(this)
     this.watchPoll = this.watchPoll.bind(this)
+    this.addUser = this.addUser.bind(this)
   }
 
   componentWillUnmount()
@@ -88,10 +93,22 @@ class Poll extends React.Component <Props, State> {
         poll_id: id,
         admin_id: response.data.admin_id,
         options: response.data.options,
+        members: response.data.members
       }, () => {
         this.watchPoll()
+
+        if (checkMembership(this.state.members, localStorage.getItem('user')) === false)
+        {
+          console.log('adding member...')
+          this.addUser(this.state.poll_id, localStorage.getItem('user'))
+        }
       })
     })
+  }
+
+  public addUser(poll_id: any, user_id: any)
+  {
+    addUserToPoll(poll_id, user_id)
   }
 
   public closePoll()

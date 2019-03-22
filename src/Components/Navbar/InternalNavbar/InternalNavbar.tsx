@@ -1,11 +1,10 @@
 import * as React from "react";
 import { Link } from 'react-router-dom';
-import ReactSVG from 'react-svg'
 import history from '../../.././history';
 
 // css
 import '../../.././App.css'
-import './InternalNavbar.css'
+import '.././NavBar.css'
 
 // redux
 import store from '../../.././Store/store'
@@ -53,7 +52,7 @@ export default class InternalNavbar extends React.Component<any, any>
     <div className="navbar">
       <div className="navbar-left">
         <div className="navbar-left-entries">
-          <ReactSVG src={check} svgClassName="logo" onClick={this.handleLogoClick}/>
+          <img src={check} className="logo" onClick={this.handleLogoClick}/>
           <Link to="/home" className="linkStyle logoText">Ranked Choice Poll</Link>
         </div>
       </div>

@@ -22,11 +22,11 @@ class Landing extends React.Component {
           <div className="landingCard">
             <Card
               header="How we vote matters"
-              content="Create polls and learn more about ranked choice polling"
+              content="Create polls and learn more about ranked choice voting."
               link="Find out more."/>
           </div>
           <div className="landingSVGContainer">
-            <ReactSVG src={ballot} svgClassName="landingImage"/>
+            <img src={ballot} className="landingImage"/>
           </div>
         </div>
       </div>

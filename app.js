@@ -28,6 +28,7 @@ var newpoll = require('./routes/newpoll')
 var returnpoll = require('./routes/returnpoll')
 var castvote = require('./routes/castvote')
 var closepoll = require('./routes/closepoll')
+var addusertopoll = require('./routes/addusertopoll')
 
 //
 app.use('/api', join)
@@ -39,6 +40,7 @@ app.use('/api', newpoll)
 app.use('/api', returnpoll)
 app.use('/api', castvote)
 app.use('/api', closepoll)
+app.use('/api', addusertopoll)
 
 app.listen(5005);
 

@@ -11,7 +11,8 @@ var Poll = new Schema({
     status: {type: Boolean, required: true},
     threshold: {type: Number, required: true},
     title: {type: String, required: true},
-    votes: {type: [Vote], required: false}
+    votes: {type: [Vote], required: false},
+    members: {type: [ObjectId], required: true}
 });
 
 module.exports = mongoose.model('Poll', Poll);

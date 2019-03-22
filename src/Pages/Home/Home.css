@@ -1,12 +1,23 @@
 .homeContainer
 {
   display: flex;
-  flex-direction: column;
-  margin-left: 50px;
+  flex-direction: row;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-around;
 }
 
 .homeLink
 {
   color: #000000;
   text-decoration: underline;
+}
+
+
+@media only screen and (max-width: 768px)
+{
+  .homeContainer
+  {
+    flex-direction: column;    
+  }
 }

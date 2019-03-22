@@ -12,6 +12,7 @@ module.exports = {
     new_poll.status = true
     new_poll.threshold = 0.5
     new_poll.title = title
+    new_poll.members = [new_poll.admin_id]
 
     new_poll.save(function(err)
     {

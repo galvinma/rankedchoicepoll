@@ -1,15 +1,25 @@
-.linkStyle
+.join
+{
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-radius: 1px;
+  border: 2px solid #000000;
+}
+
+.linkStyle, .linkStyle:hover
 {
   color: #000000;
   margin-right: 10px;
   margin-left: 10px;
   font-family: 'Patua One', cursive;
-  font-size: 16px
+  text-decoration: none;
 }
 
 .logo
 {
-  max-height: 50px;
+  height: 50px;
   cursor: pointer;
 }
 
@@ -25,21 +35,26 @@
   flex-direction: row;
   margin-bottom: 50px;
   height: 80px !important;
+  z-index: 100 !important;
 }
 
 .navbar-left
 {
   margin-right: auto;
   margin-left: 50px;
+  width: 50%;
 }
 
 .navbar-left-entries
 {
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
 
 .navbar-right
 {
   margin-left: auto;
+  width: auto;
+  margin-right: 50px;
 }
