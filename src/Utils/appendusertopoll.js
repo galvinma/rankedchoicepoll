@@ -6,9 +6,6 @@ module.exports = {
   {
     return new Promise((resolve, reject) =>
     {
-      console.log("updaing poll")
-      console.log(user_id)
-      console.log(poll_id)
       Poll.update({ poll_id: poll_id }, {$push: {members: user_id}}).lean().exec(function(err)
       {
         if (err)

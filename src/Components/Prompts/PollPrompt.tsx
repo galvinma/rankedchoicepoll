@@ -25,6 +25,7 @@ interface State {
   confirmPassHelper: string;
   auth_status: boolean;
   poll_items: string[];
+  members: string[];
 }
 
 class PollPrompt extends React.Component <Props, State> {
@@ -39,14 +40,19 @@ class PollPrompt extends React.Component <Props, State> {
       title: "",
       auth_status: false,
       poll_items: [],
+      members: [],
     };
 
     this.checkCreation = this.checkCreation.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleNewPoll = this.handleNewPoll.bind(this)
+    this.pushListItem = this.pushListItem.bind(this)
+    this.pushMember = this.pushMember.bind(this)
   }
 
   handleChange(event: any) {
+    console.log(event.target.id)
+    console.log(event.target.value)
     this.setState({[event.target.id]: event.target.value} as any);
   };
 
@@ -75,6 +81,23 @@ class PollPrompt extends React.Component <Props, State> {
     }
   }
 
+  pushMember(event: any)
+  {
+    if (event.keyCode === 13) {
+      event.preventDefault()
+
+      let ret = this.state.members
+      ret.push(event.target.value)
+
+      this.setState({
+        members: ret,
+        entry: "",
+      })
+
+      event.target.value = ""
+    }
+  }
+
   handleNewPoll()
   {
     this.setState({
@@ -92,6 +115,7 @@ class PollPrompt extends React.Component <Props, State> {
         options: this.state.options,
         poll_items: this.state.poll_items,
         title: this.state.title,
+        members: this.state.members,
       }
     })
     .then((response) => {
@@ -115,12 +139,19 @@ class PollPrompt extends React.Component <Props, State> {
             <div>Poll Title</div>
             <input className="formInput" type="text" name="title" id="title" />
           </div>
-          <div onKeyDown={(e) => this.pushListItem(e)}>
+          <div>
             <div>Poll Entries</div>
-            <input className="formInput" type="text" name="entry" id="entry" />
+            <input className="formInput" type="text" name="entry" id="entry" onKeyDown={(e) => this.pushListItem(e)} />
           </div>
           <ul className="pollItemsContainer">
             {this.state.poll_items.map(this.returnListItem)}
+          </ul>
+          <div>
+            <div>Poll Members</div>
+            <input className="formInput" type="text" name="mems" id="mems" onKeyDown={(e) => this.pushMember(e)} />
+          </div>
+          <ul className="pollItemsContainer">
+            {this.state.members.map(this.returnListItem)}
           </ul>
           <div onChange={this.handleChange}>
             <div>Number of Options</div>

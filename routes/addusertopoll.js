@@ -22,7 +22,6 @@ router.route('/addusertopoll')
     const poll_id = req.body.params.poll_id
     const user_id = req.body.params.user_id
 
-    console.log("appending user")
     appendUserToPoll.appendUserToPoll(poll_id, user_id)
     .then((response) => {
       res.json(response)

@@ -1,6 +1,9 @@
 var express = require('express');
 var createNewPoll = require('.././src/Utils/createnewpoll')
 var checkObjectExistance = require('.././src/Utils/checkobjectexistance')
+var joinUserOnlyEmail = require('.././src/Utils/joinuseronlyemail')
+var getUserIdFromEmail = require('.././src/Utils/getuseridfromemail')
+var prepMembers = require('.././src/Utils/prepmembers')
 
 var router = express.Router();
 router.use(function(req, res, next) {
@@ -8,7 +11,7 @@ router.use(function(req, res, next) {
 });
 
 router.route('/newpoll')
-  .post(function(req, res, next) {
+  .post(async function(req, res, next) {
 
     let check = [req.body.params.admin_id, req.body.params.options, req.body.params.poll_items, req.body.params.title]
     for (var i=0; i<check.length; i++)
@@ -20,13 +23,32 @@ router.route('/newpoll')
       }
     }
 
+    // Get object IDs from supplied emails.
+    let members
+    try
+    {
+      members = await prepMembers.prepMembers(req.body.params.members)
+    }
+    catch (error)
+    {
+      console.log(error)
+      return
+    }
+    members.push(req.body.params.admin_id)
+
+    console.log("all members...")
+    console.log(members)
+
     const admin_id = req.body.params.admin_id
     const options = req.body.params.options
     const poll_items = req.body.params.poll_items
     const title = req.body.params.title
-    const pollResponse = createNewPoll.createNewPoll(admin_id, options, poll_items, title)
+
+    // Crate new poll using member IDs
+    const pollResponse = createNewPoll.createNewPoll(admin_id, options, poll_items, title, members)
     res.json(pollResponse)
     return
+
   });
 
 module.exports = router;

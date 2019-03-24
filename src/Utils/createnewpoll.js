@@ -2,7 +2,7 @@ var Poll = require('../.././model/poll');
 var ObjectId = require('mongodb').ObjectID;
 
 module.exports = {
-  createNewPoll: function(admin_id, options, poll_items, title)
+  createNewPoll: function(admin_id, options, poll_items, title, members)
   {
     var new_poll = new Poll()
     new_poll.admin_id = admin_id
@@ -12,7 +12,7 @@ module.exports = {
     new_poll.status = true
     new_poll.threshold = 0.5
     new_poll.title = title
-    new_poll.members = [new_poll.admin_id]
+    new_poll.members = members
 
     new_poll.save(function(err)
     {

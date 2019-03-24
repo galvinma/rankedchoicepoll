@@ -8,27 +8,33 @@ var checkObjectExistance = require('./checkobjectexistance')
 module.exports = {
   joinUserOnlyEmail: function(email)
   {
-    const args = Object.values(arguments)
-    for (var i=0; i<args.length; i++)
-    {
-      if (checkObjectExistance.checkObjectExistance(args[i]) === false)
+    return new Promise((resolve, reject) => {
+      const args = Object.values(arguments)
+      for (var i=0; i<args.length; i++)
       {
-        return {allow: false, message: "Missing required parameters"}
-      }
-    }
-
-    var signup_user = new Users();
-    signup_user.id = new ObjectId();
-    signup_user.email = email;
-    signup_user.registered = false;
-
-    signup_user.save(function(err) {
-        if (err)
+        if (checkObjectExistance.checkObjectExistance(args[i]) === false)
         {
-          return {allow: false, message: "Unable to register user"}
+          return reject({allow: false, message: "Missing required parameters"})
         }
-    })
+      }
 
-    return {allow: false, user: signup_user.id, token: null}
+      var signup_user = new Users();
+      signup_user.id = new ObjectId();
+      signup_user.email = email;
+      signup_user.registered = false;
+
+      console.log("Signing up user "+ email)
+      signup_user.save(function(err) {
+          if (err)
+          {
+            console.log(err)
+            return reject({allow: false, message: "Unable to register user"})
+          }
+          else
+          {
+            return resolve({allow: false, user: signup_user.id, token: null})
+          }
+      })
+    })
   }
 }
