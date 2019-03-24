@@ -96,13 +96,8 @@ class Poll extends React.Component <Props, State> {
         members: response.data.members
       }, () => {
         this.watchPoll()
-
-        console.log(this.state.members)
-        console.log(localStorage.getItem('user'))
-        console.log(checkMembership(this.state.members, localStorage.getItem('user')))
         if (checkMembership(this.state.members, localStorage.getItem('user')) === false)
         {
-          console.log('adding member...')
           this.addUser(this.state.poll_id, localStorage.getItem('user'))
         }
       })

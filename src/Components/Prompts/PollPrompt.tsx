@@ -8,10 +8,16 @@ import { Button } from 'reactstrap';
 import '../.././App.css'
 import './Prompt.css'
 
+// functions
+import { checkArrayForValue } from '../.././Utils/checkarrayforvalue'
+
 // redux
 import store from '../.././Store/store'
 const {connect} = require("react-redux");
 import {getAuthStatus, getCurrentUser} from '../.././Actions/actions'
+
+// email val
+var validator = require("email-validator");
 
 // Props / State
 interface Props {
@@ -22,10 +28,10 @@ interface State {
   options: string;
   title: string;
   entry: string;
-  confirmPassHelper: string;
   auth_status: boolean;
   poll_items: string[];
   members: string[];
+  promptHelperText: string;
 }
 
 class PollPrompt extends React.Component <Props, State> {
@@ -34,13 +40,13 @@ class PollPrompt extends React.Component <Props, State> {
     super(props)
 
     this.state = {
-      confirmPassHelper: "",
       options: "",
       entry: "",
       title: "",
       auth_status: false,
       poll_items: [],
       members: [],
+      promptHelperText: "",
     };
 
     this.checkCreation = this.checkCreation.bind(this)
@@ -48,11 +54,10 @@ class PollPrompt extends React.Component <Props, State> {
     this.handleNewPoll = this.handleNewPoll.bind(this)
     this.pushListItem = this.pushListItem.bind(this)
     this.pushMember = this.pushMember.bind(this)
+    this.handleOptions = this.handleOptions.bind(this)
   }
 
   handleChange(event: any) {
-    console.log(event.target.id)
-    console.log(event.target.value)
     this.setState({[event.target.id]: event.target.value} as any);
   };
 
@@ -64,20 +69,73 @@ class PollPrompt extends React.Component <Props, State> {
     }
   }
 
+  handleOptions(event: any) {
+    this.setState({
+      promptHelperText: ""
+    })
+
+    if (event.target.value === "")
+    {
+      return
+    }
+
+    let opts: number = parseInt(event.target.value)
+    if (isNaN(opts) === true || typeof opts !== "number" || Number(event.target.value) !== parseInt(event.target.value))
+    {
+      this.setState({
+        promptHelperText: "Poll item option must be an integer"
+      })
+      return
+    }
+    else if (opts < 1 || opts > this.state.poll_items.length)
+    {
+      this.setState({
+        promptHelperText: "Poll item option must be less than list length and greater than zero"
+      })
+      return
+    }
+    else
+    {
+      this.setState({[event.target.id]: event.target.value} as any);
+    }
+  };
+
   pushListItem(event: any)
   {
     if (event.keyCode === 13) {
       event.preventDefault()
 
-      let ret = this.state.poll_items
-      ret.push(event.target.value)
-
       this.setState({
-        poll_items: ret,
-        entry: "",
+        promptHelperText: ""
       })
 
-      event.target.value = ""
+      // check if item is empty && if item is already in list
+      if (event.target.value === "")
+      {
+        this.setState({
+          promptHelperText: "Poll item cannot be empty"
+        })
+        return
+      }
+      else if (checkArrayForValue(this.state.poll_items, event.target.value) === true)
+      {
+        this.setState({
+          promptHelperText: "Poll item already in list"
+        })
+        return
+      }
+      else
+      {
+        let ret = this.state.poll_items
+        ret.push(event.target.value)
+
+        this.setState({
+          poll_items: ret,
+          entry: "",
+        })
+
+        event.target.value = ""
+      }
     }
   }
 
@@ -86,27 +144,54 @@ class PollPrompt extends React.Component <Props, State> {
     if (event.keyCode === 13) {
       event.preventDefault()
 
-      let ret = this.state.members
-      ret.push(event.target.value)
-
       this.setState({
-        members: ret,
-        entry: "",
+        promptHelperText: ""
       })
 
-      event.target.value = ""
+      // check if item is empty && if item is already in list
+      if (event.target.value === "")
+      {
+        this.setState({
+          promptHelperText: "Member field cannot be empty"
+        })
+        return
+      }
+      else if (checkArrayForValue(this.state.members, event.target.value) === true)
+      {
+        this.setState({
+          promptHelperText: "Email already in list"
+        })
+        return
+      }
+      else if (validator.validate(event.target.value) === false)
+      {
+        this.setState({ promptHelperText: "Invalid email address"})
+        return
+      }
+      else
+      {
+        let ret = this.state.members
+        ret.push(event.target.value)
+
+        this.setState({
+          members: ret,
+          entry: "",
+        })
+
+        event.target.value = ""
+      }
     }
   }
 
   handleNewPoll()
   {
     this.setState({
-      confirmPassHelper: ""
+      promptHelperText: ""
     })
 
     if (this.state.title === "" || this.state.options === "")
     {
-      this.setState({ confirmPassHelper: "Missing required field(s)"})
+      this.setState({ promptHelperText: "Missing required field(s)"})
       return
     }
     axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/newpoll`, {
@@ -153,11 +238,12 @@ class PollPrompt extends React.Component <Props, State> {
           <ul className="pollItemsContainer">
             {this.state.members.map(this.returnListItem)}
           </ul>
-          <div onChange={this.handleChange}>
+          <div onChange={this.handleOptions}>
             <div>Number of Options</div>
             <input className="formInput" type="text" name="options" id="options" />
           </div>
           <div>
+            <div id="promptHelperText" className="helperText">{this.state.promptHelperText}</div>
           </div>
           <button className="pollButton" onClick={() => this.handleNewPoll()}>Create New Poll</button>
         </div>
