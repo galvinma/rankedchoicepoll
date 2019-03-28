@@ -44,7 +44,6 @@ router.route('/newpoll')
     pollResponse = await createNewPoll.createNewPoll(admin_id, options, poll_items, title, members)
     res.json(pollResponse)
     return
-
   });
 
 module.exports = router;

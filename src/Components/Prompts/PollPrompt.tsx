@@ -204,6 +204,7 @@ class PollPrompt extends React.Component <Props, State> {
       }
     })
     .then((response) => {
+      console.log(response)
       if (response.data.allow === true)
       {
         history.push(`/poll/${response.data.poll_id}`)

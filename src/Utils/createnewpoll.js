@@ -1,12 +1,17 @@
 var Poll = require('../.././model/poll');
 var ObjectId = require('mongodb').ObjectID;
 var appendPollToUser = require('./appendpolltouser')
+var returnUserData = require('./returnuserdata')
 
 module.exports = {
   createNewPoll: async function(admin_id, options, poll_items, title, members)
   {
+
+    let userData = await returnUserData.returnUserData(admin_id)
+
     var new_poll = new Poll()
     new_poll.admin_id = admin_id
+    new_poll.admin_name = userData.user.firstname + " " + userData.user.lastname
     new_poll.options = options
     new_poll.poll_id = new ObjectId()
     new_poll.poll_items = poll_items
