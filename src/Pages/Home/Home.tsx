@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Redirect, Link } from 'react-router-dom';
 import history from '../.././history';
+import axios from 'axios';
 
 // css
 import '../.././App.css'
@@ -23,13 +24,44 @@ interface Props {
 }
 
 interface State {
-  auth_status: boolean
+  auth_status: boolean;
+  active_polls: string[];
+  closed_polls: string[]
 }
 
 class Home extends React.Component <Props, State> {
   constructor(props: any)
   {
     super(props)
+    this.state = {
+      auth_status: false,
+      active_polls: [],
+      closed_polls: [],
+    }
+  }
+
+  componentDidMount()
+  {
+    axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/returnuserpolls`, {
+      params: {
+        user_id: localStorage.getItem('user'),
+      }
+    })
+    .then((response) => {
+      this.setState({
+        active_polls: response.data.active_polls,
+        closed_polls: response.data.closed_polls,
+      })
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
+  returnListItem(i: string)
+  {
+    return (<li key={i} className="pollItem">{i}</li>)
   }
 
   public render() {
@@ -55,11 +87,11 @@ class Home extends React.Component <Props, State> {
            <Link className="headerTwo homeLink" to="/newpoll">Create New Poll</Link>
            <div>
               <div className="headerTwo">My Active Polls</div>
-              <div className="pollNameContainer"></div>
+              <div className="pollNameContainer">{this.state.active_polls.map(this.returnListItem)}</div>
            </div>
            <div>
               <div className="headerTwo">Closed Polls</div>
-              <div className="pollNameContainer"></div>
+              <div className="pollNameContainer">{this.state.closed_polls.map(this.returnListItem)}</div>
            </div>
         </div>
       </div>

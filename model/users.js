@@ -12,13 +12,14 @@ var Users = new Schema({
     password: {type: String, required: false},
     join_date: {type: Number, required: false},
     reset_count: {type: Number, required: false},
-    registered: {type: Boolean, required: true}
+    registered: {type: Boolean, required: true},
+    active_polls: {type: [ObjectId], required: false},
+    closed_polls: {type: [ObjectId], required: false},
 });
 
 Users.pre('save', function(next) {
     var user = this;
-
-    if (user.password)
+    if (user.registered === true)
     {
       bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
           if (err) return next(err);
@@ -27,10 +28,14 @@ Users.pre('save', function(next) {
               if (err) return next(err);
 
               user.password = hash;
+              next()
           });
       });
     }
-    next()
+    else
+    {
+      next()
+    }
 });
 
 

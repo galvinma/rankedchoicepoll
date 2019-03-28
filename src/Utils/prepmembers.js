@@ -28,10 +28,12 @@ module.exports = {
               try
               {
                 let joinResponse = await joinUserOnlyEmail.joinUserOnlyEmail(member_emails[i])
+                console.log(joinResponse)
                 members.push(joinResponse.user)
               }
               catch (joinError)
               {
+                console.log(joinError)
                 return reject(joinError)
               }
             }
@@ -43,6 +45,7 @@ module.exports = {
         }
         catch(error)
         {
+          console.log(error)
           return reject(error)
         }
       }

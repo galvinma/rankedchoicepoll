@@ -31,13 +31,9 @@ router.route('/newpoll')
     }
     catch (error)
     {
-      console.log(error)
       return
     }
     members.push(req.body.params.admin_id)
-
-    console.log("all members...")
-    console.log(members)
 
     const admin_id = req.body.params.admin_id
     const options = req.body.params.options
@@ -45,7 +41,7 @@ router.route('/newpoll')
     const title = req.body.params.title
 
     // Crate new poll using member IDs
-    const pollResponse = createNewPoll.createNewPoll(admin_id, options, poll_items, title, members)
+    pollResponse = await createNewPoll.createNewPoll(admin_id, options, poll_items, title, members)
     res.json(pollResponse)
     return
 
