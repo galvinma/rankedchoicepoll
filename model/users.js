@@ -19,7 +19,7 @@ var Users = new Schema({
 
 Users.pre('save', function(next) {
     var user = this;
-    if (user.registered === true)
+    if (user.password !== "" && user.password !== null && user.password !== undefined)
     {
       bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
           if (err) return next(err);
@@ -28,13 +28,13 @@ Users.pre('save', function(next) {
               if (err) return next(err);
 
               user.password = hash;
-              next()
+              return next()
           });
       });
     }
     else
     {
-      next()
+      return next()
     }
 });
 

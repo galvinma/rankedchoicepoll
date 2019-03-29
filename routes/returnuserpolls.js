@@ -26,7 +26,6 @@ router.route('/returnuserpolls')
       }
       catch (error)
       {
-        console.log(error)
         res.json(error)
         return
       }

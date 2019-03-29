@@ -6,7 +6,6 @@ var returnUserData = require('./returnuserdata')
 module.exports = {
   createNewPoll: async function(admin_id, options, poll_items, title, members)
   {
-
     let userData = await returnUserData.returnUserData(admin_id)
 
     var new_poll = new Poll()
@@ -28,23 +27,18 @@ module.exports = {
       }
     })
 
-    console.log(members)
     for (var i=0; i<members.length; i++)
     {
       try
       {
-        console.log("Adding poll "+new_poll.poll_id+ " to user profile "+members[i])
         let appendPoll = await appendPollToUser.appendPollToUser(new_poll.poll_id, members[i])
-        console.log(appendPoll)
       }
       catch(error)
       {
-        console.log(error)
         return(error)
       }
     }
 
-    console.log("Done with new poll creation...")
     return {allow: true, poll_id: new_poll.poll_id}
   }
 }

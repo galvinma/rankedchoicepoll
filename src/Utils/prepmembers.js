@@ -19,7 +19,10 @@ module.exports = {
           let userResponse = await getUserIdFromEmail.getUserIdFromEmail(member_emails[i])
           if (userResponse !== null && userResponse !== undefined)
           {
-            members.push(userResponse)
+            if (members.indexOf(userResponse) === -1)
+            {
+              members.push(userResponse)
+            }
           }
           else
           {
@@ -28,12 +31,13 @@ module.exports = {
               try
               {
                 let joinResponse = await joinUserOnlyEmail.joinUserOnlyEmail(member_emails[i])
-                console.log(joinResponse)
-                members.push(joinResponse.user)
+                if (members.indexOf(joinResponse.user) === -1)
+                {
+                  members.push(joinResponse.user)
+                }
               }
               catch (joinError)
               {
-                console.log(joinError)
                 return reject(joinError)
               }
             }
@@ -45,7 +49,6 @@ module.exports = {
         }
         catch(error)
         {
-          console.log(error)
           return reject(error)
         }
       }

@@ -13,6 +13,7 @@ import { checkAuth } from '../.././Utils/checkauth'
 import { reorderDraggableList } from '../.././Utils/reorderdraggablelist'
 import { checkMembership } from '../.././Utils/checkmembership'
 import { addUserToPoll } from '../.././Utils/addusertopoll'
+import { addPollToUser } from '../.././Utils/addpolltouser'
 
 // css
 import '../.././App.css'
@@ -104,13 +105,14 @@ class Poll extends React.Component <Props, State> {
     })
     .catch((err) =>
     {
-      console.log(err)
+      // TODO: SNACKBAR
     })
   }
 
   public addUser(poll_id: any, user_id: any)
   {
     addUserToPoll(poll_id, user_id)
+    addPollToUser(poll_id, user_id)
   }
 
   public closePoll()
@@ -147,7 +149,7 @@ class Poll extends React.Component <Props, State> {
       }
     })
     .then((response) => {
-      console.log(response)
+      // TODO: SNACKBAR
     })
   }
 

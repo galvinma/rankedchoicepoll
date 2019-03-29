@@ -6,18 +6,20 @@ module.exports = {
   {
     return new Promise((resolve, reject) =>
     {
-      // TODO: Verify admin use is closing the poll
-
-      Poll.update({ poll_id: poll_id }, {status: false}).lean().exec(function(err)
+      Poll.findOne({ poll_id: poll_id }, {status: false}).lean().exec(function(err, poll)
       {
         if (err)
         {
-           return reject({success: false, message: "Unable to close poll."})
+           return reject({success: false, message: "Unable to close poll"})
         }
         else
         {
-          // Update Users active_polls --> closed_polls
-          Poll.findOne({ poll_id: poll_id }).lean().exec(async function(err, poll) {
+          if (poll.admin_id !== poll_id)
+          {
+            reject({ success: false, message: "Unauthorized user closing poll" })
+          }
+
+          Poll.update({ poll_id: poll_id }, {status: false}).lean().exec(async function(err) {
             if (err)
             {
               reject({ success: false, message: "Unable to find poll" })
@@ -32,7 +34,7 @@ module.exports = {
               }
               catch(error)
               {
-                reject({ success: false, message: "Unable to find update all users." })
+                reject({ success: false, message: "Unable to find update all users" })
               }
             }
 

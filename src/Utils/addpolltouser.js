@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export function addUserToPoll(poll_id, user_id)
+export function addPollToUser(poll_id, user_id)
 {
-  axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/addusertopoll`, {
+  axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/addpolltouser`, {
     params: {
       poll_id: poll_id,
       user_id: user_id,

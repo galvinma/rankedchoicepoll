@@ -29,6 +29,7 @@ var returnpoll = require('./routes/returnpoll')
 var castvote = require('./routes/castvote')
 var closepoll = require('./routes/closepoll')
 var addusertopoll = require('./routes/addusertopoll')
+var addpolltouser = require('./routes/addpolltouser')
 var returnuserpolls = require('./routes/returnuserpolls')
 
 //
@@ -42,6 +43,7 @@ app.use('/api', returnpoll)
 app.use('/api', castvote)
 app.use('/api', closepoll)
 app.use('/api', addusertopoll)
+app.use('/api', addpolltouser)
 app.use('/api', returnuserpolls)
 
 app.listen(5005);

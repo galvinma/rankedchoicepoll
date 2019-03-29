@@ -10,12 +10,10 @@ module.exports = {
       {
         if (err)
         {
-          console.log(err)
           return reject({success: false, message: "Unable to update user. Poll not added"})
         }
         else
         {
-          console.log("added to active...")
           return resolve({success: true, message: "Successfully added poll(s) to user"})
         }
       })

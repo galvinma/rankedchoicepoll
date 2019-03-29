@@ -9,31 +9,21 @@ module.exports = {
   joinUserOnlyEmail: function(email)
   {
     return new Promise((resolve, reject) => {
-      const args = Object.values(arguments)
-      for (var i=0; i<args.length; i++)
-      {
-        if (checkObjectExistance.checkObjectExistance(args[i]) === false)
-        {
-          return reject({allow: false, message: "Missing required parameters"})
-        }
-      }
-
       var signup_user = new Users();
       signup_user.id = new ObjectId();
-      signup_user.email = email;
+      signup_user.email = email.toUpperCase();
       signup_user.registered = false;
 
-      console.log("Signing up user "+ email)
-      signup_user.save(function(err) {
-          if (err)
-          {
-            console.log(err)
-            return reject({allow: false, message: "Unable to register user"})
-          }
-          else
-          {
-            return resolve({allow: false, user: signup_user.id, token: null})
-          }
+      signup_user.save(function(err)
+      {
+        if (err)
+        {
+          return reject({allow: false, message: "Unable to register user"})
+        }
+        else
+        {
+          return resolve({allow: false, user: signup_user.id, token: null})
+        }
       })
     })
   }

@@ -33,7 +33,11 @@ router.route('/newpoll')
     {
       return
     }
-    members.push(req.body.params.admin_id)
+
+    if (members.indexOf(req.body.params.admin_id) === -1)
+    {
+      members.push(req.body.params.admin_id)
+    }
 
     const admin_id = req.body.params.admin_id
     const options = req.body.params.options

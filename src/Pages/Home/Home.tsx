@@ -25,8 +25,15 @@ interface Props {
 
 interface State {
   auth_status: boolean;
-  active_polls: string[];
-  closed_polls: string[]
+  active_polls: UserPolls[];
+  closed_polls: UserPolls[];
+}
+
+interface UserPolls {
+  poll_id: string;
+  admin_name: string;
+  title: string;
+  status: string;
 }
 
 class Home extends React.Component <Props, State> {
@@ -38,6 +45,9 @@ class Home extends React.Component <Props, State> {
       active_polls: [],
       closed_polls: [],
     }
+
+    this.handlePush = this.handlePush.bind(this)
+    this.returnListItem = this.returnListItem.bind(this)
   }
 
   componentDidMount()
@@ -52,16 +62,27 @@ class Home extends React.Component <Props, State> {
         active_polls: response.data.active_polls,
         closed_polls: response.data.closed_polls,
       })
-      console.log(response)
     })
     .catch((error) => {
-      console.log(error)
+      // TODO: SNACKBAR
     })
   }
 
-  returnListItem(i: string)
+  public handlePush(event: any, status: string)
   {
-    return (<li key={i} className="pollItem">{i}</li>)
+    if (String(status) === 'false')
+    {
+      history.push(`/result/${event.target.id}`)
+    }
+    else
+    {
+      history.push(`/poll/${event.target.id}`)
+    }
+  }
+
+  public returnListItem(i: UserPolls)
+  {
+    return (<li id={i.poll_id} key={i.title+i.poll_id} className="pollItem" onClick={(e) => this.handlePush(e, i.status)}>{i.title} by {i.admin_name}</li>)
   }
 
   public render() {
@@ -87,11 +108,15 @@ class Home extends React.Component <Props, State> {
            <Link className="headerTwo homeLink" to="/newpoll">Create New Poll</Link>
            <div>
               <div className="headerTwo">My Active Polls</div>
-              <div className="pollNameContainer">{this.state.active_polls.map(this.returnListItem)}</div>
+              <div className="pollNameContainer">
+                {this.state.active_polls.map(this.returnListItem)}
+              </div>
            </div>
            <div>
               <div className="headerTwo">Closed Polls</div>
-              <div className="pollNameContainer">{this.state.closed_polls.map(this.returnListItem)}</div>
+              <div className="pollNameContainer">
+                {this.state.closed_polls.map(this.returnListItem)}
+              </div>
            </div>
         </div>
       </div>

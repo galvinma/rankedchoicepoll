@@ -8,7 +8,6 @@ var checkObjectExistance = require('./checkobjectexistance')
 module.exports = {
   activeToClosed: function(poll_id, user_id)
   {
-    console.log("Updating user "+user_id)
     Users.findOne({ id: user_id }).lean().exec(function(err, user)
     {
       if (err)
@@ -36,17 +35,17 @@ module.exports = {
         return {success: false, message: "Unable to find poll."}
       }
 
+      let closed = user.closed_polls.slice(0)
+      closed.push(poll_id)
 
       Users.update({id: user_id}, {active_polls: active, closed_polls: closed}).lean().exec(function(err)
       {
         if (err)
         {
-          console.log(err)
           return {success: false, message: "Unable to update user."}
         }
         else
         {
-          console.log("Successfully transfered active to closed")
           return {success: true, message: "Successfully updates user"}
         }
       })
