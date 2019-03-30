@@ -22,6 +22,8 @@ import './Poll.css'
 // components
 import InternalNavbar from '../../Components/Navbar/InternalNavbar/InternalNavbar'
 import DraggableList from '../../Components/List/DraggableList'
+import GenericAlert from '../../Components/Alerts/GenericAlert/GenericAlert'
+import ShareLink from '../../Components/ShareLink/ShareLink'
 
 // Props / State
 interface Props {
@@ -223,6 +225,8 @@ class Poll extends React.Component <Props, State> {
             <div>{close}</div>
             <div>{vote}</div>
           </div>
+          <ShareLink />
+          <GenericAlert />
         </div>
       </div>
   )}

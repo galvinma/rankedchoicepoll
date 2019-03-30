@@ -10,6 +10,16 @@ export const getCurrentUser = (current_user: string) => ({
   current_user: current_user
 });
 
+export const getAlertMessage = (alert_message: string) => ({
+  type: ActionTypes.ALERT_MESSAGE,
+  alert_message: alert_message
+});
+
+export const getAlertColor= (alert_color: string) => ({
+  type: ActionTypes.ALERT_COLOR,
+  alert_color: alert_color
+});
+
 export const resetStore = () => ({
   type: "RESET_STORE",
 })
