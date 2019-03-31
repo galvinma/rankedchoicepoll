@@ -47,11 +47,11 @@ class ShareLink extends React.Component <Props, State> {
       window.getSelection().addRange(range);
       document.execCommand("copy");
 
-      dispatchAlert(store.getState().success, "Link copied to clipboard")
+      dispatchAlert(store.getState().success, "Link copied to clipboard", 5000)
     }
     catch (error)
     {
-      dispatchAlert(store.getState().fail, "Unable to copy link")
+      dispatchAlert(store.getState().error, "Unable to copy link", 5000)
     }
   }
 

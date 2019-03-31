@@ -8,6 +8,7 @@ import '.././Alerts.css'
 // redux
 import store from '../../.././Store/store'
 const {connect} = require("react-redux");
+import {getAlertColor, getAlertMessage} from '../../.././Actions/actions'
 
 // Props / State
 interface Props {
@@ -32,6 +33,14 @@ class GenericAlert extends React.Component <Props, State> {
       alert_color: "",
       auth_status: false,
     };
+
+    this.hideAlert = this.hideAlert.bind(this)
+  }
+
+  public hideAlert()
+  {
+    store.dispatch(getAlertColor(""))
+    store.dispatch(getAlertMessage(""))
   }
 
   public render() {
@@ -43,6 +52,7 @@ class GenericAlert extends React.Component <Props, State> {
       <div className="footer">
         <div className="alertContainer" style={{backgroundColor: store.getState().alert_color}}>
           <div className="alertText">{store.getState().alert_message}</div>
+          <div className="close" onClick={this.hideAlert}>x</div>
         </div>
       </div>
     }

@@ -30,7 +30,7 @@ module.exports = {
         }
         else
         {
-          return reject({success: false, message: "User has already voted in the poll"})
+          return reject({success: false, message: "You have already voted in this poll."})
         }
       })
       .catch((error) => {

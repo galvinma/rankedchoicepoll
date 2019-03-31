@@ -18,6 +18,7 @@ import './Result.css'
 
 // components
 import InternalNavbar from '../../Components/Navbar/InternalNavbar/InternalNavbar'
+import GenericAlert from '../../Components/Alerts/GenericAlert/GenericAlert'
 
 // Props / State
 interface Props {
@@ -106,6 +107,7 @@ class Result extends React.Component <Props, State> {
           <div className="headerTwo">{this.state.title}</div>
           <div className="pollLeader">{this.state.leader}</div>
         </div>
+        <GenericAlert />
       </div>
   )}
 }

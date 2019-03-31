@@ -7,6 +7,7 @@ import './SignIn.css'
 // components
 import ExternalNavbar from '../../Components/Navbar/ExternalNavbar/ExternalNavbar'
 import SignInPrompt from '../../Components/Prompts/SignInPrompt'
+import GenericAlert from '../../Components/Alerts/GenericAlert/GenericAlert'
 
 class Join extends React.Component {
   render() {
@@ -14,6 +15,7 @@ class Join extends React.Component {
       <div>
         <ExternalNavbar />
         <SignInPrompt />
+        <GenericAlert />
       </div>
   )}
 }

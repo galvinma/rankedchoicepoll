@@ -14,6 +14,7 @@ import { reorderDraggableList } from '../.././Utils/reorderdraggablelist'
 import { checkMembership } from '../.././Utils/checkmembership'
 import { addUserToPoll } from '../.././Utils/addusertopoll'
 import { addPollToUser } from '../.././Utils/addpolltouser'
+import { dispatchAlert } from '../.././Utils/dispatchalert'
 
 // css
 import '../.././App.css'
@@ -107,7 +108,7 @@ class Poll extends React.Component <Props, State> {
     })
     .catch((err) =>
     {
-      // TODO: SNACKBAR
+      dispatchAlert(store.getState().error, "Unable to fetch poll from server.")
     })
   }
 
@@ -131,6 +132,10 @@ class Poll extends React.Component <Props, State> {
         history.push(`/result/${this.state.poll_id}`)
       }
     })
+    .catch((error) =>
+    {
+      dispatchAlert(store.getState().error, "Unable to fetch poll from server.", "INFINITE")
+    })
   }
 
   public handleReorder(list: any, id: any)
@@ -151,7 +156,18 @@ class Poll extends React.Component <Props, State> {
       }
     })
     .then((response) => {
-      // TODO: SNACKBAR
+      if (response.data.success === true)
+      {
+        dispatchAlert(store.getState().success, response.data.message, 5000)
+      }
+      else
+      {
+        dispatchAlert(store.getState().error, response.data.message, "INFINITE")
+      }
+
+    })
+    .catch((error) => {
+      dispatchAlert(store.getState().success, "Unable to cast vote.", "INFINITE")
     })
   }
 
@@ -170,6 +186,10 @@ class Poll extends React.Component <Props, State> {
         {
           history.push(`/result/${this.state.poll_id}`)
         }
+      })
+      .catch((error) =>
+      {
+        dispatchAlert(store.getState().error, "Unable to fetch poll from server.", "INFINITE")
       })
     }, 5000)
 

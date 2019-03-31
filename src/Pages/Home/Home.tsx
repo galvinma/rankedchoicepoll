@@ -12,6 +12,7 @@ import { checkAuth } from '../.././Utils/checkauth'
 
 // components
 import InternalNavbar from '../../Components/Navbar/InternalNavbar/InternalNavbar'
+import GenericAlert from '../../Components/Alerts/GenericAlert/GenericAlert'
 
 // redux
 import store from '../.././Store/store'
@@ -119,6 +120,7 @@ class Home extends React.Component <Props, State> {
               </div>
            </div>
         </div>
+        <GenericAlert />        
       </div>
   )}
 }

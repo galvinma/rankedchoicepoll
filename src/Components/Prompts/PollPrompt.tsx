@@ -4,12 +4,16 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
+// components
+import GenericAlert from '../../Components/Alerts/GenericAlert/GenericAlert'
+
 // css
 import '../.././App.css'
 import './Prompt.css'
 
 // functions
 import { checkArrayForValue } from '../.././Utils/checkarrayforvalue'
+import { dispatchAlert } from '../.././Utils/dispatchalert'
 
 // redux
 import store from '../.././Store/store'
@@ -133,7 +137,6 @@ class PollPrompt extends React.Component <Props, State> {
           poll_items: ret,
           entry: "",
         })
-
         event.target.value = ""
       }
     }
@@ -208,6 +211,9 @@ class PollPrompt extends React.Component <Props, State> {
       {
         history.push(`/poll/${response.data.poll_id}`)
       }
+    })
+    .catch((error) => {
+        dispatchAlert(store.getState().error, "Unable to reach server.", "INFINITE")
     })
   }
 

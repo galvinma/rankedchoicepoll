@@ -5,8 +5,10 @@ const initialState = {
   current_user: null,
   alert_color: "",
   alert_message: "",
-  success: "#278BE4",
-  fail: "#ED4F32",
+  success: "#D4EDDA",
+  error: "#F8D7DA",
+  warning: "#FFF3CD",
+  alert: "#CCE5FF",
 };
 
 function rootReducer(state: any = initialState, action: any) {

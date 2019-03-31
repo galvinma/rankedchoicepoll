@@ -9,6 +9,7 @@ import './NewPoll.css'
 // components
 import InternalNavbar from '../../Components/Navbar/InternalNavbar/InternalNavbar'
 import PollPrompt from '../../Components/Prompts/PollPrompt'
+import GenericAlert from '../../Components/Alerts/GenericAlert/GenericAlert'
 
 // functions
 import { checkAuth } from '../.././Utils/checkauth'
@@ -39,6 +40,7 @@ class NewPoll extends React.Component {
       <div>
           <InternalNavbar />
           <PollPrompt />
+          <GenericAlert />
       </div>
   )}
 }

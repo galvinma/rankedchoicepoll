@@ -7,6 +7,7 @@ import './Join.css'
 // components
 import ExternalNavbar from '../../Components/Navbar/ExternalNavbar/ExternalNavbar'
 import JoinPrompt from '../../Components/Prompts/JoinPrompt'
+import GenericAlert from '../../Components/Alerts/GenericAlert/GenericAlert'
 
 class Join extends React.Component {
   render() {
@@ -14,6 +15,7 @@ class Join extends React.Component {
       <div>
         <ExternalNavbar />
         <JoinPrompt />
+        <GenericAlert />
       </div>
   )}
 }

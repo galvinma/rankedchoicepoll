@@ -14,7 +14,7 @@ router.route('/castvote')
     {
       if (checkObjectExistance.checkObjectExistance(check[i]) === false)
       {
-        res.json({success: false, message: "Unable to cast vote"});
+        res.json({success: false, message: "Missing vote parameters. Vote not cast."});
         return
       }
     }
