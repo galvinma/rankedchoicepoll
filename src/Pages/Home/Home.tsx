@@ -9,6 +9,7 @@ import './Home.css'
 
 // functions
 import { checkAuth } from '../.././Utils/checkauth'
+import { dispatchAlert } from '../.././Utils/dispatchalert'
 
 // components
 import InternalNavbar from '../../Components/Navbar/InternalNavbar/InternalNavbar'
@@ -53,19 +54,30 @@ class Home extends React.Component <Props, State> {
 
   componentDidMount()
   {
+    console.log("mounting")
     axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/returnuserpolls`, {
       params: {
         user_id: localStorage.getItem('user'),
       }
     })
     .then((response) => {
-      this.setState({
-        active_polls: response.data.active_polls,
-        closed_polls: response.data.closed_polls,
-      })
+      if (response.data.success === false)
+      {
+        dispatchAlert(store.getState().error, response.data.message, "INFINITE")
+      }
+      else
+      {
+        if (response.data.active_polls && response.data.closed_polls)
+        {
+          this.setState({
+            active_polls: response.data.active_polls,
+            closed_polls: response.data.closed_polls,
+          })
+        }
+      }
     })
     .catch((error) => {
-      // TODO: SNACKBAR
+      dispatchAlert(store.getState().error, "Unable to fetch user data from server.", "INFINITE")
     })
   }
 
@@ -120,7 +132,7 @@ class Home extends React.Component <Props, State> {
               </div>
            </div>
         </div>
-        <GenericAlert />        
+        <GenericAlert />
       </div>
   )}
 }

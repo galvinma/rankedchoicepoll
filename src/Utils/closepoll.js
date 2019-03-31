@@ -10,19 +10,19 @@ module.exports = {
       {
         if (err)
         {
-           return reject({success: false, message: "Unable to close poll"})
+           return reject({success: false, message: "Unable to close poll."})
         }
         else
         {
-          if (poll.admin_id !== poll_id)
+          if (String(poll.admin_id) !== String(user_id))
           {
-            reject({ success: false, message: "Unauthorized user closing poll" })
+            return reject({ success: false, message: "Unauthorized user closing poll." })
           }
 
           Poll.update({ poll_id: poll_id }, {status: false}).lean().exec(async function(err) {
             if (err)
             {
-              reject({ success: false, message: "Unable to find poll" })
+              return reject({ success: false, message: "Unable to find poll." })
             }
 
             const members = poll.members
@@ -34,7 +34,7 @@ module.exports = {
               }
               catch(error)
               {
-                reject({ success: false, message: "Unable to find update all users" })
+                return reject({ success: false, message: "Unable to update poll for all users." })
               }
             }
 

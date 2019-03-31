@@ -7,7 +7,7 @@ module.exports = {
       User.findOne({ id: req.body.params.user_id }).lean().exec(async function(err, user) {
         if (err)
         {
-          reject({ success: false, message: "Unable to find user" })
+          return reject({ success: false, message: "Unable to find user" })
         }
 
         const active = []
@@ -28,7 +28,7 @@ module.exports = {
           }
           catch(error)
           {
-            return(error)
+            continue
           }
         }
 
@@ -47,7 +47,7 @@ module.exports = {
           }
           catch(error)
           {
-            return(error)
+            continue
           }
         }
 

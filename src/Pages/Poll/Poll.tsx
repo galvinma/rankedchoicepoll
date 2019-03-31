@@ -108,7 +108,7 @@ class Poll extends React.Component <Props, State> {
     })
     .catch((err) =>
     {
-      dispatchAlert(store.getState().error, "Unable to fetch poll from server.")
+      dispatchAlert(store.getState().error, "Unable to fetch poll from server.", "INFINITE")
     })
   }
 
@@ -122,12 +122,18 @@ class Poll extends React.Component <Props, State> {
   {
     axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/closepoll`, {
       params: {
-        poll_id: this.state.poll_id
+        poll_id: this.state.poll_id,
+        user_id: localStorage.getItem('user')
       }
     })
     .then((response) =>
     {
-      if (response.data.status === false)
+      if (response.data.success === false)
+      {
+        dispatchAlert(store.getState().error, response.data.message, "INFINITE")
+      }
+
+      if (response.data.status === false || response.data.success === true)
       {
         history.push(`/result/${this.state.poll_id}`)
       }
