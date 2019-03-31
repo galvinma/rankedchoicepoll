@@ -10,6 +10,9 @@ import store from '../.././Store/store'
 const {connect} = require("react-redux");
 import {getAlertColor, getAlertMessage} from '../.././Actions/actions'
 
+// Functions
+import { dispatchAlert } from '../.././Utils/dispatchalert'
+
 // Props / State
 interface Props {}
 
@@ -40,29 +43,15 @@ class ShareLink extends React.Component <Props, State> {
     try
     {
       var range = document.createRange() as any
-      console.log(typeof range)
       range.selectNode(document.getElementById('linkText'))
       window.getSelection().addRange(range);
       document.execCommand("copy");
 
-      store.dispatch(getAlertColor("#278BE4"))
-      store.dispatch(getAlertMessage("Link copied to clipboard"))
-
-      setTimeout(() => {
-        store.dispatch(getAlertColor(""))
-        store.dispatch(getAlertMessage(""))
-      }, 3000)
-
+      dispatchAlert(store.getState().success, "Link copied to clipboard")
     }
     catch (error)
     {
-      store.dispatch(getAlertColor("#ED4F32"))
-      store.dispatch(getAlertMessage("Unable to copy link"))
-
-      setTimeout(() => {
-        store.dispatch(getAlertColor(""))
-        store.dispatch(getAlertMessage(""))
-      }, 3000)
+      dispatchAlert(store.getState().fail, "Unable to copy link")
     }
   }
 

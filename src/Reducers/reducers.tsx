@@ -5,6 +5,8 @@ const initialState = {
   current_user: null,
   alert_color: "",
   alert_message: "",
+  success: "#278BE4",
+  fail: "#ED4F32",
 };
 
 function rootReducer(state: any = initialState, action: any) {
@@ -39,7 +41,6 @@ function getCurrentUser(state: any, action: any) {
 }
 
 function getAlertColor(state: any, action: any) {
-      console.log(action.alert_color)
   return {
     ...state,
     alert_color: action.alert_color
@@ -47,8 +48,6 @@ function getAlertColor(state: any, action: any) {
 }
 
 function getAlertMessage(state: any, action: any) {
-  console.log(action.alert_message)
-
   return {
     ...state,
     alert_message: action.alert_message

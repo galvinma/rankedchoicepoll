@@ -171,7 +171,7 @@ class Poll extends React.Component <Props, State> {
           history.push(`/result/${this.state.poll_id}`)
         }
       })
-    }, 1000)
+    }, 5000)
 
     this.setState({intervalId: intervalId});
   }
