@@ -195,13 +195,13 @@ class Poll extends React.Component <Props, State> {
     let close: any
     if (this.state.admin_id === localStorage.getItem('user'))
     {
-      close = <button className="pollButton" onClick={() => this.closePoll()}>Close Poll</button>
+      close = <button className="genericButton" onClick={() => this.closePoll()}>Close Poll</button>
     }
 
     let vote: any
     if (true)
     {
-      vote = <button className="pollButton" onClick={() => this.handleVote()}>Vote</button>
+      vote = <button className="genericButton" onClick={() => this.handleVote()}>Vote</button>
     }
 
     return (

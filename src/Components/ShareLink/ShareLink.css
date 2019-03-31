@@ -1,0 +1,25 @@
+.shareLinkContainer
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: baseline;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.linkText
+{
+  background-color: #FFFFFF;
+  width: auto;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  min-width: 100px;
+}

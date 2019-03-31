@@ -9,6 +9,11 @@
   color: #2E3131
 }
 
+.secondaryColor
+{
+  color: #7A7F59
+}
+
 .headerOne
 {
   font-family: 'Patua One', cursive;
@@ -21,7 +26,20 @@
   font-size: 28px;
 }
 
-.secondaryColor
+.genericButton
 {
-  color: #7A7F59
+  cursor: pointer;
+  width: auto;
+  color: #000000;
+  background-color: #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  min-width: 100px;
 }
