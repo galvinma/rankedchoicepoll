@@ -19,7 +19,7 @@ class PollPrompt extends React.Component <Props> {
       <div className="cardContainer">
         <div className="cardHeader">{this.props.header}</div>
         <div className="cardContent">{this.props.content}</div>
-        <div className="cardLink">{this.props.link}</div>
+        <div className="cardLink redUnderline">{this.props.link}</div>
       </div>
   )}
 }

@@ -7,7 +7,7 @@ import '../../.././App.css'
 import '.././NavBar.css'
 
 // Images
-var check = require('../../.././Images/check.svg')
+var check = require('../../.././Images/checkRed.svg')
 
 export default class ExternalNavbar extends React.Component<any, any>
 {
@@ -37,17 +37,19 @@ export default class ExternalNavbar extends React.Component<any, any>
   render()
   {
     return(
-    <div className="navbar">
-      <div className="navbar-left">
-        <div className="navbar-left-entries">
-          <img src={check} className="logo" onClick={this.handleLogoClick}/>
-          <Link to="/" className="linkStyle logoText">Ranked Choice Poll</Link>
+    <div className="navbar-container">
+      <div className="navbar">
+        <div className="navbar-left">
+          <div className="navbar-left-entries">
+            <img src={check} className="logo" onClick={this.handleLogoClick}/>
+            <Link to="/" className="linkStyle logoText">Ranked Choice Poll</Link>
+          </div>
         </div>
-      </div>
-      <div className="navbar-right">
-        <div className="navbar-right-entries">
-          <Link to="/signin" className="linkStyle">Sign In</Link>
-          <Link to="/join" className="linkStyle join">Join</Link>
+        <div className="navbar-right">
+          <div className="navbar-right-entries">
+            <Link to="/signin" className="linkStyle">Sign In</Link>
+            <Link to="/join" className="linkStyle join">Join</Link>
+          </div>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ import store from '../../.././Store/store'
 import {resetStore} from '../../.././Actions/actions'
 
 // Images
-var check = require('../../.././Images/check.svg')
+var check = require('../../.././Images/checkRed.svg')
 
 export default class InternalNavbar extends React.Component<any, any>
 {
@@ -49,16 +49,18 @@ export default class InternalNavbar extends React.Component<any, any>
   public render()
   {
     return(
-    <div className="navbar">
-      <div className="navbar-left">
-        <div className="navbar-left-entries">
-          <img src={check} className="logo" onClick={this.handleLogoClick}/>
-          <Link to="/home" className="linkStyle logoText">Ranked Choice Poll</Link>
+    <div className="navbar-container">
+      <div className="navbar">
+        <div className="navbar-left">
+          <div className="navbar-left-entries">
+            <img src={check} className="logo" onClick={this.handleLogoClick}/>
+            <Link to="/home" className="linkStyle logoText">Ranked Choice Poll</Link>
+          </div>
         </div>
-      </div>
-      <div className="navbar-right">
-        <div className="navbar-right-entries">
-          <Link className="linkStyle" to="/" onClick={this.handleSignOut}>Sign Out</Link>
+        <div className="navbar-right">
+          <div className="navbar-right-entries">
+            <Link className="linkStyle" to="/" onClick={this.handleSignOut}>Sign Out</Link>
+          </div>
         </div>
       </div>
     </div>

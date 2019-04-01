@@ -4,14 +4,24 @@
   font-size: 14px;
 }
 
-.primaryColor
+.primaryBlue
 {
-  color: #2E3131
+  color: #5c8396  !important;
 }
 
-.secondaryColor
+.primaryRed
 {
-  color: #7A7F59
+  color: #B32E2B !important;
+}
+
+.primaryBackground
+{
+  background-color: #FFFAFA !important;
+}
+
+.redUnderline
+{
+  border-bottom: 2px solid #B32E2B;
 }
 
 .headerOne
