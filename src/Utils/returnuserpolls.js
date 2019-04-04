@@ -43,7 +43,7 @@ module.exports = {
               admin_name: closedData.admin_name,
               title: closedData.title,
               status: closedData.status,
-              voted: activeData.voted
+              voted: closedData.voted
             }
             closed.push(appendClosedData)
           }

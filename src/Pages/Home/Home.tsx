@@ -62,7 +62,6 @@ class Home extends React.Component <Props, State> {
 
   componentDidMount()
   {
-    console.log("mounting")
     axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/returnuserpolls`, {
       params: {
         user_id: localStorage.getItem('user'),
@@ -105,6 +104,7 @@ class Home extends React.Component <Props, State> {
 
   public returnListItem(i: UserPolls)
   {
+    console.log(i)
     let icon
     if (i.voted === true)
     {
@@ -147,7 +147,7 @@ class Home extends React.Component <Props, State> {
              <div className="headerContainer">
                 <div className="upperContentContainer">
                   <div className="welcomeContainer">
-                    <div className="headerOne">Welcome, {this.state.firstname}.</div>
+                    <div className="headerOne welcomeText">Welcome, {this.state.firstname}.</div>
                     <div className="bodyText">Create a new poll, view poll results, or participate in one of the polls below.</div>
                   </div>
                   <Link className="headerThree genericButton createPoll" to="/newpoll">Create New Poll</Link>
@@ -166,11 +166,9 @@ class Home extends React.Component <Props, State> {
                     {this.state.closed_polls.map(this.returnListItem)}
                   </div>
                </div>
-               <div>
-                  <div className="homeSVGContainer">
-                    <img src={voteHand} className="homeImage"/>
-                  </div>
-               </div>
+                <div className="homeSVGContainer">
+                  <img src={voteHand} className="homeImage"/>
+                </div>
              </div>
           </div>
         </div>
