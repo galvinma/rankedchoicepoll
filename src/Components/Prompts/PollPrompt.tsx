@@ -251,7 +251,7 @@ class PollPrompt extends React.Component <Props, State> {
           <div>
             <div id="promptHelperText" className="helperText">{this.state.promptHelperText}</div>
           </div>
-          <button className="pollButton" onClick={() => this.handleNewPoll()}>Create New Poll</button>
+          <button className="genericButton" onClick={() => this.handleNewPoll()}>Create New Poll</button>
         </div>
       </div>
   )}

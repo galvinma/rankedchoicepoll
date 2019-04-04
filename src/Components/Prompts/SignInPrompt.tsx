@@ -121,7 +121,7 @@ class SignInPrompt extends React.Component <Props, State> {
             <input className="formInput" type="password" name="password" id="password" />
             <div id="confirmPassHelper">{this.state.confirmPassHelper}</div>
           </div>
-          <button className="pollButton" onClick={() => this.handleSignIn()}>Sign In</button>
+          <button className="genericButton" onClick={() => this.handleSignIn()}>Sign In</button>
         </div>
       </div>
   )}

@@ -61,7 +61,8 @@
 
 .genericButton
 {
-  display: flex;
+  display: inline-block;
+  text-align: center !important;
   cursor: pointer;
   width: auto;
   max-height: 50px;

@@ -157,7 +157,7 @@ class JoinPrompt extends React.Component <Props, State> {
             <input className="formInput" type="password" name="confirmPass" id="confirmPass" />
             <div id="confirmPassHelper">{this.state.confirmPassHelper}</div>
           </div>
-          <button className="pollButton" onClick={() => this.handleJoin()}>Submit</button>
+          <button className="genericButton" onClick={() => this.handleJoin()}>Submit</button>
         </div>
       </div>
   )}
