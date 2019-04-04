@@ -1,5 +1,5 @@
 {
-  "name": "rcv",
+  "name": "ranked-choice-poll",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

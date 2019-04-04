@@ -16,7 +16,7 @@ router.route('/returnpoll')
       return
     }
 
-    returnPollData.returnPollData(req.body.params.poll_id)
+    returnPollData.returnPollData(req.body.params.poll_id, req.body.params.user_id)
     .then((retPollResponse) => {
       res.json(retPollResponse)
       return

@@ -77,7 +77,8 @@ class Poll extends React.Component <Props, State> {
     const id = window.location.pathname.split("/").pop() || ""
     axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/returnpoll`, {
       params: {
-        poll_id: id
+        poll_id: id,
+        user_id: localStorage.getItem('user'),
       }
     })
     .then((response) =>
@@ -183,7 +184,8 @@ class Poll extends React.Component <Props, State> {
     {
       axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/returnpoll`, {
         params: {
-          poll_id: this.state.poll_id
+          poll_id: this.state.poll_id,
+          user_id: localStorage.getItem('user'),
         }
       })
       .then((response) =>

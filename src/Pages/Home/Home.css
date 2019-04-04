@@ -1,11 +1,11 @@
 .homeContainer
 {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
-  justify-content: space-around;
-  background-color: #FFFFFF;
 }
 
 .homeLink
@@ -14,11 +14,126 @@
   text-decoration: underline;
 }
 
+.createPoll
+{
+  margin-right: 50px;
+}
+
+.welcomeContainer
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: 50px;
+}
+
+.headerContainer
+{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.headerContainer:after {
+    content: "";
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #9E9E9E;
+}
+
+.upperContentContainer
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.pollContainer
+{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  margin-left: 50px;
+  margin-top: 30px;
+}
+
+.pollNameContainer
+{
+  width: 30vw;
+  height: auto;
+  min-height: 300px;
+}
+
+.pollHeader
+{
+  text-decoration: underline;
+}
+
+.pollItem
+{
+  display: inline-block;
+  width: auto;
+}
+
+.pollIcon
+{
+  display: inline-block;
+  height: 20px;
+}
+
+.homeImage
+{
+  z-index: 100;
+  width: 100%;
+  height: auto;
+}
+
+.homeSVGContainer
+{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  width: 25vw;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
 
 @media only screen and (max-width: 768px)
 {
   .homeContainer
   {
     flex-direction: column;
+  }
+
+  .pollContainer, .upperContentContainer, .welcomeContainer
+  {
+    flex-direction: column;
+    margin-left: 10px;
+    align-items: flex-start;
+    min-height: 50px;
+  }
+
+  .pollNameContainer
+  {
+    width: 100%;
+    min-height: 50px;
+    margin-bottom: 10px;
+  }
+
+  .homeSVGContainer
+  {
+    width: 300px;
   }
 }

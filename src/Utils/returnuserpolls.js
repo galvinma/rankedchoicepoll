@@ -17,12 +17,13 @@ module.exports = {
         {
           try
           {
-            const activeData = await returnPollData.returnPollData(user.active_polls[i])
+            const activeData = await returnPollData.returnPollData(user.active_polls[i], req.body.params.user_id)
             const appendActiveData = {
               poll_id: activeData.poll_id,
               admin_name: activeData.admin_name,
               title: activeData.title,
-              status: activeData.status
+              status: activeData.status,
+              voted: activeData.voted
             }
             active.push(appendActiveData)
           }
@@ -36,12 +37,13 @@ module.exports = {
         {
           try
           {
-            const closedData = await returnPollData.returnPollData(user.closed_polls[j])
+            const closedData = await returnPollData.returnPollData(user.closed_polls[j], req.body.params.user_id)
             const appendClosedData = {
               poll_id: closedData.poll_id,
               admin_name: closedData.admin_name,
               title: closedData.title,
-              status: closedData.status
+              status: closedData.status,
+              voted: activeData.voted
             }
             closed.push(appendClosedData)
           }
@@ -51,7 +53,7 @@ module.exports = {
           }
         }
 
-        resolve({user_id: user.id, active_polls: active, closed_polls: closed})
+        resolve({user_id: user.id, firstname: user.firstname, active_polls: active, closed_polls: closed})
       })
     })
   }

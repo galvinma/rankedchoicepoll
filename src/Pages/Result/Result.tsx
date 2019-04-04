@@ -56,7 +56,8 @@ class Result extends React.Component <Props, State> {
     const id: string = window.location.pathname.split("/").pop() || ""
     axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/returnpoll`, {
       params: {
-        poll_id: id
+        poll_id: id,
+        user_id: localStorage.getItem('user'),
       }
     })
     .then((response: any) =>
