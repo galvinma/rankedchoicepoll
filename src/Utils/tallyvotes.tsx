@@ -120,10 +120,12 @@ export function tally(votes: string[][], poll_items: string[])
 
 export function iterateTally(votes: any, poll_items: string[], threshold: number)
 {
+  let retObj: any = []
   let count: number = votes.length
 
   // Get initial tally
   let result = tally(votes, poll_items)
+  retObj.push(result)
   let outcome = result['tally'] as TallyDictionary
   let original_leader: string[] = result['leader']
   let leader: string[] = result['leader']
@@ -133,14 +135,14 @@ export function iterateTally(votes: any, poll_items: string[], threshold: number
   // If leader has greater than threshold, return. Else, iterate.
   if (leader_val/count >= threshold)
   {
-    return result
+    return retObj
   }
   else
   {
       while(leader_val/count < threshold)
       {
         result = merge(votes, poll_items)
-
+        retObj.push(result)
         outcome = result['tally'] as TallyDictionary
         votes = result['votes']
         leader = result['leader']
@@ -176,7 +178,7 @@ export function iterateTally(votes: any, poll_items: string[], threshold: number
       }
   }
 
-  return result
+  return retObj
 }
 
 export function tallyVotes(id: string)

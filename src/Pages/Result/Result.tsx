@@ -19,6 +19,8 @@ import './Result.css'
 // components
 import InternalNavbar from '../../Components/Navbar/InternalNavbar/InternalNavbar'
 import GenericAlert from '../../Components/Alerts/GenericAlert/GenericAlert'
+import BarChart from '../../Components/BarChart/BarChart'
+import Slider from '../../Components/Slider/Slider'
 
 // Props / State
 interface Props {
@@ -33,6 +35,10 @@ interface State {
   options: number,
   auth_status: boolean,
   leader: string,
+  chart_data: any,
+  tally: any,
+  slider_max: number,
+  selected_round: number,
 }
 
 class Result extends React.Component <Props, State> {
@@ -48,7 +54,13 @@ class Result extends React.Component <Props, State> {
       poll_id: "",
       admin_id: "",
       options: 0,
+      chart_data: {},
+      tally: {},
+      slider_max: 1,
+      selected_round: 1,
     }
+
+    this.changeRound = this.changeRound.bind(this)
   }
 
   componentDidMount()
@@ -73,6 +85,13 @@ class Result extends React.Component <Props, State> {
 
       tallyVotes(id)
       .then((tallyResponse: any) => {
+        const finalResult = tallyResponse[tallyResponse.length-1]
+        const tallyKeys: any = Object.keys(finalResult.tally)
+        const chartData: any = {}
+        tallyKeys.forEach((key: any) => {
+          chartData[key] = (finalResult.tally[key] / finalResult.count)
+        })
+
         this.setState({
           title: response.data.title,
           poll_items: ret,
@@ -80,8 +99,29 @@ class Result extends React.Component <Props, State> {
           admin_id: response.data.admin_id,
           options: response.data.options,
           leader: tallyResponse.leader,
+          chart_data: chartData,
+          tally: tallyResponse,
+          slider_max: Object.keys(tallyResponse).length-1,
+          selected_round: Object.keys(tallyResponse).length-1,
         })
       })
+    })
+  }
+
+  public changeRound(value: any)
+  {
+    const selectedResult = this.state.tally[value]
+    const tallyKeys: any = Object.keys(selectedResult.tally)
+    const chartData: any = {}
+    tallyKeys.forEach((key: any) => {
+      chartData[key] = (selectedResult.tally[key] / selectedResult.count)
+    })
+
+    console.log(this.state.tally)
+
+    this.setState({
+      selected_round: value,
+      chart_data: chartData
     })
   }
 
@@ -104,9 +144,15 @@ class Result extends React.Component <Props, State> {
     return (
       <div>
         <InternalNavbar />
-        <div className="pollResultContainer">
+        <div className="pollResultContainer bodyPaper primaryBackground">
           <div className="headerTwo">{this.state.title}</div>
           <div className="pollLeader">{this.state.leader}</div>
+          <BarChart
+            chart_data={this.state.chart_data} />
+          <Slider
+            selected_round={this.state.selected_round}
+            slider_max={this.state.slider_max}
+            changeRound={this.changeRound} />
         </div>
         <GenericAlert />
       </div>

@@ -38,9 +38,9 @@ class NewPoll extends React.Component {
 
     return (
       <div>
-          <InternalNavbar />
-          <PollPrompt />
-          <GenericAlert />
+        <InternalNavbar />
+        <PollPrompt />
+        <GenericAlert />
       </div>
   )}
 }

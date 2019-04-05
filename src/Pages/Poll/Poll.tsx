@@ -235,7 +235,7 @@ class Poll extends React.Component <Props, State> {
     return (
       <div>
         <InternalNavbar />
-        <div className="pollPageContainer">
+        <div className="pollPageContainer bodyPaper primaryBackground">
           <div className="pollTitle headerOne">{this.state.title}</div>
           <div className="listLabels">
             <div className="listLabel headerTwo">Poll Entries</div>
@@ -254,8 +254,8 @@ class Poll extends React.Component <Props, State> {
             <div>{vote}</div>
           </div>
           <ShareLink />
-          <GenericAlert />
         </div>
+        <GenericAlert />        
       </div>
   )}
 }
