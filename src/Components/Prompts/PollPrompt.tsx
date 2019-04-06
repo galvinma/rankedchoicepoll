@@ -20,13 +20,14 @@ import store from '../.././Store/store'
 const {connect} = require("react-redux");
 import {getAuthStatus, getCurrentUser} from '../.././Actions/actions'
 
+// Images
+var checkRed = require('../.././Images/checkRed.svg')
+
 // email val
 var validator = require("email-validator");
 
 // Props / State
-interface Props {
-  auth_status: boolean
-}
+interface Props {}
 
 interface State {
   options: string;
@@ -219,7 +220,12 @@ class PollPrompt extends React.Component <Props, State> {
 
   returnListItem(i: string)
   {
-    return (<li key={i} className="pollItem">{i}</li>)
+    return (
+      <div>
+        <div className="pollBullet">-</div>
+        <div key={i} className="pollItem bodyText">{i}</div>
+      </div>
+    )
   }
 
   public render() {
@@ -234,16 +240,16 @@ class PollPrompt extends React.Component <Props, State> {
             <div>Poll Entries</div>
             <input className="formInput" type="text" name="entry" id="entry" onKeyDown={(e) => this.pushListItem(e)} />
           </div>
-          <ul className="pollItemsContainer">
+          <div className="pollItemsContainer">
             {this.state.poll_items.map(this.returnListItem)}
-          </ul>
+          </div>
           <div>
             <div>Poll Members</div>
             <input className="formInput" type="text" name="mems" id="mems" onKeyDown={(e) => this.pushMember(e)} />
           </div>
-          <ul className="pollItemsContainer">
+          <div className="pollItemsContainer">
             {this.state.members.map(this.returnListItem)}
-          </ul>
+          </div>
           <div onChange={this.handleOptions}>
             <div>Number of Options</div>
             <input className="formInput" type="text" name="options" id="options" />
@@ -257,8 +263,4 @@ class PollPrompt extends React.Component <Props, State> {
   )}
 }
 
-const mapStateToProps = (state: State) => ({
-  auth_status: state.auth_status
-});
-
-export default connect(mapStateToProps)(PollPrompt);
+export default (PollPrompt);
