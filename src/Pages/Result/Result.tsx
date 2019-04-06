@@ -11,6 +11,7 @@ import {getAuthStatus, getCurrentUser} from '../.././Actions/actions'
 // functions
 import { checkAuth } from '../.././Utils/checkauth'
 import { tallyVotes } from '../.././Utils/tallyvotes'
+import { dispatchAlert } from '../.././Utils/dispatchalert'
 
 // css
 import '../.././App.css'
@@ -74,6 +75,17 @@ class Result extends React.Component <Props, State> {
     })
     .then((response: any) =>
     {
+
+      if (response.data.success === false)
+      {
+        dispatchAlert(store.getState().error, response.data.message, "INFINITE")
+      }
+
+      if (response.data.status === true)
+      {
+        history.push(`/poll/${response.data.poll_id}`)
+      }
+
       let count = 0
       let data = response.data.poll_items
       let ret: any[] = []
