@@ -22,7 +22,7 @@ router.route('/returnpoll')
       return
     })
     .catch((error)=>{
-      res.json(retPollResponse)
+      res.json(error)
       return
     });
   });

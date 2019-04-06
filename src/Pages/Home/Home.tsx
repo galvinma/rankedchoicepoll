@@ -102,7 +102,7 @@ class Home extends React.Component <Props, State> {
     }
   }
 
-  public returnListItem(i: UserPolls)
+  public returnListItem(i: UserPolls, index: any)
   {
     console.log(i)
     let icon
@@ -116,9 +116,9 @@ class Home extends React.Component <Props, State> {
     }
 
     return (
-      <div>
+      <div key={i.title+i.poll_id + index}>
         <img className="pollIcon" src={icon}/>
-        <div id={i.poll_id} key={i.title+i.poll_id} className="pollItem" onClick={(e) => this.handlePush(e, i.status)}>{i.title} by {i.admin_name}</div>
+        <div id={i.poll_id} className="pollItem" onClick={(e) => this.handlePush(e, i.status)}>{i.title} by {i.admin_name}</div>
       </div>
     )
   }
