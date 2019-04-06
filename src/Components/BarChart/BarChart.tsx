@@ -23,6 +23,7 @@ class BarChart extends React.Component <Props, State> {
    {
      var container = document.getElementById("chartContainer") as any
      let data = this.props.chart_data as any
+     console.log(data)
      let width = `${data[key] * container.offsetWidth}`
      let whiteSpaceWidth = container.offsetWidth - Number(width)
      let height = '10'
@@ -34,10 +35,11 @@ class BarChart extends React.Component <Props, State> {
      return (
        <div className="barContainer" key={key}>
           <div className="barLabel">{key}</div>
-          <svg width={width} height={height}>
+          <svg className="barSVG" width={width} height={height}>
             <rect className="bar" width={width} height={height}/>
           </svg>
-          <svg width={whiteSpaceWidth} height={height}>
+          <div className="percentContainer">{String(Math.round(Number(data[key])*10000)/100)+"%"}</div>
+          <svg className="barSVG" width={whiteSpaceWidth} height={height}>
             <rect className="whiteSpace" width={whiteSpaceWidth} height={height}/>
           </svg>
        </div>

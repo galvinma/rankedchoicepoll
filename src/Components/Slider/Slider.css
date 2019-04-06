@@ -1,17 +1,24 @@
 .sliderContainer
 {
-  width: 100%;
-  height: 100px;
+  width: 90vw;
+  height: auto;
 }
 
 .slider
 {
   width: 500px;
+  max-width: 800px;
   height: 20px;
-  height: 25px; /* Specified height */
-  background: #d3d3d3; /* Grey background */
-  outline: none; /* Remove outline */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-  transition: opacity .2s;
+  height: 25px;
+  background: #000000;
+  outline: none;
+}
+
+
+@media only screen and (max-width: 768px)
+{
+  .slider
+  {
+    width: 300px;
+  }
 }
