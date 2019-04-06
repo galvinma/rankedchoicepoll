@@ -101,7 +101,7 @@ class Poll extends React.Component <Props, State> {
         members: response.data.members
       }, () => {
         this.watchPoll()
-        if (checkMembership(this.state.members, localStorage.getItem('user')) === false)
+        if (checkMembership(this.state.members, localStorage.getItem('user')) === true)
         {
           this.addUser(this.state.poll_id, localStorage.getItem('user'))
         }
@@ -255,7 +255,7 @@ class Poll extends React.Component <Props, State> {
           </div>
           <ShareLink />
         </div>
-        <GenericAlert />        
+        <GenericAlert />
       </div>
   )}
 }

@@ -19,6 +19,7 @@ router.route('/addpolltouser')
       }
     }
 
+    console.log("Adding poll to user...")
     const poll_id = req.body.params.poll_id
     const user_id = req.body.params.user_id
 
