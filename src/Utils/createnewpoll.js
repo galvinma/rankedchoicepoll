@@ -7,7 +7,6 @@ module.exports = {
   createNewPoll: async function(admin_id, options, poll_items, title, members)
   {
     let userData = await returnUserData.returnUserData(admin_id)
-
     var new_poll = new Poll()
     new_poll.admin_id = admin_id
     new_poll.admin_name = userData.user.firstname + " " + userData.user.lastname
