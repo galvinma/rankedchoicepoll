@@ -55,6 +55,12 @@
   margin-bottom: 10px;
 }
 
+.promptTitle
+{
+  text-align: center;
+  margin-bottom: 15px;
+}
+
 .submitButton
 {
   cursor: pointer;
@@ -70,6 +76,21 @@
   margin-top: 10px;
 }
 
+.signInLink
+{
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: underline;
+  color: #000000;
+}
+
+.signInText
+{
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 @media only screen and (max-width: 768px)
 {
   .formContainer
@@ -78,5 +99,10 @@
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 20px;
+  }
+
+  .promptTitle
+  {
+    font-size: 24px;
   }
 }

@@ -112,6 +112,7 @@ class SignInPrompt extends React.Component <Props, State> {
     return (
       <div>
         <div className="formContainer">
+          <div className="headerTwo promptTitle">Sign In</div>
           <div onChange={this.handleChange} onKeyDown={(e) => this.checkSignIn(e)}>
             <div>Email</div>
             <input className="formInput" type="email" name="email" id="email" />
@@ -121,7 +122,7 @@ class SignInPrompt extends React.Component <Props, State> {
             <input className="formInput" type="password" name="password" id="password" />
             <div id="confirmPassHelper">{this.state.confirmPassHelper}</div>
           </div>
-          <button className="genericButton" onClick={() => this.handleSignIn()}>Sign In</button>
+          <button className="genericButton" onClick={() => this.handleSignIn()}>Submit</button>
         </div>
       </div>
   )}

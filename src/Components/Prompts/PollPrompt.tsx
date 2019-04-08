@@ -232,6 +232,7 @@ class PollPrompt extends React.Component <Props, State> {
     return (
       <div>
         <div className="formContainer">
+          <div className="headerTwo promptTitle">Create New Poll</div>
           <div onChange={this.handleChange} onKeyDown={(e) => this.checkCreation(e)}>
             <div>Poll Title</div>
             <input className="formInput" type="text" name="title" id="title" />

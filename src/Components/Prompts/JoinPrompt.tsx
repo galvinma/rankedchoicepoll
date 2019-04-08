@@ -1,6 +1,7 @@
 import * as React from "react";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import history from '../.././history';
 
 // css
 import '../.././App.css'
@@ -47,6 +48,7 @@ class JoinPrompt extends React.Component <Props, State> {
     this.checkJoin = this.checkJoin.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleJoin = this.handleJoin.bind(this)
+    this.pushSignIn = this.pushSignIn.bind(this)
   }
 
   handleChange(event: any) {
@@ -58,6 +60,11 @@ class JoinPrompt extends React.Component <Props, State> {
     if (event.keyCode === 13) {
       this.handleJoin()
     }
+  }
+
+  pushSignIn()
+  {
+    history.push('/signin')
   }
 
   handleJoin()
@@ -136,6 +143,8 @@ class JoinPrompt extends React.Component <Props, State> {
     return (
       <div>
         <div className="formContainer">
+          <div className="headerTwo promptTitle">Create a free account</div>
+          <div className="bodyText signInText">Already a member? Sign in <div className="signInLink" onClick={this.pushSignIn}>here</div></div>
           <div onChange={this.handleChange} onKeyDown={(e) => this.checkJoin(e)}>
             <div>First Name</div>
             <input className="formInput" type="text" name="firstname" id="firstname" />
