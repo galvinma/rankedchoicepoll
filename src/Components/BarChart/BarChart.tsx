@@ -23,7 +23,6 @@ class BarChart extends React.Component <Props, State> {
    {
      var container = document.getElementById("chartContainer") as any
      let data = this.props.chart_data as any
-     console.log(data)
      let width = `${data[key] * container.offsetWidth}`
      let whiteSpaceWidth = container.offsetWidth - Number(width)
      let height = '10'

@@ -1,5 +1,44 @@
+.listGroupContainer
+{
+  display: flex;
+  flex-direction: row;
+}
+
 .listContainer
 {
-  display: 'flex';
-  flex-direction: 'row';
+  display: flex;
+  flex-direction: column;
+}
+
+.listLabel
+{
+  width: 250px;
+  text-align: center;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+@media only screen and (max-width: 768px)
+{
+  .draggableItem
+  {
+    font-size: 14px !important;
+  }
+
+  .droppableList
+  {
+    min-height: 100px !important;
+    height: auto !important;
+  }
+
+  .listGroupContainer
+  {
+    flex-direction: column;
+  }
+
+  .listLabel
+  {
+    font-size: 20px;
+  }
+
 }

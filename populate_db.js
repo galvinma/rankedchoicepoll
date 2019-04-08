@@ -66,8 +66,8 @@ async function createMockUsers()
   return new Promise(async (resolve, reject) => {
     for (var i=0; i<50; i++)
     {
-      const firstname = "Isaac"
-      const lastname = "Asimov"
+      const firstname = "Admin"
+      const lastname = "User"
       const email = generateEmail.generateEmail()
       const password = "password"
       const response = await joinUser.joinUser(firstname, lastname, email, password)
@@ -101,12 +101,15 @@ async function createMockPoll()
     setTimeout(async() => {
 
       const colorResponse = await createNewPoll.createNewPoll(adminID, mockPollOptions, mockColorItems, mockColorTitle, mockPollMembers)
+      console.log("Created new poll with ID: "+colorResponse.poll_id)
       const castColorVotes = await castMockVote(colorResponse.poll_id, mockColorVotes, mockPollMembers)
 
       const animalResponse = await createNewPoll.createNewPoll(adminID, mockPollOptions, mockAnimalItems, mockAnimalTitle, mockPollMembers)
+      console.log("Created new poll with ID: "+animalResponse.poll_id)
       const castAnimalVotes = await castMockVote(animalResponse.poll_id, mockAnimalVotes, mockPollMembers)
 
       const movieResponse = await createNewPoll.createNewPoll(adminID, mockPollOptions, mockMovieItems, mockMovieTitle, mockPollMembers)
+      console.log("Created new poll with ID: "+movieResponse.poll_id)
       const castMovieVotes = await castMockVote(movieResponse.poll_id, mockMovieVotes, mockPollMembers)
 
       console.log("Ready to close poll(s). Admin user is "+ mockPollMemberEmails[0])

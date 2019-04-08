@@ -43,8 +43,8 @@ class ShareLink extends React.Component <Props, State> {
     try
     {
       var range = document.createRange() as any
-      range.selectNode(document.getElementById('linkText'))
-      window.getSelection().addRange(range);
+      range.selectNode(document.getElementById('linkText')) as any
+      window!.getSelection()!.addRange(range) as any
       document.execCommand("copy");
 
       dispatchAlert(store.getState().success, "Link copied to clipboard", 5000)
@@ -58,10 +58,8 @@ class ShareLink extends React.Component <Props, State> {
   public render() {
     return (
       <div>
-        <div className="shareLinkContainer">
-          <div className="genericButton" onClick={this.getLink}>Copy Link to Clipboard</div>
-          <div id="linkText" className="linkText">{this.state.linkText}</div>
-        </div>
+        <div className="genericButton" onClick={this.getLink}>Copy Link to Clipboard</div>
+        <div id="linkText" className="linkText">{this.state.linkText}</div>
       </div>
   )}
 }

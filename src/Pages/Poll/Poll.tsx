@@ -36,6 +36,7 @@ interface State {
   admin_id: string,
   poll_id: string,
   poll_items: string[],
+  number_of_items: string,
   selected: string[],
   options: number,
   auth_status: boolean,
@@ -53,6 +54,7 @@ class Poll extends React.Component <Props, State> {
       admin_id: "",
       poll_id: "",
       poll_items: [],
+      number_of_items: "",
       selected: [],
       options: 0,
       auth_status: false,
@@ -98,10 +100,11 @@ class Poll extends React.Component <Props, State> {
         poll_id: id,
         admin_id: response.data.admin_id,
         options: response.data.options,
-        members: response.data.members
+        members: response.data.members,
+        number_of_items: String(ret.length)
       }, () => {
         this.watchPoll()
-        if (checkMembership(this.state.members, localStorage.getItem('user')) === true)
+        if (checkMembership(this.state.members, localStorage.getItem('user')) === false)
         {
           this.addUser(this.state.poll_id, localStorage.getItem('user'))
         }
@@ -236,11 +239,8 @@ class Poll extends React.Component <Props, State> {
       <div>
         <InternalNavbar />
         <div className="pollPageContainer bodyPaper primaryBackground">
-          <div className="pollTitle headerOne">{this.state.title}</div>
-          <div className="listLabels">
-            <div className="listLabel headerTwo">Poll Entries</div>
-            <div className="listLabel headerTwo">My Votes</div>
-          </div>
+          <div className="pollTitle headerOne redUnderline">{this.state.title}</div>
+          <div className="optionsText bodyText">Please order up to {this.state.options} items.</div>
           <DraggableList
             id = "poll_items"
             className="draggableList"
@@ -248,12 +248,13 @@ class Poll extends React.Component <Props, State> {
             handleReorder = {this.handleReorder}
             poll_items = {this.state.poll_items}
             selected = {this.state.selected}
-            options = {this.state.options}/>
+            options = {this.state.options}
+            number_of_items = {this.state.number_of_items }/>
           <div className="pollButtonContainer">
-            <div>{close}</div>
             <div>{vote}</div>
+            <div>{close}</div>
+            <ShareLink />
           </div>
-          <ShareLink />
         </div>
         <GenericAlert />
       </div>
