@@ -30,13 +30,53 @@
 .helperText
 {
   font-family: 'Lato', sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   color: #E53935;
+}
+
+.infoText
+{
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+}
+
+.textContainer
+{
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+
+}
+
+.entryContainer
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
 }
 
 .pollItem
 {
   display: inline-block;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+}
+
+.entryContainer:hover .deleteIcon {
+  opacity: 1;
+}
+
+.deleteIcon
+{
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 20px;
+  opacity: 0;
+  vertical-align: middle;
   font-family: 'Lato', sans-serif;
   font-size: 14px;
 }

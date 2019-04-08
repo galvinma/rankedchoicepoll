@@ -60,6 +60,10 @@ class PollPrompt extends React.Component <Props, State> {
     this.pushListItem = this.pushListItem.bind(this)
     this.pushMember = this.pushMember.bind(this)
     this.handleOptions = this.handleOptions.bind(this)
+    this.returnListItem = this.returnListItem.bind(this)
+    this.returnEmailList = this.returnEmailList.bind(this)
+    this.removeListItem = this.removeListItem.bind(this)
+    this.handleBlur = this.handleBlur.bind(this)
   }
 
   handleChange(event: any) {
@@ -81,6 +85,7 @@ class PollPrompt extends React.Component <Props, State> {
 
     if (event.target.value === "")
     {
+      this.setState({[event.target.id]: ""} as any);
       return
     }
 
@@ -88,14 +93,14 @@ class PollPrompt extends React.Component <Props, State> {
     if (isNaN(opts) === true || typeof opts !== "number" || Number(event.target.value) !== parseInt(event.target.value))
     {
       this.setState({
-        promptHelperText: "Poll item option must be an integer"
+        promptHelperText: "Number of entries to rank must be an integer"
       })
       return
     }
     else if (opts < 1 || opts > this.state.poll_items.length)
     {
       this.setState({
-        promptHelperText: "Poll item option must be less than list length and greater than zero"
+        promptHelperText: "Number of entries to rank must be less than list length and greater than zero"
       })
       return
     }
@@ -193,15 +198,27 @@ class PollPrompt extends React.Component <Props, State> {
       promptHelperText: ""
     })
 
-    if (this.state.title === "" || this.state.options === "")
+    if (this.state.title === "")
     {
       this.setState({ promptHelperText: "Missing required field(s)"})
       return
     }
+
+    let options
+    if (this.state.options === "")
+    {
+      options = this.state.poll_items.length
+    }
+    else
+    {
+      options = this.state.options
+    }
+
+    console.log(options)
     axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/newpoll`, {
       params: {
         admin_id: localStorage.getItem('user'),
-        options: this.state.options,
+        options: options,
         poll_items: this.state.poll_items,
         title: this.state.title,
         members: this.state.members,
@@ -218,12 +235,84 @@ class PollPrompt extends React.Component <Props, State> {
     })
   }
 
+  removeListItem(event: any, mode: any)
+  {
+
+    let ret: any
+    if (mode === "members")
+    {
+      ret = this.state.members
+    }
+    else
+    {
+      ret = this.state.poll_items
+    }
+
+    let split = event.target.id.split("_")
+    let ind = ret.indexOf(split[0])
+    if (ind !== undefined && ind !== -1)
+    {
+      ret = ret.slice(0, ind).concat(ret.slice(ind+1))
+      this.setState({
+        [mode]: ret
+      } as any)}
+  }
+
+  handleBlur(event: any, mode: any)
+  {
+    this.setState({
+      promptHelperText: ""
+    })
+
+    if (mode === "members")
+    {
+      if (validator.validate(event.target.value) === false)
+      {
+        this.setState({
+          promptHelperText: "Invalid email address",
+        } as any)
+        return
+      }
+    }
+
+    let ret: any
+    if (mode === "members")
+    {
+      ret = this.state.members
+    }
+    else
+    {
+      ret = this.state.poll_items
+    }
+
+    let ind = ret.indexOf(event.target.id)
+    if (ind !== undefined && ind !== -1)
+    {
+      ret[ind] = event.target.value
+      this.setState({
+        [mode]: ret
+      } as any)
+    }
+  }
+
   returnListItem(i: string)
   {
     return (
-      <div>
+      <div key={i} className="entryContainer">
         <div className="pollBullet">-</div>
-        <div key={i} className="pollItem bodyText">{i}</div>
+        <input id={i} className="pollItem bodyText" onBlur={(e) => this.handleBlur(e, "poll_items")} defaultValue={i} />
+        <div id={i+"_delete"} className="deleteIcon" onClick={(e) => this.removeListItem(e, "poll_items")}>X</div>
+      </div>
+    )
+  }
+
+  returnEmailList(i: string)
+  {
+    return (
+      <div key={i} className="entryContainer">
+        <div className="pollBullet">-</div>
+        <input id={i} className="pollItem bodyText" onBlur={(e) => this.handleBlur(e, "members")} defaultValue={i} />
+        <div id={i+"_delete"} className="deleteIcon" onClick={(e) => this.removeListItem(e, "members")}>X</div>
       </div>
     )
   }
@@ -234,11 +323,12 @@ class PollPrompt extends React.Component <Props, State> {
         <div className="formContainer">
           <div className="headerTwo promptTitle">Create New Poll</div>
           <div onChange={this.handleChange} onKeyDown={(e) => this.checkCreation(e)}>
-            <div>Poll Title</div>
+            <div>Poll Title*</div>
             <input className="formInput" type="text" name="title" id="title" />
           </div>
           <div>
-            <div>Poll Entries</div>
+            <div>Poll Entries*</div>
+            <div className="infoText">Press enter to add an item</div>
             <input className="formInput" type="text" name="entry" id="entry" onKeyDown={(e) => this.pushListItem(e)} />
           </div>
           <div className="pollItemsContainer">
@@ -246,13 +336,15 @@ class PollPrompt extends React.Component <Props, State> {
           </div>
           <div>
             <div>Poll Members</div>
+            <div className="infoText">Press enter to add an email.</div>
             <input className="formInput" type="text" name="mems" id="mems" onKeyDown={(e) => this.pushMember(e)} />
           </div>
           <div className="pollItemsContainer">
-            {this.state.members.map(this.returnListItem)}
+            {this.state.members.map(this.returnEmailList)}
           </div>
-          <div onChange={this.handleOptions}>
-            <div>Number of Options</div>
+          <div onChange={this.handleOptions} onKeyDown={(e) => this.checkCreation(e)}>
+            <div>Number of Entries to Rank</div>
+            <div className="infoText">Defaults to number of poll entries.</div>
             <input className="formInput" type="text" name="options" id="options" />
           </div>
           <div>
