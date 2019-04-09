@@ -68,7 +68,6 @@ class Home extends React.Component <Props, State> {
       }
     })
     .then((response) => {
-      console.log(response)
       if (response.data.success === false)
       {
         dispatchAlert(store.getState().error, response.data.message, "INFINITE")
@@ -104,7 +103,6 @@ class Home extends React.Component <Props, State> {
 
   public returnListItem(i: UserPolls, index: any)
   {
-    console.log(i)
     let icon
     if (i.voted === true)
     {

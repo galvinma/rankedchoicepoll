@@ -198,9 +198,15 @@ class PollPrompt extends React.Component <Props, State> {
       promptHelperText: ""
     })
 
-    if (this.state.title === "")
+    if (this.state.title === "" )
     {
       this.setState({ promptHelperText: "Missing required field(s)"})
+      return
+    }
+
+    if (this.state.poll_items.length < 2)
+    {
+      this.setState({ promptHelperText: "New poll must have at least 2 entries"})
       return
     }
 

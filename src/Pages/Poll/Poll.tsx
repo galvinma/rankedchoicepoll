@@ -42,6 +42,7 @@ interface State {
   auth_status: boolean,
   intervalId: number,
   members: string[],
+  vote_text: string,
 }
 
 class Poll extends React.Component <Props, State> {
@@ -60,6 +61,7 @@ class Poll extends React.Component <Props, State> {
       auth_status: false,
       intervalId: 0,
       members: [],
+      vote_text: ""
     };
 
     this.closePoll = this.closePoll.bind(this)
@@ -69,12 +71,12 @@ class Poll extends React.Component <Props, State> {
     this.addUser = this.addUser.bind(this)
   }
 
-  componentWillUnmount()
+  public componentWillUnmount()
   {
     clearInterval(this.state.intervalId);
   }
 
-  componentDidMount()
+  public componentDidMount()
   {
     const id = window.location.pathname.split("/").pop() || ""
     axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/returnpoll`, {
@@ -85,6 +87,7 @@ class Poll extends React.Component <Props, State> {
     })
     .then((response) =>
     {
+      console.log(response)
       let count = 0
       let data = response.data.poll_items
       let ret: any[] = []
@@ -94,6 +97,12 @@ class Poll extends React.Component <Props, State> {
         count++
       })
 
+      let voteText: string = ""
+      if (response.data.voted === true)
+      {
+        voteText = "You have already voted in this poll."
+      }
+
       this.setState({
         title: response.data.title,
         poll_items: ret,
@@ -101,13 +110,17 @@ class Poll extends React.Component <Props, State> {
         admin_id: response.data.admin_id,
         options: response.data.options,
         members: response.data.members,
-        number_of_items: String(ret.length)
+        number_of_items: String(ret.length),
+        vote_text: voteText,
       }, () => {
+
         this.watchPoll()
+
         if (checkMembership(this.state.members, localStorage.getItem('user')) === false)
         {
           this.addUser(this.state.poll_id, localStorage.getItem('user'))
         }
+
       })
     })
     .catch((err) =>
@@ -255,6 +268,7 @@ class Poll extends React.Component <Props, State> {
             <div>{close}</div>
             <ShareLink />
           </div>
+          <div className="voteNotify bodyText">{this.state.vote_text}</div>
         </div>
         <GenericAlert />
       </div>

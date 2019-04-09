@@ -3,7 +3,7 @@ export function checkMembership(a, member)
   let check = false
   for (var i=0; i<a.length; i++)
   {
-    if (a[i] === member)
+    if (String(a[i]) === String(member))
     {
       check = true
     }
