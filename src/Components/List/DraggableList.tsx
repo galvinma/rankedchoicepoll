@@ -34,6 +34,9 @@ export default class ListItem extends React.Component<any, any>
     border: '1px solid #EEEEEE',
     background: isDragging ? '#EEEEEE' : '#FFFFFF',
     height: '25px',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
     ...draggableStyle,
   });
 

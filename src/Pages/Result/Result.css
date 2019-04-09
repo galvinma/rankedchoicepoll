@@ -5,3 +5,9 @@
   justify-content: flex-start;
   align-items: flex-start;
 }
+
+.pollTitle
+{
+  margin-bottom: 20px;
+  margin-left: 10px;
+}

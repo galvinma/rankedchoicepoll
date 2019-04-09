@@ -75,7 +75,6 @@ class Result extends React.Component <Props, State> {
     })
     .then((response: any) =>
     {
-
       if (response.data.success === false)
       {
         dispatchAlert(store.getState().error, response.data.message, "INFINITE")
@@ -97,11 +96,69 @@ class Result extends React.Component <Props, State> {
 
       tallyVotes(id)
       .then((tallyResponse: any) => {
-        const finalResult = tallyResponse[tallyResponse.length-1]
+        let tallyCopy: any = Object.assign({}, tallyResponse)
+
+        // Prep tallyResponse with active status
+        for (var i=0; i<Object.keys(tallyCopy).length; i++)
+        {
+          let tal = tallyCopy[i].tally
+          let keys = Object.keys(tal)
+          for (var j=0; j<keys.length; j++)
+          {
+            tallyResponse[i]["tally"][keys[j]] =
+            {
+              active: true,
+              result: tallyResponse[i]["tally"][keys[j]],
+            }
+          }
+        }
+
+        // Compile chart data. Keep track of poll entry active status
+        let last: any = []
+        for (var i=0; i<Object.keys(tallyResponse).length; i++)
+        {
+          let tal = tallyResponse[i].tally
+          for (var j=0; j<last.length; j++)
+          {
+            if (!(j in tal))
+            {
+              tallyResponse[i]["tally"][last[j]] =
+              {
+                active: false,
+                result: tallyCopy[i-1]["tally"][last[j]]["result"],
+              }
+            }
+          }
+
+          last = last.concat(tallyResponse[i].last)
+        }
+
+        // Ensure only winner is active in last round
+        let finalRound = tallyResponse[Object.keys(tallyResponse).length-1].tally
+        let winner = tallyResponse[Object.keys(tallyResponse).length-1].leader
+        let finalRoundKeys = Object.keys(finalRound)
+        for (var i=0; i<finalRoundKeys.length; i++)
+        {
+          winner.forEach((leader: string) => {
+            if (finalRoundKeys[i] !== leader)
+            {
+              if (tallyResponse[Object.keys(tallyResponse).length-1]["tally"][finalRoundKeys[i]]["active"] === true)
+              {
+                tallyResponse[Object.keys(tallyResponse).length-1]["tally"][finalRoundKeys[i]]["active"] = false
+              }
+            }
+          })
+        }
+
+        // Prep and setState
+        const finalResult = tallyResponse[Object.keys(tallyResponse).length-1]
         const tallyKeys: any = Object.keys(finalResult.tally)
         const chartData: any = {}
         tallyKeys.forEach((key: any) => {
-          chartData[key] = (finalResult.tally[key] / finalResult.count)
+          chartData[key] = {
+              active: finalResult.tally[key]["active"],
+              result: (finalResult.tally[key]["result"] / finalResult.count)
+          }
         })
 
         this.setState({
@@ -110,7 +167,7 @@ class Result extends React.Component <Props, State> {
           poll_id: id,
           admin_id: response.data.admin_id,
           options: response.data.options,
-          leader: tallyResponse.leader,
+          leader: tallyResponse[tallyResponse.length-1].leader,
           chart_data: chartData,
           tally: tallyResponse,
           slider_max: Object.keys(tallyResponse).length-1,
@@ -126,10 +183,11 @@ class Result extends React.Component <Props, State> {
     const tallyKeys: any = Object.keys(selectedResult.tally)
     const chartData: any = {}
     tallyKeys.forEach((key: any) => {
-      chartData[key] = (selectedResult.tally[key] / selectedResult.count)
+      chartData[key] = {
+          active: selectedResult.tally[key]["active"],
+          result: (selectedResult.tally[key]["result"] / selectedResult.count)
+      }
     })
-
-    console.log(this.state.tally)
 
     this.setState({
       selected_round: value,
@@ -157,10 +215,11 @@ class Result extends React.Component <Props, State> {
       <div>
         <InternalNavbar />
         <div className="pollResultContainer bodyPaper primaryBackground">
-          <div className="headerTwo">{this.state.title}</div>
-          <div className="pollLeader">{this.state.leader}</div>
+          <div className="headerTwo pollTitle">{this.state.title}</div>
+          <div className="headerThree pollTitle">Winner: {this.state.leader}</div>
           <BarChart
-            chart_data={this.state.chart_data} />
+            chart_data={this.state.chart_data}
+            poll_items={this.state.poll_items} />
           <Slider
             selected_round={this.state.selected_round}
             slider_max={this.state.slider_max}
