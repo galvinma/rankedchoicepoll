@@ -14,6 +14,15 @@
   text-decoration: underline;
 }
 
+.homeLinkContainer
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
 .createPoll
 {
   margin-right: 50px;
@@ -79,6 +88,7 @@
 {
   display: inline-block;
   width: auto;
+  vertical-align: middle;
 }
 
 .pollIcon

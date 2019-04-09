@@ -58,6 +58,7 @@ class Home extends React.Component <Props, State> {
 
     this.handlePush = this.handlePush.bind(this)
     this.returnListItem = this.returnListItem.bind(this)
+    this.deletePoll = this.deletePoll.bind(this)
   }
 
   componentDidMount()
@@ -101,6 +102,52 @@ class Home extends React.Component <Props, State> {
     }
   }
 
+  public deletePoll(event: any, poll_id: string)
+  {
+    axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/deletepollfromuser`, {
+      params: {
+        user_id: localStorage.getItem('user'),
+        poll_id: poll_id
+      }
+    })
+    .then((response) => {
+      if (response.data.success === false)
+      {
+        dispatchAlert(store.getState().error, response.data.message, "INFINITE")
+      }
+      else
+      {
+        let activeKeys: any[] = Object.keys(this.state.active_polls)
+        let closedKeys: any[] = Object.keys(this.state.closed_polls)
+        let active = this.state.active_polls
+        let closed = this.state.closed_polls
+        for (var i=0; i<activeKeys.length; i++)
+        {
+          if (active[activeKeys[i]]["poll_id"] === poll_id)
+          {
+            delete active[activeKeys[i]]
+          }
+        }
+
+        for (var i=0; i<closedKeys.length; i++)
+        {
+          if (closed[closedKeys[i]]["poll_id"] === poll_id)
+          {
+            delete closed[closedKeys[i]]
+          }
+        }
+
+        this.setState({
+          active_polls: active,
+          closed_polls: closed,
+        })
+      }
+    })
+    .catch((error) => {
+      dispatchAlert(store.getState().error, "Unable to fetch user data from server.", "INFINITE")
+    })
+  }
+
   public returnListItem(i: UserPolls, index: any)
   {
     let icon
@@ -114,9 +161,10 @@ class Home extends React.Component <Props, State> {
     }
 
     return (
-      <div key={i.title+i.poll_id + index}>
+      <div className="homeLinkContainer" key={i.title+i.poll_id + index}>
         <img className="pollIcon" src={icon}/>
         <div id={i.poll_id} className="pollItem" onClick={(e) => this.handlePush(e, i.status)}>{i.title} by {i.admin_name}</div>
+        <div id={i+"_delete"} className="deleteIcon" onClick={(e) => this.deletePoll(e, i.poll_id)}>X</div>
       </div>
     )
   }

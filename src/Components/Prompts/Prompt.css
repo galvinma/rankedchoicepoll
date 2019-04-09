@@ -69,21 +69,6 @@
   text-overflow: ellipsis;
 }
 
-.entryContainer:hover .deleteIcon {
-  opacity: 1;
-}
-
-.deleteIcon
-{
-  cursor: pointer;
-  margin-left: auto;
-  margin-right: 20px;
-  opacity: 0;
-  vertical-align: middle;
-  font-family: 'Lato', sans-serif;
-  font-size: 14px;
-}
-
 .pollBullet
 {
   display: inline-block;

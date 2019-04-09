@@ -87,7 +87,6 @@ class Poll extends React.Component <Props, State> {
     })
     .then((response) =>
     {
-      console.log(response)
       let count = 0
       let data = response.data.poll_items
       let ret: any[] = []

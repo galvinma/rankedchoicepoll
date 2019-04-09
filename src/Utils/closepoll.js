@@ -19,6 +19,11 @@ module.exports = {
             return reject({ success: false, message: "Unauthorized user closing poll." })
           }
 
+          if (poll.votes.length < 1)
+          {
+            return reject({ success: false, message: "No one has voted yet." })
+          }
+
           Poll.update({ poll_id: poll_id }, {status: false}).lean().exec(async function(err) {
             if (err)
             {

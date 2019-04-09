@@ -220,7 +220,7 @@ class Result extends React.Component <Props, State> {
         <InternalNavbar />
         <div className="pollResultContainer bodyPaper primaryBackground">
           <div className="headerTwo pollTitle">{this.state.title}</div>
-          <div className="headerThree pollTitle">Winner: {this.state.leader}</div>
+          <div className="headerThree pollTitle redUnderline">Winner: {this.state.leader}</div>
           <BarChart
             chart_data={this.state.chart_data}
             poll_items={this.state.poll_items} />

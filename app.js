@@ -31,6 +31,7 @@ var closepoll = require('./routes/closepoll')
 var addusertopoll = require('./routes/addusertopoll')
 var addpolltouser = require('./routes/addpolltouser')
 var returnuserpolls = require('./routes/returnuserpolls')
+var deletepollfromuser = require('./routes/deletepollfromuser')
 
 //
 app.use('/api', join)
@@ -45,6 +46,7 @@ app.use('/api', closepoll)
 app.use('/api', addusertopoll)
 app.use('/api', addpolltouser)
 app.use('/api', returnuserpolls)
+app.use('/api', deletepollfromuser)
 
 app.listen(5005);
 
