@@ -12,6 +12,7 @@ import {getAuthStatus, getCurrentUser} from '../.././Actions/actions'
 import { checkAuth } from '../.././Utils/checkauth'
 import { tallyVotes } from '../.././Utils/tallyvotes'
 import { dispatchAlert } from '../.././Utils/dispatchalert'
+import { sortPollObject } from '../.././Utils/sortpollobject'
 
 // css
 import '../.././App.css'
@@ -153,13 +154,15 @@ class Result extends React.Component <Props, State> {
         // Prep and setState
         const finalResult = tallyResponse[Object.keys(tallyResponse).length-1]
         const tallyKeys: any = Object.keys(finalResult.tally)
-        const chartData: any = {}
+        let chartData: any = {}
         tallyKeys.forEach((key: any) => {
           chartData[key] = {
               active: finalResult.tally[key]["active"],
               result: (finalResult.tally[key]["result"] / finalResult.count)
           }
         })
+
+        chartData = sortPollObject(chartData)
 
         this.setState({
           title: response.data.title,
@@ -181,7 +184,7 @@ class Result extends React.Component <Props, State> {
   {
     const selectedResult = this.state.tally[value]
     const tallyKeys: any = Object.keys(selectedResult.tally)
-    const chartData: any = {}
+    let chartData: any = {}
     tallyKeys.forEach((key: any) => {
       chartData[key] = {
           active: selectedResult.tally[key]["active"],
@@ -189,6 +192,7 @@ class Result extends React.Component <Props, State> {
       }
     })
 
+    chartData = sortPollObject(chartData)
     this.setState({
       selected_round: value,
       chart_data: chartData
