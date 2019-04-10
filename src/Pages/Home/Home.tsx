@@ -200,13 +200,13 @@ class Home extends React.Component <Props, State> {
                 </div>
               </div>
              <div className="pollContainer">
-               <div>
+               <div className="pollListContainer">
                   <div className="headerTwo pollHeader">My Active Polls</div>
                   <div className="pollNameContainer primaryBackground">
                     {this.state.active_polls.map(this.returnListItem)}
                   </div>
                </div>
-               <div>
+               <div className="pollListContainer">
                   <div className="headerTwo pollHeader">Closed Polls</div>
                   <div className="pollNameContainer primaryBackground">
                     {this.state.closed_polls.map(this.returnListItem)}

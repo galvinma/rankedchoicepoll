@@ -51,6 +51,33 @@ const mockMovieVotes = [
   ["The Godfather", "Citizen Kane", "Toy Story", "Metropolis", "Casablanca", "North By Northwest"]]
 const mockMovieTitle = "Favorite Movie"
 
+// Movie Poll
+const mockBoardGameItems = ["Chess", "Risk", "Sorry", "Monopoly", "Scrabble", "Settlers of Catan"]
+const mockBoardGameVotes = [
+  ["Chess", "Risk", "Sorry", "Monopoly", "Scrabble", "Settlers of Catan"],
+  ["Sorry", "Monopoly", "Chess", "Risk", "Scrabble", "Settlers of Catan"],
+  ["Monopoly", "Scrabble", "Settlers of Catan"],
+  ["Settlers of Catan","Chess", "Risk", "Sorry", "Monopoly", "Scrabble"],
+  ["Scrabble", "Chess", "Risk", "Sorry", "Monopoly", "Settlers of Catan"],
+  ["Settlers of Catan", "Scrabble", "Chess", "Risk", "Sorry", "Monopoly"],
+  ["Risk", "Scrabble", "Settlers of Catan", "Sorry", "Monopoly", "Chess"]]
+const mockBoardGameTitle = "What board game would you like to play?"
+
+// City Poll
+const mockCityItems = ["Portland", "Seattle", "Los Angeles", "San Francisco", "Oakland", "San Diego"]
+const mockCityVotes = [
+  ["Portland", "Seattle", "Los Angeles", "San Francisco", "Oakland", "San Diego"],
+  ["San Francisco", "Oakland", "San Diego", "Portland", "Seattle", "Los Angeles"],
+  ["San Diego", "Seattle", "Los Angeles", "Oakland", "San Francisco", "Portland"],
+  ["Oakland", "San Diego", "San Francisco", "Portland", "Seattle", "Los Angeles"],
+  ["Seattle", "Los Angeles", "Oakland", "San Diego", "San Francisco", "Portland"],
+  ["Los Angeles", "Seattle", "Portland", "Oakland", "San Diego", "San Francisco"],
+  ["Portland", "Oakland", "San Diego", "Los Angeles", "Seattle", "San Francisco"],
+  ["Seattle", "San Diego", "Los Angeles", "Oakland", "San Francisco", "Portland"],
+  ["Los Angeles", "Seattle", "Portland", "Oakland", "San Diego", "San Francisco"],
+  ["Oakland", "San Diego", "Portland", "Los Angeles", "Seattle", "San Francisco"]]
+
+const mockCityTitle = "What is you favorite west coast city?"
 
 const mockPollOptions = 5
 const mockPollMembers = []
@@ -64,7 +91,7 @@ function returnRandom(a)
 async function createMockUsers()
 {
   return new Promise(async (resolve, reject) => {
-    for (var i=0; i<50; i++)
+    for (var i=0; i<100; i++)
     {
       const firstname = "Admin"
       const lastname = "User"
@@ -111,6 +138,14 @@ async function createMockPoll()
       const movieResponse = await createNewPoll.createNewPoll(adminID, mockPollOptions, mockMovieItems, mockMovieTitle, mockPollMembers)
       console.log("Created new poll with ID: "+movieResponse.poll_id)
       const castMovieVotes = await castMockVote(movieResponse.poll_id, mockMovieVotes, mockPollMembers)
+
+      const boardGameResponse = await createNewPoll.createNewPoll(adminID, mockPollOptions, mockBoardGameItems, mockBoardGameTitle, mockPollMembers)
+      console.log("Created new poll with ID: "+boardGameResponse.poll_id)
+      const castBoardGameVotes = await castMockVote(boardGameResponse.poll_id, mockBoardGameVotes, mockPollMembers)
+
+      const cityResponse = await createNewPoll.createNewPoll(adminID, mockPollOptions, mockCityItems, mockCityTitle, mockPollMembers)
+      console.log("Created new poll with ID: "+cityResponse.poll_id)
+      const castCityVotes = await castMockVote(cityResponse.poll_id, mockCityVotes, mockPollMembers)
 
       console.log("Ready to close poll(s). Admin user is "+ mockPollMemberEmails[0])
     }, 1000)

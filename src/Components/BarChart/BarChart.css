@@ -24,6 +24,8 @@
   display: flex;
   align-items: center;
   flex-direction: row;
+  overflow: visible;
+  overflow-x: visible;
 }
 
 .barBox
@@ -33,7 +35,7 @@
   justify-content: flex-end;
   flex-wrap: nowrap;
   height: auto;
-  width: calc(100vw - 150px);
+  width: calc(100vw - 250px);
   border-left: 1px solid black;
   border-bottom: 1px solid black;
   margin-bottom: 20px;
@@ -50,7 +52,8 @@
 .barLabel
 {
   display: inline-block;
-  width: 50px;
+  width: auto;
+  max-width: 200px;
   margin-top: 20px;
   margin-left: 10px;
   margin-right: 10px;
@@ -87,7 +90,7 @@
 {
   display: flex;
   flex-direction: row;
-  width: calc(100vw - 150px);
+  width: 100%;
   margin-top: 20px;
   height: 20px;
 }
@@ -105,4 +108,22 @@
 .xAxisBorder
 {
   border-left: 1px solid black;
+}
+
+@media only screen and (max-width: 768px)
+{
+  .barLabel
+  {
+    width: 100px;
+  }
+
+  .barBox
+  {
+    width: calc(100vw - 160px);
+  }
+
+  .xAxisLabelText
+  {
+    font-size: 12px;
+  }
 }
