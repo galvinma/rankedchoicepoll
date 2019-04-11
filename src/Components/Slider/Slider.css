@@ -3,7 +3,18 @@
   width: 90vw;
   height: auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.sliderLabelContainer
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 500px;
 }
 
 .slider
@@ -11,7 +22,6 @@
   width: 500px;
   max-width: 800px;
   height: 20px;
-  height: 25px;
   background: #000000;
   outline: none;
 }
@@ -19,8 +29,8 @@
 
 @media only screen and (max-width: 768px)
 {
-  .slider
+  .slider, .sliderLabelContainer
   {
-    width: 300px;
+    width: 275px;
   }
 }

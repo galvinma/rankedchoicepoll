@@ -54,8 +54,6 @@ class BarChart extends React.Component <Props, State> {
      var container = document.getElementById("barBox") as any
      let data = this.props.chart_data as any
      let width = `${data[key]["result"] * container.offsetWidth}`
-     console.log(container.offsetWidth)
-     console.log(width)
      let widthOverflow = '100%'
      let whiteSpaceWidth = 'auto'
      let height = '10'

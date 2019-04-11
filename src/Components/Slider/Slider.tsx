@@ -18,6 +18,7 @@ class Slider extends React.Component <Props, State> {
     super(props);
 
     this.handleChange = this.handleChange.bind(this)
+    this.returnSliderLabel = this.returnSliderLabel.bind(this)
   }
 
   public handleChange = (event: any) =>
@@ -25,11 +26,29 @@ class Slider extends React.Component <Props, State> {
     this.props.changeRound(event.target.value)
   }
 
+  public returnSliderLabel()
+  {
+    const sliderLabels: any = []
+    let count: number = 0
+
+    while (count < this.props.slider_max+1)
+    {
+        sliderLabels.push(<div className="sliderLabel">{count}</div>)
+        count++
+    }
+
+    return sliderLabels
+  }
 
   render() {
+    let sliderLabels = this.returnSliderLabel()
     return (
       <div className="sliderContainer">
         <input type="range" className="slider" defaultValue={String(this.props.selected_round)} min={0} max={this.props.slider_max} step={1} onChange={this.handleChange} />
+        <div className="sliderLabelContainer">
+          {sliderLabels}
+        </div>
+        <div>Round Selector</div>
       </div>
     )}
 }
