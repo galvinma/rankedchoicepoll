@@ -194,7 +194,6 @@ class Result extends React.Component <Props, State> {
 
     chartData = sortPollObject(chartData)
 
-    console.log(chartData)
     this.setState({
       selected_round: value,
       chart_data: chartData

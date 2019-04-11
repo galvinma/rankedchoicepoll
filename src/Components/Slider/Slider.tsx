@@ -42,7 +42,6 @@ class Slider extends React.Component <Props, State> {
 
   render() {
     let sliderLabels = this.returnSliderLabel()
-    console.log(this.props.slider_max)
     return (
       <div className="sliderContainer">
         <input type="range" className="slider" defaultValue={String(this.props.slider_max)} min={0} max={this.props.slider_max} step={1} onChange={this.handleChange} />

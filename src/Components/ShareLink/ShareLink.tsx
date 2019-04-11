@@ -38,14 +38,22 @@ class ShareLink extends React.Component <Props, State> {
     })
   }
 
-  public getLink()
+  public getLink(event: any)
   {
     try
     {
-      var range = document.createRange() as any
-      range.selectNode(document.getElementById('linkText')) as any
-      window!.getSelection()!.addRange(range) as any
-      document.execCommand("copy");
+      let text = document.getElementById("linkText") as any
+      let ta = document.createElement('textarea') as any;
+      ta.style.position = 'fixed';
+      ta.style.left = '0';
+      ta.style.top = '0';
+      ta.style.opacity = '0';
+      ta.value = text.innerHTML
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
 
       dispatchAlert(store.getState().success, "Link copied to clipboard", 5000)
     }
