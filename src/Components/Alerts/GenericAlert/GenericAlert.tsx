@@ -12,13 +12,11 @@ import {getAlertColor, getAlertMessage} from '../../.././Actions/actions'
 
 // Props / State
 interface Props {
-  auth_status: boolean
   alert_message: string;
   alert_color: string;
 }
 
 interface State {
-  auth_status: boolean;
   alert_message: string;
   alert_color: string;
 }
@@ -31,7 +29,6 @@ class GenericAlert extends React.Component <Props, State> {
     this.state = {
       alert_message: "",
       alert_color: "",
-      auth_status: false,
     };
 
     this.hideAlert = this.hideAlert.bind(this)
@@ -65,7 +62,6 @@ class GenericAlert extends React.Component <Props, State> {
 }
 
 const mapStateToProps = (state: State) => ({
-  auth_status: state.auth_status,
   alert_message: state.alert_message,
   alert_color: state.alert_color
 });

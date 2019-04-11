@@ -102,6 +102,9 @@ class SignInPrompt extends React.Component <Props, State> {
         }
       }
     })
+    .catch((error) => {
+      this.setState({ confirmPassHelper: "Invalid email or password"})
+    })
 
   }
 

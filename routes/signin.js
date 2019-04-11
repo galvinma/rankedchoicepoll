@@ -27,13 +27,13 @@ router.route('/signin')
           return
         }
 
-        signInUser.signInUser(req, user)
+        signInUser.signInUser(req.body.params.password, user)
         .then((signInResponse) => {
           res.json(signInResponse)
           return
         })
         .catch((error)=>{
-          res.json({allow: false});
+          res.json({allow: false, message: "Incorrect email or password"});
           return
         });
       });

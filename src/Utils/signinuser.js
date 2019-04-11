@@ -2,12 +2,15 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
 var Users = require('../.././model/users');
 var generateJWT = require('./jwt');
+var passwordCompare = require('./passwordcompare')
 
 module.exports = {
-  signInUser: function(req, user)
+  signInUser: function(pass, user)
   {
-    return new Promise((resolve, reject) => {
-      bcrypt.compare(req.body.params.password, user.password, function(err, response) {
+    return new Promise((resolve, reject) =>
+    {
+      passwordCompare.passwordCompare(pass, user.password)
+      .then((response) => {
         if (response === true)
         {
           var login_user = new Users();
@@ -17,14 +20,16 @@ module.exports = {
           login_user.join_date = user.join_date
 
           var token = generateJWT.generateJWT(login_user)
-          resolve({allow: response, user: login_user.id, token: token})
+          return resolve({allow: response, user: login_user.id, token: token})
         }
         else
         {
-          reject({allow: false})
+          return reject({allow: false})
         }
-      });
+      })
+      .catch((error) => {
+          return reject({allow: false})
+      })
     })
-
   }
 }
