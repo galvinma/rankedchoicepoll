@@ -39,8 +39,8 @@ interface State {
   leader: string,
   chart_data: any,
   tally: any,
-  slider_max: number,
-  selected_round: number,
+  slider_max: any,
+  selected_round: any,
 }
 
 class Result extends React.Component <Props, State> {
@@ -58,8 +58,8 @@ class Result extends React.Component <Props, State> {
       options: 0,
       chart_data: {},
       tally: {},
-      slider_max: 1,
-      selected_round: 1,
+      slider_max: null,
+      selected_round: null,
     }
 
     this.changeRound = this.changeRound.bind(this)
@@ -193,6 +193,8 @@ class Result extends React.Component <Props, State> {
     })
 
     chartData = sortPollObject(chartData)
+
+    console.log(chartData)
     this.setState({
       selected_round: value,
       chart_data: chartData

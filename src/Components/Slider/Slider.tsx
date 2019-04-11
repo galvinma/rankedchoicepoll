@@ -29,11 +29,11 @@ class Slider extends React.Component <Props, State> {
   public returnSliderLabel()
   {
     const sliderLabels: any = []
-    let count: number = 0
+    let count: number = 1
 
-    while (count < this.props.slider_max+1)
+    while (count <= this.props.slider_max+1)
     {
-        sliderLabels.push(<div className="sliderLabel">{count}</div>)
+        sliderLabels.push(<div key={count+"slider"} className="sliderLabel">{count}</div>)
         count++
     }
 
@@ -42,9 +42,10 @@ class Slider extends React.Component <Props, State> {
 
   render() {
     let sliderLabels = this.returnSliderLabel()
+    console.log(this.props.slider_max)
     return (
       <div className="sliderContainer">
-        <input type="range" className="slider" defaultValue={String(this.props.selected_round)} min={0} max={this.props.slider_max} step={1} onChange={this.handleChange} />
+        <input type="range" className="slider" defaultValue={String(this.props.slider_max)} min={0} max={this.props.slider_max} step={1} onChange={this.handleChange} />
         <div className="sliderLabelContainer">
           {sliderLabels}
         </div>
