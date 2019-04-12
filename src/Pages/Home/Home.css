@@ -90,6 +90,7 @@
   display: inline-block;
   width: auto;
   vertical-align: middle;
+  cursor: pointer;
 }
 
 .pollIcon
