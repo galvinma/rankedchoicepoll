@@ -11,3 +11,14 @@
   margin-bottom: 20px;
   margin-left: 10px;
 }
+
+.leaderResult
+{
+  display: inline-block;
+}
+
+.comma
+{
+  display: inline-block;
+  margin-right: 5px;
+}

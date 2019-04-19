@@ -36,7 +36,7 @@ interface State {
   poll_items: string[],
   options: number,
   auth_status: boolean,
-  leader: string,
+  leader: string[],
   chart_data: any,
   tally: any,
   slider_max: any,
@@ -49,7 +49,7 @@ class Result extends React.Component <Props, State> {
     super(props)
 
     this.state = {
-      leader: "",
+      leader: [],
       auth_status: false,
       title: "",
       poll_items: [],
@@ -63,6 +63,8 @@ class Result extends React.Component <Props, State> {
     }
 
     this.changeRound = this.changeRound.bind(this)
+    this.mapLeaders = this.mapLeaders.bind(this)
+    this.winnerText = this.winnerText.bind(this)
   }
 
   componentDidMount()
@@ -200,7 +202,41 @@ class Result extends React.Component <Props, State> {
     })
   }
 
+  public mapLeaders()
+  {
+    const retLeaders = []
+    const len: number = this.state.leader.length
+    for (var i=0; i<len; i++)
+    {
+      let tempResult = <div className="leaderResult">{this.state.leader[i]}</div>
+      retLeaders.push(tempResult)
+      if (i+1 < len)
+      {
+        const comma = <div className="comma">,</div>
+        retLeaders.push(comma)
+      }
+    }
+
+    console.log(retLeaders)
+    return retLeaders
+  }
+
+  public winnerText()
+  {
+    if (this.state.leader.length <= 1)
+    {
+      return "Winner:"
+    }
+    else
+    {
+      return "Winners:"
+    }
+  }
+
   public render() {
+    let retLeaders = this.mapLeaders()
+    let retWinnerText = this.winnerText()
+
     if (store.getState().auth_status === false)
      {
        checkAuth()
@@ -221,7 +257,7 @@ class Result extends React.Component <Props, State> {
         <InternalNavbar />
         <div className="pollResultContainer bodyPaper primaryBackground">
           <div className="headerTwo pollTitle">{this.state.title}</div>
-          <div className="headerThree pollTitle redUnderline">Winner: {this.state.leader}</div>
+          <div className="headerThree pollTitle redUnderline">{retWinnerText} {retLeaders}</div>
           <BarChart
             chart_data={this.state.chart_data}
             poll_items={this.state.poll_items} />
