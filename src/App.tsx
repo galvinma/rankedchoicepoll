@@ -11,6 +11,7 @@ import Landing from './Pages/Landing/Landing'
 import NewPoll from './Pages/NewPoll/NewPoll'
 import Poll from './Pages/Poll/Poll'
 import Result from './Pages/Result/Result'
+import Info from './Pages/Info/Info'
 
 const constLanding = () => (
   <div>
@@ -54,6 +55,11 @@ const constResult = () => (
   </div>
 )
 
+const constInfo = () => (
+  <div>
+    <Info />
+  </div>
+)
 
 class App extends React.Component {
   public render() {
@@ -68,6 +74,7 @@ class App extends React.Component {
             <Route path="/newpoll" exact={true} component={constNewPoll}/>
             <Route path="/poll" component={constPoll}/>
             <Route path="/result" component={constResult} />
+            <Route path="/info" component={constInfo} />
           </Switch>
         </Router>
       </div>

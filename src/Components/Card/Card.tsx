@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Redirect } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import history from '../.././history';
 
 // css
 import '../.././App.css'
@@ -14,12 +15,24 @@ interface Props {
 }
 
 class PollPrompt extends React.Component <Props> {
+  constructor(props: any)
+  {
+    super(props)
+
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  public handleClick()
+  {
+    history.push('/info')
+  }
+
   public render() {
     return (
       <div className="cardContainer">
         <div className="cardHeader">{this.props.header}</div>
         <div className="cardContent">{this.props.content}</div>
-        <div className="cardLink redUnderline">{this.props.link}</div>
+        <div className="cardLink redUnderline" onClick={this.handleClick}>{this.props.link}</div>
       </div>
   )}
 }
