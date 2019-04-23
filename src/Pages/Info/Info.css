@@ -1,0 +1,19 @@
+.contentContainer
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.infoParagraph
+{
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.winnerText
+{
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
