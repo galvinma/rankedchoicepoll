@@ -1,5 +1,5 @@
 var express = require('express');
-var checkToken = require('.././src/Utils/checkToken')
+var checkToken = require('.././src/Utils/checktoken')
 
 var router = express.Router();
 router.use(function(req, res, next) {
