@@ -217,7 +217,6 @@ class Result extends React.Component <Props, State> {
       }
     }
 
-    console.log(retLeaders)
     return retLeaders
   }
 

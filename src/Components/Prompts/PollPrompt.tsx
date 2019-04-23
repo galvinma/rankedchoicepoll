@@ -220,7 +220,6 @@ class PollPrompt extends React.Component <Props, State> {
       options = this.state.options
     }
 
-    console.log(options)
     axios.post(`${process.env.REACT_APP_RANKED_POLL_API_URI}/api/newpoll`, {
       params: {
         admin_id: localStorage.getItem('user'),

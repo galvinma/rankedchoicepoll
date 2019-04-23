@@ -101,7 +101,6 @@ class Info extends React.Component <Props, State> {
     })
 
     const tallyResponse = iterateTally(mockVotes, mockCityItems, 0.5)
-    console.log(tallyResponse)
     let tallyCopy: any = Object.assign({}, tallyResponse)
 
     // Prep tallyResponse with active status
