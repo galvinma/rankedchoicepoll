@@ -1,5 +1,13 @@
+.center
+{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .formContainer
 {
+  display: flex;
+  flex-direction: column;
   margin-top: 50px;
   font-family: 'Patua One', cursive;
   font-size: 16px;
@@ -25,6 +33,13 @@
   margin-bottom: 15px;
   margin-top: 5px;
   width: 100%;
+}
+
+.forgotLink
+{
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .helperText

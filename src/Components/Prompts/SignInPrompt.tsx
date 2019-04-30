@@ -1,6 +1,7 @@
 import * as React from "react";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import history from '../.././history';
 
 // css
 import '../.././App.css'
@@ -41,6 +42,7 @@ class SignInPrompt extends React.Component <Props, State> {
     this.checkSignIn = this.checkSignIn.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSignIn = this.handleSignIn.bind(this)
+    this.pushReset = this.pushReset.bind(this)
   }
 
   handleChange(event: any) {
@@ -52,6 +54,11 @@ class SignInPrompt extends React.Component <Props, State> {
     if (event.keyCode === 13) {
       this.handleSignIn()
     }
+  }
+
+  pushReset()
+  {
+    history.push('/reset')
   }
 
   handleSignIn()
@@ -125,7 +132,8 @@ class SignInPrompt extends React.Component <Props, State> {
             <input className="formInput" type="password" name="password" id="password" />
             <div id="confirmPassHelper">{this.state.confirmPassHelper}</div>
           </div>
-          <button className="genericButton" onClick={() => this.handleSignIn()}>Submit</button>
+          <div className="forgotLink" onClick={this.pushReset}>Forgot?</div>
+          <button className="genericButton center" onClick={() => this.handleSignIn()}>Submit</button>
         </div>
       </div>
   )}
