@@ -12,6 +12,7 @@ interface Props {
   header: string;
   content: string;
   link: string;
+  linkText: string;
 }
 
 class PollPrompt extends React.Component <Props> {
@@ -24,7 +25,7 @@ class PollPrompt extends React.Component <Props> {
 
   public handleClick()
   {
-    history.push('/info')
+    history.push(`/${this.props.link}`)
   }
 
   public render() {
@@ -32,7 +33,7 @@ class PollPrompt extends React.Component <Props> {
       <div className="cardContainer">
         <div className="cardHeader">{this.props.header}</div>
         <div className="cardContent">{this.props.content}</div>
-        <div className="cardLink redUnderline" onClick={this.handleClick}>{this.props.link}</div>
+        <div className="cardLink redUnderline" onClick={this.handleClick}>{this.props.linkText}</div>
       </div>
   )}
 }

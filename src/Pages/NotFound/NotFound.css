@@ -1,0 +1,15 @@
+.notFoundCard
+{
+  width: 100%;
+  max-width: 600px;
+}
+
+.notFoundContainer
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 100px;
+}

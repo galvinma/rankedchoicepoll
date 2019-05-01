@@ -13,6 +13,7 @@ import NewPoll from './Pages/NewPoll/NewPoll'
 import Poll from './Pages/Poll/Poll'
 import Result from './Pages/Result/Result'
 import Info from './Pages/Info/Info'
+import NotFound from './Pages/NotFound/NotFound'
 
 const constLanding = () => (
   <div>
@@ -68,6 +69,12 @@ const constInfo = () => (
   </div>
 )
 
+const constNotFound = () => (
+  <div>
+    <NotFound />
+  </div>
+)
+
 class App extends React.Component {
   public render() {
     return (
@@ -83,6 +90,7 @@ class App extends React.Component {
             <Route path="/poll" component={constPoll}/>
             <Route path="/result" component={constResult} />
             <Route path="/info" component={constInfo} />
+            <Route component={constNotFound} />
           </Switch>
         </Router>
       </div>

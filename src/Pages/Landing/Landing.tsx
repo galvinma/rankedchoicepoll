@@ -23,7 +23,8 @@ class Landing extends React.Component {
             <Card
               header="How we vote matters"
               content="Create polls and learn more about ranked choice voting."
-              link="Find out more."/>
+              linkText="Find out more."
+              link="info"/>
           </div>
           <div className="landingSVGContainer">
             <img src={ballot} className="landingImage"/>
