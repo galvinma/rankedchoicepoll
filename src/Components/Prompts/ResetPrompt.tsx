@@ -75,14 +75,21 @@ class ResetPrompt extends React.Component <Props, State> {
       }
     })
     .then((response) => {
-      if (response.data.allow === true)
+      if (response.data.success === true)
       {
-        // Show success prompt
+        this.setState({ helper: response.data.message})
+      }
+      else if (response.data.success === false)
+      {
+        this.setState({ helper: response.data.message})
       }
       else
       {
-        // Handle error
+        this.setState({ helper: "Unable to reset password."})
       }
+    })
+    .catch((error) => {
+        this.setState({ helper: "Unable to reset password."})
     })
 
   }
