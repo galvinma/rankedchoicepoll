@@ -8,6 +8,7 @@ import Home from './Pages/Home/Home'
 import Join from './Pages/Join/Join'
 import SignIn from './Pages/SignIn/SignIn'
 import Reset from './Pages/Reset/Reset'
+import NewPassword from './Pages/NewPassword/NewPassword'
 import Landing from './Pages/Landing/Landing'
 import NewPoll from './Pages/NewPoll/NewPoll'
 import Poll from './Pages/Poll/Poll'
@@ -42,6 +43,12 @@ const constSignIn = () => (
 const constReset = () => (
   <div>
     <Reset />
+  </div>
+)
+
+const constNewPassword = () => (
+  <div>
+    <NewPassword />
   </div>
 )
 
@@ -86,6 +93,7 @@ class App extends React.Component {
             <Route path="/join" exact={true} component={constJoin}/>
             <Route path="/signin" exact={true} component={constSignIn}/>
             <Route path="/reset" exact={true} component={constReset}/>
+            <Route path="/newpassword" component={constNewPassword} />
             <Route path="/newpoll" exact={true} component={constNewPoll}/>
             <Route path="/poll" component={constPoll}/>
             <Route path="/result" component={constResult} />

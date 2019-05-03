@@ -11,7 +11,7 @@ router.route('/newpass')
   .post(function(req, res, next) {
 
   // Check if user exists
-  Users.findOne({ id: req.body.params.user_id }).lean().exec(function(err, user) {
+  Users.findOne({ id: req.body.params.user_id }).lean().exec(async function(err, user) {
     if (err)
     {
       res.json({success: false, message: "Unable to find user"});
@@ -32,8 +32,9 @@ router.route('/newpass')
       res.json({success: false, message: "Missing required user data"});
       return
     }
-
-    const newPassResponse = newPass.newPass(req)
+    console.log("entering promise")
+    const newPassResponse = await newPass.newPass(user, req.body.params.token_hash, req.body.params.new_password)
+    console.log(newPassResponse)
     res.json(newPassResponse);
     return
   })

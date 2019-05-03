@@ -50,7 +50,7 @@ module.exports = {
           template: 'resetPassword',
           subject: 'Ranked Choice Poll - Password Reset',
           context: {
-            link: 'rankedchoicepoll.com/resetpassword/'+user.id+'/'+token,
+            link: 'rankedchoicepoll.com/newpassword/'+user.id+'/'+token,
             firstname: user.firstname
           }
         }
