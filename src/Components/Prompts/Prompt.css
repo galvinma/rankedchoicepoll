@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 50px;
+  margin-bottom: 10px;
   font-family: 'Patua One', cursive;
   font-size: 16px;
   width: 500px;
