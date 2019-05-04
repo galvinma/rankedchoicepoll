@@ -245,17 +245,17 @@ class Info extends React.Component <Props, State> {
         <div className="contentContainer bodyPaper primaryBackground">
           <div className="headerThree">What is Ranked Choice Voting?</div>
           <div className="bodyText infoParagraph">Also known as instant-runoff voting, ranked choice voting is a method of preferential voting. The system allows voters to rank candidates instead of picking one choice. Ranked choice helps eliminate the spoiler effect, and gives minority parties a chance in a two party system.</div>
-          <div className="headerThree">What is the purpose of this website?</div>
-          <div className="bodyText infoParagraph">RankedChoicePoll.com allows users to create instant-runoff polls. It also serves as an educational resource.</div>
           <div className="headerThree">How does it work?</div>
-          <div className="bodyText infoParagraph">Voters rank poll options and cast a ballot. Upon closing the election, the first choice for each voter is tallied. If that candidate received greater than 50% of the overall vote the election is over. If no candidate received more than half of the votes, the last place candidate is eliminated. The votes that were cast for this losing candidate are transfered to the voter's second choice and the results are tallied. This process is iterated until a candidate receives more than half the total number of votes, or their is only one candidate left. If two candidates have an equal number of votes they are eliminated at the same time. An example of this process is shown below.</div>
+          <div className="bodyText infoParagraph">Voters rank poll options and cast a ballot. If the first choice of each voter received greater than 50% of the overall vote the election is over. If no candidate received more than half of the votes, the last place candidate is eliminated. The votes that were cast for this losing candidate are transfered to the voter's second choice and the results are tallied. This process is iterated until a candidate receives more than half the total number of votes, or there is only one candidate left. If two candidates have an equal number of votes they are eliminated at the same time. An example of this process is shown below.</div>
 
 
-          <div className="headerThree">{this.state.title}</div>
+          <div className="headerThree infoTitle">{this.state.title}</div>
           <div className="redUnderline winnerText">{retWinnerText} {retLeaders}</div>
-          <BarChart
-            chart_data={this.state.chart_data}
-            poll_items={this.state.poll_items} />
+          <div className="infoBar">
+            <BarChart
+              chart_data={this.state.chart_data}
+              poll_items={this.state.poll_items} />
+          </div>
           <Slider
             selected_round={this.state.selected_round}
             slider_max={this.state.slider_max}
