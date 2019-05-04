@@ -63,6 +63,7 @@ module.exports = {
           }
           else
           {
+            console.log(err)
             return resolve({ success: false, message: "Unable to send confirmation email."})
           }
         })
