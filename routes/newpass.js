@@ -32,9 +32,7 @@ router.route('/newpass')
       res.json({success: false, message: "Missing required user data"});
       return
     }
-    console.log("entering promise")
     const newPassResponse = await newPass.newPass(user, req.body.params.token_hash, req.body.params.new_password)
-    console.log(newPassResponse)
     res.json(newPassResponse);
     return
   })

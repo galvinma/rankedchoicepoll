@@ -18,7 +18,6 @@ module.exports = {
         }
         else
         {
-          console.log("here")
           bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt)
           {
             if (err)
