@@ -1,8 +1,8 @@
-export function sortPollObject(results)
+export function sortPollObject(results: any)
 {
-    var keys = [];
-    var sorted = {};
-    
+    var keys: any = [];
+    var sorted: any = {};
+
     for (var key in results)
     {
       if (results.hasOwnProperty(key))
@@ -12,7 +12,7 @@ export function sortPollObject(results)
     }
 
     keys.sort()
-    keys.forEach((key) => {
+    keys.forEach((key: any) => {
         sorted[key] = results[key];
     });
 

@@ -2,7 +2,7 @@
 import store from '.././Store/store'
 import {getAlertColor, getAlertMessage} from '.././Actions/actions'
 
-export function dispatchAlert(color, message, duration)
+export function dispatchAlert(color: string, message: string, duration: any)
 {
 
   if (duration === "INFINITE")
