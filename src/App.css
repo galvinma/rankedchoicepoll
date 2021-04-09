@@ -36,9 +36,15 @@
   background-color: #FFFFFF !important;
 }
 
+.leaderResult
+{
+  display: inline-block;
+}
+
 .redUnderline
 {
   border-bottom: 2px solid #B32E2B;
+  flex-wrap: nowrap;
 }
 
 .headerOne
