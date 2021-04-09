@@ -65,7 +65,7 @@
     "react-app-polyfill": "^0.2.2",
     "react-beautiful-dnd": "^10.1.1",
     "react-d3-components": "^0.9.1",
-    "react-dev-utils": "^7.0.5",
+    "react-dev-utils": "^11.0.4",
     "react-dom": "^16.14.0",
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
